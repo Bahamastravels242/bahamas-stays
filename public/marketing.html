@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Marketing | Bahamas Stays</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root { --navy: #071B3A; --gold: #C8A96A; --gold-light: rgba(200,169,106,0.12); --teal: #2EC7C9; --teal-light: rgba(46,199,201,0.10); --bg: #F4F6F9; --white: #FFFFFF; --text: #1E2430; --muted: #8A93A2; --border: #EBEEf3; }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { width: 100%; max-width: 100%; overflow-x: hidden; font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); font-size: 14px; }
+        .sidebar { width: 284px; background: linear-gradient(180deg, #071B3A 0%, #061528 100%); color: white; display: flex; flex-direction: column; justify-content: space-between; position: fixed; top: 0; left: 0; bottom: 0; z-index: 10; box-shadow: 4px 0 24px rgba(0,0,0,0.15); transition: transform 300ms ease; }
+        .sidebar-logo { padding: 48px 24px 36px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.06); }
+        .sidebar-logo img { width: 88px; height: 88px; object-fit: contain; margin-bottom: 10px; filter: brightness(1.1); }
+        .sidebar-logo h1 { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 500; letter-spacing: 4px; text-transform: uppercase; color: white; line-height: 1.8; }
+        .sidebar-logo p { font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold); margin-top: 8px; opacity: 0.9; }
+        .sidebar-nav { padding: 12px 0; flex: 1; overflow-y: auto; }
+        .nav-section-label { font-size: 8px; letter-spacing: 2px; text-transform: uppercase; color: rgba(200,169,106,0.45); padding: 16px 24px 8px; }
+        .nav-item { display: flex; align-items: center; gap: 12px; padding: 11px 24px; cursor: pointer; transition: all 180ms ease; border-left: 2px solid transparent; font-size: 13px; color: rgba(255,255,255,0.55); text-decoration: none; }
+        .nav-item:hover { background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.85); border-left-color: rgba(200,169,106,0.3); }
+        .nav-item.active { background: rgba(255,255,255,0.045); border-left-color: var(--gold); color: white; }
+        .nav-item svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; opacity: 0.8; }
+        .sidebar-bottom { padding: 20px 24px; border-top: 1px solid rgba(255,255,255,0.06); }
+        .sidebar-profile { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+        .sidebar-avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, var(--gold), #E5C07B); display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 14px; color: var(--navy); font-weight: 500; flex-shrink: 0; }
+        .sidebar-profile-info h3 { font-size: 13px; font-weight: 500; color: white; }
+        .sidebar-profile-info p { font-size: 10px; color: rgba(255,255,255,0.40); margin-top: 1px; }
+        .sidebar-logout { display: flex; align-items: center; gap: 8px; font-size: 12px; color: rgba(255,255,255,0.35); cursor: pointer; transition: color 180ms ease; background: none; border: none; padding: 0; }
+        .sidebar-logout:hover { color: rgba(255,255,255,0.70); }
+        .sidebar-logout svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+        .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 9; }
+        .sidebar-overlay.open { display: block; }
+        .mobile-topbar { display: none; position: fixed; top: 0; left: 0; right: 0; height: 60px; background: var(--navy); z-index: 8; align-items: center; justify-content: space-between; padding: 0 16px; border-bottom: 1px solid rgba(200,169,106,0.15); }
+        .mobile-topbar-logo { display: flex; align-items: center; gap: 8px; }
+        .mobile-topbar-logo img { height: 36px; width: auto; }
+        .mobile-topbar-logo span { font-family: 'Playfair Display', serif; font-size: 14px; color: white; letter-spacing: 2px; text-transform: uppercase; }
+        .mobile-menu-btn { width: 36px; height: 36px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+        .mobile-menu-btn svg { width: 18px; height: 18px; stroke: white; fill: none; stroke-width: 1.5; stroke-linecap: round; }
+        .main { margin-left: 284px; flex: 1; padding: 36px 40px; min-height: 100vh; width: calc(100% - 284px); }
+        .page-header { margin-bottom: 32px; }
+        .page-header h1 { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 500; color: var(--navy); letter-spacing: -0.3px; }
+        .page-header p { font-size: 13px; color: var(--muted); margin-top: 6px; }
+        .coming-soon-banner { background: linear-gradient(135deg, var(--navy), #0D2A4A); border-radius: 16px; padding: 48px; text-align: center; margin-bottom: 32px; }
+        .coming-soon-banner h2 { font-family: 'Playfair Display', serif; font-size: 28px; color: white; margin-bottom: 12px; }
+        .coming-soon-banner p { font-size: 15px; color: rgba(255,255,255,0.65); max-width: 500px; margin: 0 auto 24px; line-height: 1.75; }
+        .coming-soon-badge { display: inline-block; background: var(--gold-light); color: var(--gold); border: 1px solid rgba(200,169,106,0.30); padding: 6px 20px; border-radius: 20px; font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 24px; }
+        .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .feature-card { background: white; border-radius: 14px; padding: 28px; border: 1px solid var(--border); box-shadow: 0 1px 8px rgba(0,0,0,0.04); opacity: 0.7; }
+        .feature-icon { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; background: var(--bg); }
+        .feature-icon svg { width: 20px; height: 20px; stroke: var(--muted); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+        .feature-title { font-family: 'Playfair Display', serif; font-size: 16px; color: var(--navy); margin-bottom: 8px; }
+        .feature-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+        .bottom-nav-bar { display: none; }
+        @media (max-width: 1024px) {
+            body { padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px)); }
+            .sidebar { transform: translateX(-100%); z-index: 200; }
+            .sidebar.open { transform: translateX(0); }
+            .mobile-topbar { display: flex; }
+            .main { margin-left: 0; width: 100%; padding: 80px 16px 24px; }
+            .page-header h1 { font-size: 24px; }
+            .coming-soon-banner { padding: 32px 20px; }
+            .features-grid { grid-template-columns: 1fr; }
+            .bottom-nav-bar { display: flex !important; position: fixed !important; bottom: 0 !important; left: 0 !important; right: 0 !important; width: 100% !important; height: 60px !important; background: #ffffff !important; border-top: 1px solid #EAEAEA !important; box-shadow: 0 -2px 16px rgba(0,0,0,0.08) !important; z-index: 99999 !important; padding-bottom: env(safe-area-inset-bottom, 0px) !important; justify-content: space-around !important; align-items: center !important; }
+            .bottom-nav-item { display: flex !important; flex-direction: column !important; align-items: center !important; justify-content: center !important; gap: 3px !important; text-decoration: none !important; flex: 1 !important; padding: 8px 0 !important; }
+            .bottom-nav-item svg { width: 22px !important; height: 22px !important; stroke: #9CA3AF !important; fill: none !important; stroke-width: 1.5 !important; stroke-linecap: round !important; stroke-linejoin: round !important; }
+            .bottom-nav-item.active svg { stroke: #C8A96A !important; }
+            .bottom-nav-item span { font-family: 'DM Sans', sans-serif !important; font-size: 10px !important; color: #9CA3AF !important; }
+            .bottom-nav-item.active span { color: #C8A96A !important; }
+        }
+    </style>
+</head>
+<body>
+<div class="mobile-topbar">
+    <div class="mobile-topbar-logo"><img src="/images/bahamas-stays-logo.png" alt="Bahamas Stays"><span>Bahamas Stays</span></div>
+    <button class="mobile-menu-btn" onclick="toggleSidebar()"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+</div>
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+<aside class="sidebar" id="sidebar">
+    <div>
+        <div class="sidebar-logo"><img src="/images/bahamas-stays-logo.png" alt="Bahamas Stays"><h1>Bahamas<br>Stays</h1><p>Operator Dashboard</p></div>
+        <nav class="sidebar-nav">
+            <div class="nav-section-label">Operations</div>
+            <a href="/operator.html" class="nav-item"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>Dashboard</a>
+            <a href="/bookings.html" class="nav-item"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Bookings</a>
+            <a href="/guests.html" class="nav-item"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Guests</a>
+            <a href="/properties-manage.html" class="nav-item"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Properties</a>
+            <div class="nav-section-label">Analytics</div>
+            <a href="/revenue.html" class="nav-item"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Revenue</a>
+            <a href="/reports.html" class="nav-item"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Reports</a>
+            <div class="nav-section-label">Platform</div>
+            <a href="/marketing.html" class="nav-item active"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>Marketing</a>
+            <a href="/settings.html" class="nav-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>Settings</a>
+            <a href="/" class="nav-item"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Main Site</a>
+        </nav>
+    </div>
+    <div class="sidebar-bottom">
+        <div class="sidebar-profile"><div class="sidebar-avatar">O</div><div class="sidebar-profile-info"><h3>Operator</h3><p>Property Manager</p></div></div>
+        <button class="sidebar-logout"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Log out</button>
+    </div>
+</aside>
+<main class="main">
+    <div class="page-header">
+        <h1>Marketing</h1>
+        <p>Promotional tools and listing management</p>
+    </div>
+    <div class="coming-soon-banner">
+        <div class="coming-soon-badge">Coming Soon</div>
+        <h2>Marketing Tools</h2>
+        <p>Powerful promotional tools to help you attract more guests, manage featured listings, and grow your revenue on Bahamas Stays.</p>
+    </div>
+    <div class="features-grid">
+        <div class="feature-card">
+            <div class="feature-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+            <div class="feature-title">Featured Listings</div>
+            <div class="feature-desc">Boost your property to the top of search results and featured sections on the homepage for maximum visibility.</div>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+            <div class="feature-title">Discount Codes</div>
+            <div class="feature-desc">Create promotional discount codes for returning guests, corporate partners, and seasonal promotions.</div>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+            <div class="feature-title">Email Campaigns</div>
+            <div class="feature-desc">Send targeted email campaigns to past guests with special offers, seasonal promotions, and new property announcements.</div>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+            <div class="feature-title">Social Media Tools</div>
+            <div class="feature-desc">Share your property listings directly to Instagram, Facebook, and other social platforms with optimized content.</div>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+            <div class="feature-title">SEO Optimization</div>
+            <div class="feature-desc">Optimize your property listings for search engines to attract direct organic traffic from Google and Bing.</div>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+            <div class="feature-title">Referral Program</div>
+            <div class="feature-desc">Reward guests who refer friends and family with booking credits and exclusive partner benefits.</div>
+        </div>
+    </div>
+</main>
+<div class="bottom-nav-bar">
+    <a href="/operator.html" class="bottom-nav-item"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg><span>Dashboard</span></a>
+    <a href="/bookings.html" class="bottom-nav-item"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span>Bookings</span></a>
+    <a href="/marketing.html" class="bottom-nav-item active"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg><span>Marketing</span></a>
+    <a href="/settings.html" class="bottom-nav-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg><span>Settings</span></a>
+</div>
+<script>
+function toggleSidebar() {
+    var sidebar = document.getElementById('sidebar');
+    var overlay = document.getElementById('sidebarOverlay');
+    sidebar.classList.toggle('open');
+    overlay.classList.toggle('open');
+    document.body.style.overflow = sidebar.classList.contains('open') ? 'hidden' : '';
+}
+</script>
+</body>
+</html>

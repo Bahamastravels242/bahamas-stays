@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Bahamas Stays | The Archipelago is Yours</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #E7BF6A;
+            --gold-hover: #F0CA79;
+            --gold-stroke: rgba(200,169,106,0.85);
+            --navy: #0A192F;
+            --navy-dark: #060E1A;
+            --white: #FFFFFF;
+            --cream: #F7F3EC;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'DM Sans', sans-serif; background: #f8f6f0; color: #333; }
+
+        /* ── NAVIGATION ── */
+        nav.main-nav {
+            position: fixed; top: 0; left: 0; right: 0;
+            z-index: 300; display: flex;
+            justify-content: space-between; align-items: center;
+            padding: 0 80px; height: 80px;
+            background: #0A192F;
+            border-bottom: 1px solid rgba(200,169,106,0.15);
+            width: 100%;
+        }
+        .nav-logo-wrap { display: flex; flex-direction: column; gap: 3px; }
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px; font-weight: 500; color: #fff;
+            letter-spacing: 2px; text-decoration: none; text-transform: uppercase;
+        }
+        .nav-logo-sub {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 9px; color: var(--gold);
+            letter-spacing: 2.5px; text-transform: uppercase;
+        }
+        .nav-links { display: flex; gap: 32px; list-style: none; }
+        .nav-links a {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 11px; color: rgba(255,255,255,0.78);
+            text-decoration: none; letter-spacing: 1.5px;
+            text-transform: uppercase; position: relative;
+            transition: color 180ms ease;
+        }
+        .nav-links a::after {
+            content: ''; position: absolute;
+            bottom: -4px; left: 0; width: 100%; height: 1px;
+            background: rgba(231,191,106,0.75);
+            transform: scaleX(0); transform-origin: left;
+            transition: transform 200ms ease;
+        }
+        .nav-links a:hover { color: #fff; }
+        .nav-links a:hover::after { transform: scaleX(1); }
+        .nav-cta {
+            background: var(--gold); color: var(--navy);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 11px; font-weight: 600;
+            padding: 10px 24px; border-radius: 6px;
+            border: none; cursor: pointer;
+            letter-spacing: 1px; text-transform: uppercase;
+            text-decoration: none; transition: all 200ms ease;
+        }
+        .nav-cta:hover {
+            background: var(--gold-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(231,191,106,0.35);
+        }
+        .nav-hamburger { display: none; }
+
+        /* ── MOBILE MENU ── */
+        .mobile-menu {
+            display: none; position: fixed; inset: 0;
+            background: #060E1A; z-index: 500;
+            flex-direction: column; align-items: center;
+            justify-content: center; gap: 28px;
+        }
+        .mobile-menu.open { display: flex; }
+        .mobile-menu-close {
+            position: absolute; top: 20px; right: 20px;
+            background: none; border: none; cursor: pointer; padding: 8px;
+        }
+        .mobile-menu-close svg {
+            width: 28px; height: 28px; stroke: white; fill: none;
+            stroke-width: 1.5; stroke-linecap: round;
+        }
+        .mobile-menu-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+        .mobile-menu-logo img { height: 48px; width: auto; }
+        .mobile-menu-logo span {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px; color: white;
+            letter-spacing: 3px; text-transform: uppercase;
+        }
+        .mobile-menu a {
+            font-family: 'Playfair Display', serif;
+            font-size: 26px; font-weight: 500;
+            color: rgba(255,255,255,0.85); text-decoration: none;
+            letter-spacing: 1.5px; text-transform: uppercase;
+            transition: color 200ms ease;
+        }
+        .mobile-menu a:hover { color: var(--gold); }
+        .mobile-menu-divider { width: 40px; height: 1px; background: rgba(231,191,106,0.30); }
+        .mobile-menu-cta {
+            margin-top: 8px;
+            background: var(--gold) !important; color: var(--navy) !important;
+            padding: 14px 40px !important; border-radius: 8px !important;
+            font-family: 'DM Sans', sans-serif !important;
+            font-size: 12px !important; font-weight: 600 !important;
+            letter-spacing: 1.5px !important; text-transform: uppercase !important;
+        }
+
+        /* ── HERO ── */
+        .hero {
+            position: relative; width: 100%; height: 100vh;
+            display: flex; align-items: center; overflow: hidden;
+        }
+        .hero-bg {
+            position: absolute; inset: 0;
+            background:
+                linear-gradient(to right, rgba(10,25,47,0.90) 0%, rgba(10,25,47,0.65) 45%, rgba(10,25,47,0.12) 100%),
+                linear-gradient(to bottom, rgba(10,25,47,0.22) 0%, rgba(10,25,47,0.05) 50%, rgba(10,25,47,0.48) 100%),
+                url('/images/bahamas-stays-hero.jpg') center/cover no-repeat;
+        }
+        .hero-content {
+            position: relative; z-index: 2;
+            width: 60%; max-width: 960px;
+            padding: 0 80px; padding-top: 80px;
+        }
+        .hero-eyebrow {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 10px; font-weight: 400;
+            letter-spacing: 3px; text-transform: uppercase;
+            color: rgba(231,191,106,0.90); margin-bottom: 22px;
+            opacity: 0; transform: translateY(16px);
+            animation: fadeUp 700ms ease 100ms forwards;
+        }
+        .hero-headline {
+            font-family: 'Playfair Display', serif;
+            font-size: 58px; font-weight: 500;
+            line-height: 1.06; letter-spacing: -0.5px;
+            color: #fff; margin-bottom: 24px; max-width: 520px;
+            opacity: 0; transform: translateY(16px);
+            animation: fadeUp 700ms ease 200ms forwards;
+        }
+        .hero-sub {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 16px; font-weight: 300;
+            line-height: 1.75; color: rgba(255,255,255,0.78);
+            max-width: 460px; margin-bottom: 40px;
+            opacity: 0; transform: translateY(16px);
+            animation: fadeUp 700ms ease 300ms forwards;
+        }
+
+        /* ── SEARCH BAR ── */
+        .search-wrapper {
+            opacity: 0; transform: translateY(16px);
+            animation: fadeUp 700ms ease 400ms forwards; width: 100%;
+        }
+        .search-bar {
+            display: inline-flex; align-items: center;
+            background: #FFFFFF; border-radius: 10px;
+            box-shadow: 0 24px 64px rgba(0,0,0,0.24);
+            height: 68px; overflow: hidden; width: auto;
+        }
+        .search-field {
+            flex: 0 0 140px;
+            display: flex; align-items: center;
+            gap: 14px;
+            padding: 0 16px; height: 100%;
+            border-right: 1px solid #EAEAEA;
+            cursor: pointer; transition: background 150ms ease; min-width: 140px;
+        }
+        .search-field:hover { background: #FAFAFA; }
+        .search-field.wide { flex: 1.4; min-width: 280px; }
+        .search-field.type { padding: 0 12px 0 16px; }
+        .search-field-icon { flex-shrink: 0; }
+        .search-field-icon svg {
+            width: 15px; height: 15px; stroke: #9CA3AF; fill: none;
+            stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; display: block;
+        }
+        .search-field-inner { display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0; }
+        .search-label {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 9px; font-weight: 500;
+            letter-spacing: 1.5px; text-transform: uppercase;
+            color: #9CA3AF; white-space: nowrap;
+        }
+        .search-field input[type="text"] {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px; color: #111827;
+            border: none; outline: none;
+            background: transparent; width: 100%; min-width: 0;
+        }
+        .search-field input[type="text"]::placeholder { color: #6B7280; font-weight: 300; }
+        .search-field input[type="date"] {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px; color: #6B7280;
+            border: none; outline: none;
+            background: transparent; width: 100%;
+            cursor: pointer; padding-left: 2px;
+            letter-spacing: 0.2px;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+        .search-field select {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px; color: #6B7280;
+            border: none; outline: none;
+            background: transparent; width: 100%;
+            cursor: pointer; appearance: none; -webkit-appearance: none;
+        }
+        .search-btn {
+            background: var(--gold); color: var(--navy);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 11px; font-weight: 600;
+            padding: 0 28px; height: 100%; border: none;
+            cursor: pointer; white-space: nowrap;
+            letter-spacing: 1.2px; text-transform: uppercase;
+            display: flex; align-items: center; gap: 8px;
+            flex-shrink: 0; min-width: 160px;
+            justify-content: center; transition: background 200ms ease;
+        }
+        .search-btn:hover { background: var(--gold-hover); }
+        .search-btn .arrow { transition: transform 200ms ease; display: inline-block; }
+        .search-btn:hover .arrow { transform: translateX(4px); }
+
+        /* ── TAGLINE ── */
+        .hero-tagline {
+            display: flex; align-items: center; gap: 10px;
+            margin-top: 18px; opacity: 0; transform: translateY(16px);
+            animation: fadeUp 700ms ease 500ms forwards;
+        }
+        .tagline-rule { flex: 1; max-width: 44px; height: 1px; background: rgba(231,191,106,0.50); }
+        .tagline-text {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 11px; font-weight: 300;
+            color: rgba(255,255,255,0.60); letter-spacing: 0.5px; white-space: nowrap;
+        }
+        .tagline-svg { width: 13px; height: 13px; opacity: 0.65; }
+
+        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+        /* ── WHY BAHAMAS STAYS ── */
+        .why-section {
+            background: var(--navy); padding: 100px 80px; text-align: center;
+            border-top: 2px solid rgba(231,191,106,0.12);
+        }
+        .why-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 42px; font-weight: 500; color: #fff; margin-bottom: 16px;
+        }
+        .why-section > p {
+            font-size: 17px; font-weight: 300; color: rgba(255,255,255,0.70);
+            max-width: 580px; margin: 0 auto 64px; line-height: 1.75;
+        }
+        .why-grid {
+            display: grid; grid-template-columns: repeat(3,1fr);
+            gap: 28px; max-width: 1000px; margin: 0 auto;
+        }
+        .why-card {
+            padding: 40px 32px;
+            background: linear-gradient(180deg, rgba(14,32,58,1) 0%, rgba(9,24,45,1) 100%);
+            border: 1px solid rgba(231,191,106,0.18);
+            border-radius: 14px; text-align: left;
+            transition: border-color 220ms ease, transform 220ms ease, box-shadow 220ms ease;
+        }
+        .why-card:hover {
+            border-color: rgba(231,191,106,0.45);
+            transform: translateY(-4px);
+            box-shadow: 0 16px 40px rgba(0,0,0,0.25);
+        }
+        .why-card-icon { width: 44px; height: 44px; margin-bottom: 20px; }
+        .why-card-icon svg {
+            width: 44px; height: 44px; stroke: var(--gold-stroke); fill: none;
+            stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
+        }
+        .why-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px; color: var(--gold); margin-bottom: 12px;
+        }
+        .why-card p { font-size: 14px; color: rgba(255,255,255,0.65); line-height: 1.75; margin: 0; }
+
+        /* ── HOW IT WORKS ── */
+        .how-section {
+            background: var(--cream);
+            border-top: 2px solid rgba(200,169,106,0.20);
+            padding: 100px 80px; text-align: center;
+        }
+        .how-eyebrow {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 10px; font-weight: 500;
+            letter-spacing: 3px; text-transform: uppercase;
+            color: var(--gold); margin-bottom: 14px;
+        }
+        .how-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 42px; font-weight: 500; color: var(--navy); margin-bottom: 16px;
+        }
+        .how-section > p {
+            font-size: 17px; color: #666;
+            max-width: 480px; margin: 0 auto 72px; line-height: 1.75;
+        }
+        .how-grid {
+            display: grid; grid-template-columns: repeat(3,1fr);
+            gap: 0; max-width: 860px; margin: 0 auto; position: relative;
+        }
+        .how-connector {
+            position: absolute; top: 27px; left: calc(16.67% + 27px);
+            width: calc(66.66% - 54px); height: 1px;
+            background: linear-gradient(to right, var(--gold), rgba(231,191,106,0.3), var(--gold));
+            z-index: 0;
+        }
+        .how-step { text-align: center; padding: 0 20px; position: relative; z-index: 1; }
+        .how-number {
+            width: 54px; height: 54px;
+            background: linear-gradient(135deg, var(--gold), var(--gold-hover));
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 20px; font-weight: 500; color: var(--navy);
+            margin: 0 auto 24px;
+            box-shadow: 0 4px 16px rgba(231,191,106,0.30);
+        }
+        .how-step h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 19px; color: var(--navy); margin-bottom: 10px;
+        }
+        .how-step p { font-size: 14px; color: #666; line-height: 1.75; }
+
+        /* ── PROPERTIES SECTION ── */
+        .featured-stays-section {
+            padding: 110px 80px;
+            background: url('/images/bahamas-property-bg.jpg') center/cover no-repeat;
+            background-color: #F7F3EC;
+        }
+        .featured-header { text-align: center; max-width: 720px; margin: 0 auto 56px; }
+        .featured-eyebrow {
+            font-family: 'DM Sans', sans-serif;
+            color: var(--gold); font-size: 11px;
+            letter-spacing: 4px; text-transform: uppercase; margin-bottom: 18px;
+        }
+        .featured-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px; font-weight: 500;
+            color: var(--navy); line-height: 1.1; margin-bottom: 18px;
+        }
+        .featured-header p { font-size: 17px; line-height: 1.7; color: #6B7280; }
+
+        /* ── FILTER BAR ── */
+        .filter-bar {
+            display: flex; justify-content: center;
+            gap: 10px; flex-wrap: wrap; margin-bottom: 48px;
+        }
+        .filter-bar select {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px; padding: 10px 18px;
+            border: 1px solid #E0E0E0; border-radius: 8px;
+            background: white; color: #444; outline: none;
+            cursor: pointer; transition: border-color 200ms ease;
+        }
+        .filter-bar select:focus { border-color: var(--gold); }
+        .filter-bar button {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 11px; font-weight: 600; padding: 10px 24px;
+            background: var(--gold); color: var(--navy);
+            border: none; border-radius: 8px; cursor: pointer;
+            letter-spacing: 1px; text-transform: uppercase;
+            transition: background 200ms ease;
+        }
+        .filter-bar button:hover { background: var(--gold-hover); }
+
+        /* ── PROPERTY CARDS ── */
+        .property-grid {
+            max-width: 1180px; margin: 0 auto;
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 34px;
+            justify-items: center;
+        }
+        .luxury-property-card {
+            background: #fff; border-radius: 14px; overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+            transition: transform 220ms ease, box-shadow 220ms ease;
+            cursor: pointer; width: 100%;
+        }
+        .luxury-property-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 24px 60px rgba(7,24,44,0.18);
+        }
+        .property-image-wrap { position: relative; height: 260px; overflow: hidden; }
+        .property-image-wrap img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform 700ms ease;
+        }
+        .luxury-property-card:hover img { transform: scale(1.04); }
+        .property-name-band {
+            background: #0A192F;
+            border-top: 2px solid rgba(200,169,106,0.75);
+            padding: 14px 20px; text-align: center;
+            min-height: 68px; display: flex;
+            align-items: center; justify-content: center;
+        }
+        .property-name-band h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 17px; font-weight: 500; color: #ffffff;
+            text-transform: uppercase; letter-spacing: 0.5px;
+            line-height: 1.2; margin: 0;
+        }
+        .property-detail-zone { background: #ffffff; padding: 20px 24px 24px; }
+        .property-stars { text-align: center; font-size: 16px; color: #C8A96A; letter-spacing: 3px; margin-bottom: 10px; }
+        .property-location-italic {
+            text-align: center; font-family: 'Playfair Display', serif;
+            font-style: italic; font-size: 14px; color: #0A192F; margin-bottom: 8px;
+        }
+        .property-descriptor {
+            text-align: center; font-family: 'DM Sans', sans-serif;
+            font-size: 12px; color: #6B7280; line-height: 1.6; margin-bottom: 18px;
+        }
+        .property-bottom {
+            display: flex; align-items: center;
+            justify-content: space-between; gap: 12px;
+            padding-top: 16px; border-top: 1px solid #F2F2F2;
+        }
+        .property-price { display: flex; flex-direction: column; }
+        .property-price-from {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 10px; font-weight: 500;
+            letter-spacing: 1.5px; text-transform: uppercase;
+            color: #9CA3AF; margin-bottom: 2px;
+        }
+        .property-price-amount {
+            font-family: 'Playfair Display', serif;
+            font-size: 26px; font-weight: 500; color: #0A192F; line-height: 1;
+        }
+        .property-price-unit {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 10px; font-weight: 500;
+            letter-spacing: 1px; text-transform: uppercase;
+            color: #9CA3AF; margin-top: 2px;
+        }
+        .property-btn {
+            background: #0A192F; color: #ffffff;
+            border: none; border-radius: 6px; padding: 11px 18px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 11px; font-weight: 600;
+            letter-spacing: 0.8px; text-transform: uppercase;
+            cursor: pointer; transition: background 180ms ease; white-space: nowrap;
+        }
+        .property-btn:hover { background: var(--gold); color: var(--navy); }
+        .loading {
+            text-align: center; padding: 80px;
+            font-family: 'DM Sans', sans-serif;
+            color: #aaa; font-size: 15px; grid-column: 1 / -1;
+        }
+
+        /* ── ISLANDS SECTION ── */
+        .islands-section {
+            background: var(--navy); padding: 100px 80px; text-align: center;
+            border-top: 2px solid rgba(231,191,106,0.12);
+        }
+        .islands-eyebrow {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 10px; font-weight: 500;
+            letter-spacing: 3px; text-transform: uppercase;
+            color: var(--gold); margin-bottom: 14px;
+        }
+        .islands-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 42px; color: white; margin-bottom: 12px;
+        }
+        .islands-section > p {
+            font-size: 16px; color: rgba(255,255,255,0.60);
+            margin-bottom: 56px; line-height: 1.75;
+        }
+        .islands-grid {
+            display: grid; grid-template-columns: repeat(4,1fr);
+            gap: 18px; max-width: 980px; margin: 0 auto;
+        }
+        .island-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(231,191,106,0.18);
+            border-radius: 12px; padding: 36px 20px; cursor: pointer;
+            transition: transform 200ms ease, border-color 200ms ease, background 200ms ease;
+        }
+        .island-card:hover {
+            background: rgba(231,191,106,0.08);
+            border-color: rgba(231,191,106,0.40);
+            transform: translateY(-3px);
+        }
+        .island-icon { width: 44px; height: 44px; margin: 0 auto 16px; }
+        .island-icon svg {
+            width: 44px; height: 44px; stroke: var(--gold-stroke); fill: none;
+            stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
+        }
+        .island-name { font-family: 'Playfair Display', serif; font-size: 17px; color: white; margin-bottom: 8px; }
+        .island-desc { font-family: 'DM Sans', sans-serif; font-size: 12px; color: rgba(255,255,255,0.52); line-height: 1.65; }
+
+        /* ── BOOKING MODAL ── */
+        #bookingModal {
+            display: none; position: fixed; inset: 0;
+            background: rgba(10,25,47,0.78); backdrop-filter: blur(8px);
+            z-index: 1000; justify-content: center; align-items: center;
+        }
+        .modal-box { background: white; border-radius: 20px; padding: 48px; max-width: 500px; width: 90%; }
+        .modal-box h2 { font-family: 'Playfair Display', serif; font-size: 26px; color: var(--navy); margin-bottom: 6px; }
+        .modal-property { font-family: 'DM Sans', sans-serif; font-size: 11px; color: var(--gold); margin-bottom: 28px; letter-spacing: 1px; text-transform: uppercase; }
+        .modal-field { margin-bottom: 16px; }
+        .modal-field label { display: block; font-family: 'DM Sans', sans-serif; font-size: 9px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: #9CA3AF; margin-bottom: 7px; }
+        .modal-field input { width: 100%; padding: 12px 15px; border: 1px solid #EAEAEA; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 14px; color: #111827; outline: none; transition: border-color 200ms ease; }
+        .modal-field input:focus { border-color: var(--gold); }
+        .modal-dates { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+        .price-summary { background: #f8f6f0; border-radius: 10px; padding: 16px; margin-bottom: 20px; display: none; }
+        .price-row { display: flex; justify-content: space-between; font-family: 'DM Sans', sans-serif; font-size: 13px; color: #666; margin-bottom: 7px; }
+        .price-row.total { font-weight: 500; color: var(--navy); font-size: 15px; border-top: 1px solid #EAEAEA; padding-top: 10px; margin-top: 4px; margin-bottom: 0; }
+        .modal-confirm { width: 100%; padding: 14px; background: var(--gold); color: var(--navy); font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; border: none; border-radius: 8px; cursor: pointer; margin-bottom: 10px; transition: background 200ms ease; }
+        .modal-confirm:hover { background: var(--gold-hover); }
+        .modal-cancel { width: 100%; padding: 12px; background: #f8f6f0; color: #888; font-family: 'DM Sans', sans-serif; font-size: 13px; border: none; border-radius: 8px; cursor: pointer; }
+
+        /* ── CONFIRMATION ── */
+        #confirmationScreen {
+            display: none; position: fixed; inset: 0;
+            background: rgba(10,25,47,0.78); backdrop-filter: blur(8px);
+            z-index: 1000; justify-content: center; align-items: center;
+        }
+        .confirm-box { background: white; border-radius: 20px; padding: 56px 48px; max-width: 460px; width: 90%; text-align: center; }
+        .confirm-icon { width: 68px; height: 68px; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; margin: 0 auto 22px; }
+        .confirm-box h2 { font-family: 'Playfair Display', serif; font-size: 28px; color: var(--navy); margin-bottom: 12px; }
+        .confirm-box p { font-family: 'DM Sans', sans-serif; font-size: 14px; color: #666; line-height: 1.75; margin-bottom: 28px; }
+        .confirm-back { padding: 13px 32px; background: var(--navy); color: white; font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; border: none; border-radius: 8px; cursor: pointer; transition: background 200ms ease; }
+        .confirm-back:hover { background: #0F2A45; }
+
+        /* ── FOOTER ── */
+        footer {
+            background: var(--navy-dark); padding: 80px 80px 48px;
+            border-top: 1px solid rgba(231,191,106,0.15);
+        }
+        .footer-top { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 60px; margin-bottom: 64px; }
+        .footer-logo { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 500; color: #fff; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; display: block; margin-bottom: 6px; }
+        .footer-logo-sub { font-family: 'DM Sans', sans-serif; font-size: 9px; color: var(--gold); letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 20px; display: block; }
+        .footer-brand-desc { font-family: 'DM Sans', sans-serif; font-size: 13px; color: rgba(255,255,255,0.50); line-height: 1.75; max-width: 240px; }
+        .footer-col h4 { font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 10px; }
+        .footer-col ul li a { font-family: 'DM Sans', sans-serif; font-size: 13px; color: rgba(255,255,255,0.50); text-decoration: none; transition: color 180ms ease; }
+        .footer-col ul li a:hover { color: var(--gold); }
+        .footer-divider { width: 100%; height: 1px; background: rgba(231,191,106,0.12); margin-bottom: 32px; }
+        .footer-bottom { display: flex; justify-content: space-between; align-items: center; }
+        .footer-tagline { font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 300; color: rgba(255,255,255,0.40); letter-spacing: 0.5px; font-style: italic; }
+        .footer-tagline span { color: var(--gold); font-style: normal; }
+        .footer-copy { font-family: 'DM Sans', sans-serif; font-size: 11px; color: rgba(255,255,255,0.30); letter-spacing: 0.3px; }
+
+        /* ── BOTTOM NAV — hidden on desktop ── */
+        .bottom-nav-bar { display: none; }
+
+        /* ════════════════════════════════════
+           MOBILE RESPONSIVE
+        ════════════════════════════════════ */
+        @media (max-width: 1024px) {
+            body { padding-bottom: calc(80px + env(safe-area-inset-bottom, 0px)); }
+
+            nav.main-nav { padding: 0 20px; height: 64px; background: #0A192F !important; display: flex !important; }
+            .nav-links { display: none; }
+            .nav-cta { display: none; }
+            .nav-logo { font-size: 15px; letter-spacing: 1.5px; }
+            .nav-logo-sub { font-size: 8px; }
+            .nav-logo-wrap > a img { height: 38px !important; width: auto !important; }
+            .nav-hamburger {
+                display: flex !important; align-items: center; justify-content: center;
+                width: 40px; height: 40px;
+                background: rgba(255,255,255,0.10);
+                border: 1px solid rgba(255,255,255,0.20);
+                border-radius: 8px; cursor: pointer; padding: 0; flex-shrink: 0;
+            }
+            .nav-hamburger svg { width: 20px; height: 20px; stroke: white; fill: none; stroke-width: 1.5; stroke-linecap: round; }
+
+            .hero { height: 100svh; min-height: 600px; }
+            .hero-bg {
+                background:
+                    linear-gradient(to bottom, rgba(10,25,47,0.80) 0%, rgba(10,25,47,0.45) 50%, rgba(10,25,47,0.75) 100%),
+                    url('/images/bahamas-stays-hero.jpg') center/cover no-repeat;
+            }
+            .hero-content { width: 100%; max-width: 100%; padding: 0 24px; padding-top: 80px; }
+            .hero-eyebrow { font-size: 9px; letter-spacing: 2px; margin-bottom: 14px; }
+            .hero-headline { font-size: 36px; max-width: 100%; margin-bottom: 14px; }
+            .hero-sub { font-size: 14px; max-width: 88%; margin-bottom: 24px; }
+
+            .search-wrapper { width: 100%; }
+            .search-bar { display: flex; flex-direction: column; height: auto; border-radius: 14px; overflow: hidden; width: 100%; }
+            .search-field { flex: none; width: 100%; min-width: 100%; height: 54px; border-right: none; border-bottom: 1px solid #EAEAEA; padding: 0 16px; gap: 12px; }
+            .search-field.wide { flex: none; min-width: 100%; }
+            .search-field.type { padding: 0 16px; }
+            .search-btn { width: 100%; min-width: 100%; height: 56px; border-radius: 0; font-size: 13px; }
+            .hero-tagline { margin-top: 14px; }
+            .tagline-text { font-size: 10px; }
+
+            .why-section { padding: 60px 24px; }
+            .why-section h2 { font-size: 30px; }
+            .why-section > p { font-size: 15px; margin-bottom: 40px; }
+            .why-grid { grid-template-columns: 1fr; gap: 16px; }
+            .why-card { padding: 28px 24px; }
+            .why-card h3 { font-size: 18px; }
+
+            .how-section { padding: 60px 24px; }
+            .how-section h2 { font-size: 30px; }
+            .how-section > p { font-size: 15px; margin-bottom: 48px; }
+            .how-grid { grid-template-columns: 1fr; gap: 40px; }
+            .how-connector { display: none; }
+            .how-step { padding: 0; }
+
+            .featured-stays-section { padding: 60px 20px; }
+            .featured-header { margin-bottom: 36px; }
+            .featured-header h2 { font-size: 30px; }
+            .featured-header p { font-size: 14px; }
+            .filter-bar { gap: 8px; margin-bottom: 32px; }
+            .filter-bar select { font-size: 12px; padding: 8px 12px; }
+            .filter-bar button { font-size: 11px; padding: 8px 16px; }
+            .property-grid { grid-template-columns: 1fr; gap: 24px; max-width: 100%; }
+            .property-image-wrap { height: 220px; }
+            .property-name-band { padding: 12px 16px; min-height: 56px; }
+            .property-name-band h3 { font-size: 15px; }
+            .property-detail-zone { padding: 16px 18px 20px; }
+
+            .islands-section { padding: 60px 24px; }
+            .islands-section h2 { font-size: 30px; }
+            .islands-section > p { font-size: 14px; margin-bottom: 32px; }
+            .islands-grid { grid-template-columns: repeat(2,1fr); gap: 12px; }
+            .island-card { padding: 24px 14px; }
+            .island-name { font-size: 15px; }
+            .island-desc { font-size: 11px; }
+
+            footer { padding: 48px 24px 32px; }
+            .footer-top { grid-template-columns: 1fr; gap: 32px; margin-bottom: 32px; }
+            .footer-bottom { flex-direction: column; gap: 10px; text-align: center; }
+            .footer-tagline { font-size: 11px; }
+            .footer-copy { font-size: 10px; }
+
+            .modal-box { padding: 28px 20px; }
+            .modal-dates { grid-template-columns: 1fr; gap: 10px; }
+
+            .bottom-nav-bar {
+                display: flex !important; position: fixed !important;
+                bottom: 0 !important; left: 0 !important; right: 0 !important;
+                width: 100% !important; height: 60px !important;
+                background: white !important; border-top: 1px solid #EAEAEA !important;
+                box-shadow: 0 -4px 24px rgba(0,0,0,0.10) !important;
+                z-index: 99999 !important;
+                padding-bottom: env(safe-area-inset-bottom, 0px) !important;
+                justify-content: space-around !important; align-items: center !important;
+            }
+            .bottom-nav-item {
+                flex: 1 !important; display: flex !important; flex-direction: column !important;
+                align-items: center !important; gap: 4px !important;
+                cursor: pointer !important; padding: 4px 0 !important; text-decoration: none !important;
+            }
+            .bottom-nav-item svg { width: 22px !important; height: 22px !important; stroke: #9CA3AF !important; fill: none !important; stroke-width: 1.5 !important; stroke-linecap: round !important; stroke-linejoin: round !important; }
+            .bottom-nav-item.active svg { stroke: var(--gold) !important; }
+            .bottom-nav-item span { font-family: 'DM Sans', sans-serif !important; font-size: 10px !important; color: #9CA3AF !important; letter-spacing: 0.3px !important; }
+            .bottom-nav-item.active span { color: var(--gold) !important; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav class="main-nav" id="mainNav">
+    <div class="nav-logo-wrap">
+        <a href="/" style="display:flex; align-items:center; gap:8px; text-decoration:none;">
+            <img src="/images/bahamas-stays-logo.png" alt="Bahamas Stays" style="height:56px; width:auto;">
+            <div>
+                <div class="nav-logo">Bahamas Stays</div>
+                <span class="nav-logo-sub">Curated Stays · Authentic Bahamas</span>
+            </div>
+        </a>
+    </div>
+    <ul class="nav-links">
+        <li><a href="#islands">Islands</a></li>
+        <li><a href="#properties">Stays</a></li>
+        <li><a href="#how">Experiences</a></li>
+        <li><a href="#how">Journal</a></li>
+        <li><a href="/operator.html">Operators</a></li>
+    </ul>
+    <a href="/login.html" class="nav-cta">Plan Your Stay</a>
+    <button class="nav-hamburger" onclick="toggleMobileMenu()" aria-label="Open menu">
+        <svg viewBox="0 0 24 24">
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+    </button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-menu-close" onclick="toggleMobileMenu()">
+        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div class="mobile-menu-logo">
+        <img src="/images/bahamas-stays-logo.png" alt="Bahamas Stays">
+        <span>Bahamas Stays</span>
+    </div>
+    <div class="mobile-menu-divider"></div>
+    <a href="#islands" onclick="toggleMobileMenu()">Islands</a>
+    <a href="#properties" onclick="toggleMobileMenu()">Stays</a>
+    <a href="#how" onclick="toggleMobileMenu()">Experiences</a>
+    <a href="#how" onclick="toggleMobileMenu()">Journal</a>
+    <a href="/operator.html" onclick="toggleMobileMenu()">Operators</a>
+    <div class="mobile-menu-divider"></div>
+    <a href="/login.html" class="mobile-menu-cta">Plan Your Stay</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+        <div class="hero-eyebrow">The Bahamas &nbsp;·&nbsp; 700 Islands &nbsp;·&nbsp; One Platform</div>
+        <h1 class="hero-headline">The Archipelago<br>is Yours.</h1>
+        <p class="hero-sub">Private villas, secluded beaches, and unforgettable experiences across the Bahamas.</p>
+        <div class="search-wrapper">
+            <div class="search-bar">
+                <div class="search-field wide">
+                    <div class="search-field-icon">
+                        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    </div>
+                    <div class="search-field-inner">
+                        <div class="search-label">Destination</div>
+                        <input type="text" id="islandFilter" placeholder="Where to next?" oninput="filterProperties()">
+                    </div>
+                </div>
+                <div class="search-field">
+                    <div class="search-field-icon">
+                        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                    </div>
+                    <div class="search-field-inner">
+                        <div class="search-label">Check-in</div>
+                        <input type="date" id="checkInFilter" onchange="filterProperties()">
+                    </div>
+                </div>
+                <div class="search-field">
+                    <div class="search-field-icon">
+                        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                    </div>
+                    <div class="search-field-inner">
+                        <div class="search-label">Check-out</div>
+                        <input type="date" id="checkOutFilter" onchange="filterProperties()">
+                    </div>
+                </div>
+                <div class="search-field type">
+                    <div class="search-field-icon">
+                        <svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+                    </div>
+                    <div class="search-field-inner">
+                        <div class="search-label">Type</div>
+                        <select id="typeFilter" onchange="filterProperties()">
+                            <option value="">All types</option>
+                            <option value="Hotel">Hotels</option>
+                            <option value="Villa">Villas</option>
+                            <option value="Boat Charter">Boat Charters</option>
+                            <option value="Diving">Diving</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="search-btn" onclick="filterProperties()">
+                    Explore Stays <span class="arrow">→</span>
+                </button>
+            </div>
+            <div class="hero-tagline">
+                <div class="tagline-rule"></div>
+                <svg class="tagline-svg" viewBox="0 0 24 24" fill="none" stroke="#E7BF6A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2C8 2 4 6 4 10c0 6 8 12 8 12s8-6 8-12c0-4-4-8-8-8z"/>
+                    <circle cx="12" cy="10" r="2.5"/>
+                </svg>
+                <span class="tagline-text">Curated by Bahamians. Designed for the world.</span>
+                <svg class="tagline-svg" viewBox="0 0 24 24" fill="none" stroke="#E7BF6A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2C8 2 4 6 4 10c0 6 8 12 8 12s8-6 8-12c0-4-4-8-8-8z"/>
+                    <circle cx="12" cy="10" r="2.5"/>
+                </svg>
+                <div class="tagline-rule"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- WHY BAHAMAS STAYS -->
+<section class="why-section">
+    <h2>The Bahamas Standard</h2>
+    <p>Built by Bahamians, for the Bahamas. Every booking supports local operators, local communities, and the islands we call home.</p>
+    <div class="why-grid">
+        <div class="why-card">
+            <div class="why-card-icon">
+                <svg viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="10"/>
+                    <line x1="12" y1="2" x2="12" y2="4"/>
+                    <line x1="12" y1="20" x2="12" y2="22"/>
+                    <line x1="2" y1="12" x2="4" y2="12"/>
+                    <line x1="20" y1="12" x2="22" y2="12"/>
+                    <line x1="12" y1="12" x2="12" y2="7"/>
+                    <line x1="12" y1="12" x2="16" y2="14"/>
+                </svg>
+            </div>
+            <h3>Local Knowledge</h3>
+            <p>Our team knows every island, every operator, and every hidden gem across the archipelago. We curate so you don't have to guess.</p>
+        </div>
+        <div class="why-card">
+            <div class="why-card-icon">
+                <svg viewBox="0 0 24 24">
+                    <line x1="12" y1="1" x2="12" y2="23"/>
+                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                </svg>
+            </div>
+            <h3>Fair by Design</h3>
+            <p>More of what you spend stays within the islands and communities that make the Bahamas extraordinary.</p>
+        </div>
+        <div class="why-card">
+            <div class="why-card-icon">
+                <svg viewBox="0 0 24 24">
+                    <path d="M3 18 Q12 6 21 18"/>
+                    <path d="M6 15 Q12 9 18 15"/>
+                    <line x1="12" y1="18" x2="12" y2="21"/>
+                </svg>
+            </div>
+            <h3>Built for the Bahamas</h3>
+            <p>VAT and tourism levy handled automatically. Hurricane rebooking built in. Bahamian compliance from day one.</p>
+        </div>
+    </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-section" id="how">
+    <div class="how-eyebrow">The Experience</div>
+    <h2>Your Journey Begins Here</h2>
+    <p>From discovery to arrival, we make booking the Bahamas effortless.</p>
+    <div class="how-grid">
+        <div class="how-connector"></div>
+        <div class="how-step">
+            <div class="how-number">1</div>
+            <h3>Discover</h3>
+            <p>Browse hotels, villas, boat charters, and experiences across every island in the Bahamas.</p>
+        </div>
+        <div class="how-step">
+            <div class="how-number">2</div>
+            <h3>Book</h3>
+            <p>Select your dates, review your price including VAT and tourism levy, and confirm in seconds.</p>
+        </div>
+        <div class="how-step">
+            <div class="how-number">3</div>
+            <h3>Confirm</h3>
+            <p>Your confirmation arrives instantly by email. Everything is arranged — all that's left is to enjoy the Bahamas.</p>
+        </div>
+    </div>
+</section>
+
+<!-- PROPERTIES -->
+<section class="featured-stays-section" id="properties">
+    <div class="featured-header">
+        <div class="featured-eyebrow">Featured Stays</div>
+        <h2>Find Your Perfect Escape</h2>
+        <p>Hand-picked hotels, villas, charters, and island retreats across Nassau, Exuma, Albany, Eleuthera, and beyond.</p>
+    </div>
+    <div class="filter-bar">
+        <select id="islandDropdown" onchange="filterProperties()">
+            <option value="">All Islands</option>
+            <option value="Nassau">Nassau</option>
+            <option value="Exuma">Exuma</option>
+            <option value="Abaco">Abaco</option>
+            <option value="Eleuthera">Eleuthera</option>
+            <option value="Bimini">Bimini</option>
+        </select>
+        <select id="priceFilter" onchange="filterProperties()">
+            <option value="">Any Price</option>
+            <option value="500">Under $500/night</option>
+            <option value="750">Under $750/night</option>
+            <option value="1000">Under $1,000/night</option>
+            <option value="1500">Under $1,500/night</option>
+        </select>
+        <button onclick="filterProperties()">Search Stays</button>
+    </div>
+    <div class="property-grid" id="propertiesGrid">
+        <div class="loading">Discovering your perfect escape...</div>
+    </div>
+</section>
+
+<!-- ISLANDS -->
+<section class="islands-section" id="islands">
+    <div class="islands-eyebrow">Explore</div>
+    <h2>The Islands Await</h2>
+    <p>700 islands and cays, each with its own soul. Where will you go?</p>
+    <div class="islands-grid">
+        <div class="island-card" onclick="filterByIsland('Nassau')">
+            <div class="island-icon">
+                <svg viewBox="0 0 24 24">
+                    <line x1="12" y1="2" x2="12" y2="6"/>
+                    <path d="M5 10.5 Q12 3 19 10.5"/>
+                    <rect x="9" y="10" width="6" height="10" rx="1"/>
+                    <line x1="9" y1="14" x2="15" y2="14"/>
+                    <line x1="2" y1="20" x2="22" y2="20"/>
+                </svg>
+            </div>
+            <div class="island-name">Nassau</div>
+            <div class="island-desc">The vibrant capital. Cable Beach, Fish Fry, and world-class resorts.</div>
+        </div>
+        <div class="island-card" onclick="filterByIsland('Exuma')">
+            <div class="island-icon">
+                <svg viewBox="0 0 24 24">
+                    <path d="M2 12 Q6 6 12 8 Q18 10 22 6"/>
+                    <path d="M2 16 Q6 10 12 12 Q18 14 22 10"/>
+                    <path d="M2 20 Q6 14 12 16 Q18 18 22 14"/>
+                </svg>
+            </div>
+            <div class="island-name">Exuma</div>
+            <div class="island-desc">Sandbars, turquoise shallows, and the most vivid water on earth.</div>
+        </div>
+        <div class="island-card" onclick="filterByIsland('Abaco')">
+            <div class="island-icon">
+                <svg viewBox="0 0 24 24">
+                    <circle cx="12" cy="10" r="3"/>
+                    <path d="M12 2 L12 7"/>
+                    <path d="M12 7 Q16 7 18 10"/>
+                    <path d="M5 19 Q8 14 12 14 Q16 14 19 19"/>
+                    <line x1="3" y1="22" x2="21" y2="22"/>
+                </svg>
+            </div>
+            <div class="island-name">Abaco</div>
+            <div class="island-desc">The sailing capital of the Bahamas. Charming cays and marinas.</div>
+        </div>
+        <div class="island-card" onclick="filterByIsland('Eleuthera')">
+            <div class="island-icon">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 2 C8 6 4 10 4 14 C4 18 8 22 12 22 C16 22 20 18 20 14 C20 10 16 6 12 2"/>
+                    <path d="M8 14 Q12 10 16 14"/>
+                    <line x1="12" y1="10" x2="12" y2="18"/>
+                </svg>
+            </div>
+            <div class="island-name">Eleuthera</div>
+            <div class="island-desc">Pink sand beaches, pineapple farms, and unhurried island life.</div>
+        </div>
+    </div>
+</section>
+
+<!-- BOOKING MODAL -->
+<div id="bookingModal">
+    <div class="modal-box">
+        <h2>Complete Your Booking</h2>
+        <p class="modal-property" id="modalPropertyName"></p>
+        <div class="modal-field">
+            <label>Full Name</label>
+            <input id="guestName" type="text" placeholder="Your full name">
+        </div>
+        <div class="modal-field">
+            <label>Email Address</label>
+            <input id="guestEmail" type="email" placeholder="your@email.com">
+        </div>
+        <div class="modal-dates">
+            <div class="modal-field" style="margin:0;">
+                <label>Check-in</label>
+                <input id="checkIn" type="date">
+            </div>
+            <div class="modal-field" style="margin:0;">
+                <label>Check-out</label>
+                <input id="checkOut" type="date">
+            </div>
+        </div>
+        <div class="price-summary" id="priceSummary">
+            <div class="price-row"><span>Nights</span><span id="nightsCount"></span></div>
+            <div class="price-row"><span>Rate per night</span><span id="ratePerNight"></span></div>
+            <div class="price-row"><span>Bahamas VAT (10%)</span><span id="vatAmount"></span></div>
+            <div class="price-row"><span>Tourism levy</span><span id="levyAmount"></span></div>
+            <div class="price-row total"><span>Total</span><span id="totalPrice"></span></div>
+        </div>
+        <button class="modal-confirm" onclick="confirmBooking()">Confirm Booking</button>
+        <button class="modal-cancel" onclick="closeModal()">Cancel</button>
+    </div>
+</div>
+
+<!-- CONFIRMATION -->
+<div id="confirmationScreen">
+    <div class="confirm-box">
+        <div class="confirm-icon">✅</div>
+        <h2>Booking Confirmed!</h2>
+        <p id="confirmationDetails"></p>
+        <button class="confirm-back" onclick="closeConfirmation()">Back to Properties</button>
+    </div>
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav-bar">
+    <a href="/" class="bottom-nav-item active">
+        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <span>Home</span>
+    </a>
+    <a href="#properties" class="bottom-nav-item">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <span>Explore</span>
+    </a>
+    <a href="/login.html" class="bottom-nav-item">
+        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        <span>Bookings</span>
+    </a>
+    <a href="/login.html" class="bottom-nav-item">
+        <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <span>Account</span>
+    </a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-top">
+        <div class="footer-brand">
+            <a href="/" class="footer-logo">Bahamas Stays</a>
+            <span class="footer-logo-sub">Curated Stays · Authentic Bahamas</span>
+            <p class="footer-brand-desc">The Bahamas' own booking platform — connecting travellers with extraordinary island experiences since 2026.</p>
+        </div>
+        <div class="footer-col">
+            <h4>Explore</h4>
+            <ul>
+                <li><a href="#properties">Featured Stays</a></li>
+                <li><a href="#islands">Nassau</a></li>
+                <li><a href="#islands">Exuma</a></li>
+                <li><a href="#islands">Abaco</a></li>
+                <li><a href="#islands">Eleuthera</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Platform</h4>
+            <ul>
+                <li><a href="/login.html">My Account</a></li>
+                <li><a href="/operator.html">Operator Dashboard</a></li>
+                <li><a href="#how">How It Works</a></li>
+                <li><a href="/policy.html">Privacy & Terms</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-divider"></div>
+    <div class="footer-bottom">
+        <p class="footer-tagline"><span>Curated by Bahamians.</span> Designed for the world.</p>
+        <p class="footer-copy">© 2026 Bahamas Stays · Built in the Bahamas, for the Bahamas</p>
+    </div>
+</footer>
+
+<script>
+let currentProperty = null;
+let allProperties = [];
+
+const imageMap = {
+    'The Residences at Goldwynn': '/images/goldwynn-card.jpg',
+    'Baha Mar Resort': '/images/bahamar-card.jpg',
+    'Albany Resort & Marina': '/images/albany-card.jpg',
+    'Exuma Cays Sailing Charter': '/images/exuma-charter-card.jpg',
+    'Harbour Island Pink Sand Villa': '/images/harbour-island-card.jpg'
+};
+const priceUnit = { 'Boat Charter': '/day', 'Diving': '/day' };
+const descriptors = {
+    'Hotel': 'Luxury Hotel · Premium Amenities',
+    'Villa': 'Private Villa · Exclusive Access',
+    'Boat Charter': 'Private Charter · Full Day Experience',
+    'Diving': 'Guided Diving · Expert Instructors'
+};
+
+function toggleMobileMenu() {
+    var menu = document.getElementById('mobileMenu');
+    menu.classList.toggle('open');
+    document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+}
+
+function filterByIsland(island) {
+    document.getElementById('islandDropdown').value = island;
+    document.getElementById('properties').scrollIntoView({ behavior: 'smooth' });
+    filterProperties();
+}
+
+function filterProperties() {
+    const islandText = (document.getElementById('islandFilter').value || '').toLowerCase();
+    const islandDropdown = document.getElementById('islandDropdown').value;
+    const type = document.getElementById('typeFilter').value;
+    const maxPrice = document.getElementById('priceFilter').value;
+    let filtered = allProperties;
+    if (islandText) filtered = filtered.filter(p => p.island.toLowerCase().includes(islandText));
+    if (islandDropdown) filtered = filtered.filter(p => p.island === islandDropdown);
+    if (type) filtered = filtered.filter(p => p.property_type === type);
+    if (maxPrice) filtered = filtered.filter(p => p.price_per_night <= parseInt(maxPrice));
+    renderProperties(filtered);
+}
+
+function renderProperties(properties) {
+    const grid = document.getElementById('propertiesGrid');
+    if (properties.length === 0) {
+        grid.innerHTML = '<div class="loading">No properties found. Try adjusting your search.</div>';
+        return;
+    }
+    grid.innerHTML = properties.map(function(p) {
+        var img = imageMap[p.name] || '/images/goldwynn-card.jpg';
+        var unit = priceUnit[p.property_type] || '/night';
+        var desc = descriptors[p.property_type] || 'Luxury Stay · Bahamas';
+        var price = Number(p.price_per_night).toLocaleString();
+        return '<article class="luxury-property-card" onclick="window.location.href=\'/property.html?id=' + p.id + '\'">' +
+            '<div class="property-image-wrap">' +
+            '<img src="' + img + '" alt="' + p.name + '" onerror="this.src=\'/images/goldwynn-card.jpg\'">' +
+            '</div>' +
+            '<div class="property-name-band"><h3>' + p.name + '</h3></div>' +
+            '<div class="property-detail-zone">' +
+            '<div class="property-stars">★★★★★</div>' +
+            '<div class="property-location-italic">' + p.island + ', Bahamas</div>' +
+            '<div class="property-descriptor">' + desc + '</div>' +
+            '<div class="property-bottom">' +
+            '<div class="property-price">' +
+            '<span class="property-price-from">From</span>' +
+            '<span class="property-price-amount">$' + price + '</span>' +
+            '<span class="property-price-unit">' + unit + '</span>' +
+            '</div>' +
+            '<button class="property-btn" onclick="event.stopPropagation(); window.location.href=\'/property.html?id=' + p.id + '\'">View & Book</button>' +
+            '</div></div></article>';
+    }).join('');
+}
+
+async function loadProperties() {
+    try {
+        const response = await fetch('/properties');
+        allProperties = await response.json();
+        renderProperties(allProperties);
+    } catch(err) {
+        document.getElementById('propertiesGrid').innerHTML = '<div class="loading">Error loading properties. Is the server running?</div>';
+    }
+}
+
+function closeModal() { document.getElementById('bookingModal').style.display = 'none'; }
+function closeConfirmation() { document.getElementById('confirmationScreen').style.display = 'none'; }
+
+document.addEventListener('change', function(e) {
+    if (e.target.id === 'checkIn' || e.target.id === 'checkOut') calculatePrice();
+});
+
+function calculatePrice() {
+    const checkIn = document.getElementById('checkIn').value;
+    const checkOut = document.getElementById('checkOut').value;
+    if (!checkIn || !checkOut || !currentProperty) return;
+    const nights = Math.ceil((new Date(checkOut) - new Date(checkIn)) / (1000 * 60 * 60 * 24));
+    if (nights <= 0) return;
+    const basePrice = nights * currentProperty.price_per_night;
+    const vat = basePrice * 0.10;
+    const levy = nights * 10;
+    const total = basePrice + vat + levy;
+    document.getElementById('nightsCount').textContent = nights + ' nights';
+    document.getElementById('ratePerNight').textContent = '$' + currentProperty.price_per_night;
+    document.getElementById('vatAmount').textContent = '$' + vat.toFixed(2);
+    document.getElementById('levyAmount').textContent = '$' + levy.toFixed(2);
+    document.getElementById('totalPrice').textContent = '$' + total.toFixed(2);
+    document.getElementById('priceSummary').style.display = 'block';
+}
+
+async function confirmBooking() {
+    const guest_name = document.getElementById('guestName').value;
+    const guest_email = document.getElementById('guestEmail').value;
+    const check_in = document.getElementById('checkIn').value;
+    const check_out = document.getElementById('checkOut').value;
+    if (!guest_name || !guest_email || !check_in || !check_out) { alert('Please fill in all fields'); return; }
+    try {
+        const response = await fetch('/bookings', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ property_id: currentProperty.id, guest_name, guest_email, check_in, check_out })
+        });
+        const result = await response.json();
+        if (result.success || result.booking) {
+            closeModal();
+            document.getElementById('confirmationDetails').innerHTML =
+                'Thank you, <strong>' + guest_name + '</strong>!<br><br>' +
+                '<strong>' + currentProperty.name + '</strong><br>' +
+                'Check-in: ' + check_in + '<br>Check-out: ' + check_out + '<br>' +
+                'Total: $' + result.booking.total_price + '<br><br>' +
+                'A confirmation has been sent to ' + guest_email;
+            document.getElementById('confirmationScreen').style.display = 'flex';
+        }
+    } catch(err) { console.log('Error:', err); }
+}
+
+loadProperties();
+</script>
+
+</body>
+</html>

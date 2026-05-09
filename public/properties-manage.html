@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Properties | Bahamas Stays</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root { --navy: #071B3A; --gold: #C8A96A; --gold-light: rgba(200,169,106,0.12); --teal: #2EC7C9; --teal-light: rgba(46,199,201,0.10); --bg: #F4F6F9; --white: #FFFFFF; --text: #1E2430; --muted: #8A93A2; --border: #EBEEf3; }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { width: 100%; max-width: 100%; overflow-x: hidden; font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); font-size: 14px; }
+        .sidebar { width: 284px; background: linear-gradient(180deg, #071B3A 0%, #061528 100%); color: white; display: flex; flex-direction: column; justify-content: space-between; position: fixed; top: 0; left: 0; bottom: 0; z-index: 10; box-shadow: 4px 0 24px rgba(0,0,0,0.15); transition: transform 300ms ease; }
+        .sidebar-logo { padding: 48px 24px 36px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.06); }
+        .sidebar-logo img { width: 88px; height: 88px; object-fit: contain; margin-bottom: 10px; filter: brightness(1.1); }
+        .sidebar-logo h1 { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 500; letter-spacing: 4px; text-transform: uppercase; color: white; line-height: 1.8; }
+        .sidebar-logo p { font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold); margin-top: 8px; opacity: 0.9; }
+        .sidebar-nav { padding: 12px 0; flex: 1; overflow-y: auto; }
+        .nav-section-label { font-size: 8px; letter-spacing: 2px; text-transform: uppercase; color: rgba(200,169,106,0.45); padding: 16px 24px 8px; }
+        .nav-item { display: flex; align-items: center; gap: 12px; padding: 11px 24px; cursor: pointer; transition: all 180ms ease; border-left: 2px solid transparent; font-size: 13px; color: rgba(255,255,255,0.55); text-decoration: none; }
+        .nav-item:hover { background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.85); border-left-color: rgba(200,169,106,0.3); }
+        .nav-item.active { background: rgba(255,255,255,0.045); border-left-color: var(--gold); color: white; }
+        .nav-item svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; opacity: 0.8; }
+        .sidebar-bottom { padding: 20px 24px; border-top: 1px solid rgba(255,255,255,0.06); }
+        .sidebar-profile { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+        .sidebar-avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, var(--gold), #E5C07B); display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 14px; color: var(--navy); font-weight: 500; flex-shrink: 0; }
+        .sidebar-profile-info h3 { font-size: 13px; font-weight: 500; color: white; }
+        .sidebar-profile-info p { font-size: 10px; color: rgba(255,255,255,0.40); margin-top: 1px; }
+        .sidebar-logout { display: flex; align-items: center; gap: 8px; font-size: 12px; color: rgba(255,255,255,0.35); cursor: pointer; transition: color 180ms ease; background: none; border: none; padding: 0; }
+        .sidebar-logout:hover { color: rgba(255,255,255,0.70); }
+        .sidebar-logout svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+        .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 9; }
+        .sidebar-overlay.open { display: block; }
+        .mobile-topbar { display: none; position: fixed; top: 0; left: 0; right: 0; height: 60px; background: var(--navy); z-index: 8; align-items: center; justify-content: space-between; padding: 0 16px; border-bottom: 1px solid rgba(200,169,106,0.15); }
+        .mobile-topbar-logo { display: flex; align-items: center; gap: 8px; }
+        .mobile-topbar-logo img { height: 36px; width: auto; }
+        .mobile-topbar-logo span { font-family: 'Playfair Display', serif; font-size: 14px; color: white; letter-spacing: 2px; text-transform: uppercase; }
+        .mobile-menu-btn { width: 36px; height: 36px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+        .mobile-menu-btn svg { width: 18px; height: 18px; stroke: white; fill: none; stroke-width: 1.5; stroke-linecap: round; }
+        .main { margin-left: 284px; flex: 1; padding: 36px 40px; min-height: 100vh; width: calc(100% - 284px); }
+        .page-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 32px; }
+        .page-header-left h1 { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 500; color: var(--navy); letter-spacing: -0.3px; }
+        .page-header-left p { font-size: 13px; color: var(--muted); margin-top: 6px; }
+        .properties-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .property-card { background: white; border-radius: 16px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 1px 8px rgba(0,0,0,0.04); transition: transform 200ms ease, box-shadow 200ms ease; }
+        .property-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+        .property-card-image { height: 180px; overflow: hidden; position: relative; }
+        .property-card-image img { width: 100%; height: 100%; object-fit: cover; }
+        .property-status-badge { position: absolute; top: 12px; right: 12px; padding: 4px 12px; border-radius: 20px; font-size: 10px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; }
+        .badge-active { background: rgba(46,199,201,0.90); color: white; }
+        .badge-inactive { background: rgba(138,147,162,0.90); color: white; }
+        .property-card-body { padding: 20px; }
+        .property-card-name { font-family: 'Playfair Display', serif; font-size: 17px; color: var(--navy); margin-bottom: 4px; }
+        .property-card-location { font-size: 12px; color: var(--muted); margin-bottom: 16px; }
+        .property-card-stats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; padding-top: 16px; border-top: 1px solid var(--border); margin-bottom: 16px; }
+        .prop-stat-label { font-size: 9px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+        .prop-stat-value { font-family: 'Playfair Display', serif; font-size: 18px; color: var(--navy); }
+        .prop-stat-value.gold { color: var(--gold); }
+        .property-card-actions { display: flex; gap: 8px; }
+        .prop-btn { flex: 1; font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 600; padding: 9px; border-radius: 8px; border: 1px solid var(--border); background: white; color: var(--navy); cursor: pointer; transition: all 150ms ease; letter-spacing: 0.3px; text-align: center; }
+        .prop-btn:hover { background: var(--navy); color: white; border-color: var(--navy); }
+        .prop-btn.primary { background: var(--gold); color: var(--navy); border-color: var(--gold); }
+        .prop-btn.primary:hover { background: #D4B27A; }
+        .toggle-btn { font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 600; padding: 9px 14px; border-radius: 8px; cursor: pointer; transition: all 150ms ease; letter-spacing: 0.3px; border: none; }
+        .toggle-active { background: var(--teal-light); color: var(--teal); }
+        .toggle-inactive { background: rgba(231,76,60,0.08); color: #E74C3C; }
+        .empty-state { text-align: center; padding: 60px; color: var(--muted); font-size: 14px; font-style: italic; grid-column: 1/-1; }
+        .bottom-nav-bar { display: none; }
+        @media (max-width: 1024px) {
+            body { padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px)); }
+            .sidebar { transform: translateX(-100%); z-index: 200; }
+            .sidebar.open { transform: translateX(0); }
+            .mobile-topbar { display: flex; }
+            .main { margin-left: 0; width: 100%; padding: 80px 16px 24px; }
+            .page-header { flex-direction: column; gap: 16px; margin-bottom: 20px; }
+            .page-header-left h1 { font-size: 24px; }
+            .properties-grid { grid-template-columns: 1fr; }
+            .bottom-nav-bar { display: flex !important; position: fixed !important; bottom: 0 !important; left: 0 !important; right: 0 !important; width: 100% !important; height: 60px !important; background: #ffffff !important; border-top: 1px solid #EAEAEA !important; box-shadow: 0 -2px 16px rgba(0,0,0,0.08) !important; z-index: 99999 !important; padding-bottom: env(safe-area-inset-bottom, 0px) !important; justify-content: space-around !important; align-items: center !important; }
+            .bottom-nav-item { display: flex !important; flex-direction: column !important; align-items: center !important; justify-content: center !important; gap: 3px !important; text-decoration: none !important; flex: 1 !important; padding: 8px 0 !important; }
+            .bottom-nav-item svg { width: 22px !important; height: 22px !important; stroke: #9CA3AF !important; fill: none !important; stroke-width: 1.5 !important; stroke-linecap: round !important; stroke-linejoin: round !important; }
+            .bottom-nav-item.active svg { stroke: #C8A96A !important; }
+            .bottom-nav-item span { font-family: 'DM Sans', sans-serif !important; font-size: 10px !important; color: #9CA3AF !important; }
+            .bottom-nav-item.active span { color: #C8A96A !important; }
+        }
+    </style>
+</head>
+<body>
+<div class="mobile-topbar">
+    <div class="mobile-topbar-logo"><img src="/images/bahamas-stays-logo.png" alt="Bahamas Stays"><span>Bahamas Stays</span></div>
+    <button class="mobile-menu-btn" onclick="toggleSidebar()"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+</div>
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+<aside class="sidebar" id="sidebar">
+    <div>
+        <div class="sidebar-logo"><img src="/images/bahamas-stays-logo.png" alt="Bahamas Stays"><h1>Bahamas<br>Stays</h1><p>Operator Dashboard</p></div>
+        <nav class="sidebar-nav">
+            <div class="nav-section-label">Operations</div>
+            <a href="/operator.html" class="nav-item"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>Dashboard</a>
+            <a href="/bookings.html" class="nav-item"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Bookings</a>
+            <a href="/guests.html" class="nav-item"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Guests</a>
+            <a href="/properties-manage.html" class="nav-item active"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Properties</a>
+            <div class="nav-section-label">Analytics</div>
+            <a href="/revenue.html" class="nav-item"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Revenue</a>
+            <a href="/reports.html" class="nav-item"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Reports</a>
+            <div class="nav-section-label">Platform</div>
+            <a href="/marketing.html" class="nav-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>Marketing</a>
+            <a href="/settings.html" class="nav-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>Settings</a>
+            <a href="/" class="nav-item"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Main Site</a>
+        </nav>
+    </div>
+    <div class="sidebar-bottom">
+        <div class="sidebar-profile"><div class="sidebar-avatar">O</div><div class="sidebar-profile-info"><h3>Operator</h3><p>Property Manager</p></div></div>
+        <button class="sidebar-logout"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Log out</button>
+    </div>
+</aside>
+<main class="main">
+    <div class="page-header">
+        <div class="page-header-left">
+            <h1>Properties</h1>
+            <p>Manage your listed properties and availability</p>
+        </div>
+    </div>
+    <div class="properties-grid" id="propertiesGrid">
+        <div class="empty-state">Loading properties...</div>
+    </div>
+</main>
+<div class="bottom-nav-bar">
+    <a href="/operator.html" class="bottom-nav-item"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg><span>Dashboard</span></a>
+    <a href="/bookings.html" class="bottom-nav-item"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span>Bookings</span></a>
+    <a href="/properties-manage.html" class="bottom-nav-item active"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span>Properties</span></a>
+    <a href="/revenue.html" class="bottom-nav-item"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg><span>Revenue</span></a>
+</div>
+<script>
+const cardImageMap = { 'The Residences at Goldwynn': '/images/goldwynn-card.jpg', 'Baha Mar Resort': '/images/bahamar-card.jpg', 'Albany Resort & Marina': '/images/albany-card.jpg', 'Exuma Cays Sailing Charter': '/images/exuma-charter-card.jpg', 'Harbour Island Pink Sand Villa': '/images/harbour-island-card.jpg' };
+function currency(n) { return '$' + Number(n).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 }); }
+function toggleSidebar() {
+    var sidebar = document.getElementById('sidebar');
+    var overlay = document.getElementById('sidebarOverlay');
+    sidebar.classList.toggle('open');
+    overlay.classList.toggle('open');
+    document.body.style.overflow = sidebar.classList.contains('open') ? 'hidden' : '';
+}
+async function toggleStatus(id, current) {
+    try {
+        await fetch('/admin/property/' + id, { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ is_active: !current }) });
+        loadProperties();
+    } catch(err) { console.log('Error:', err); }
+}
+async function loadProperties() {
+    try {
+        var [pRes, bRes] = await Promise.all([fetch('/properties'), fetch('/bookings')]);
+        var properties = await pRes.json();
+        var bookings = await bRes.json();
+        var grid = document.getElementById('propertiesGrid');
+        if (!properties.length) { grid.innerHTML = '<div class="empty-state">No properties found.</div>'; return; }
+        grid.innerHTML = properties.map(function(p) {
+            var img = cardImageMap[p.name] || '/images/goldwynn-card.jpg';
+            var propBookings = bookings.filter(function(b) { return b.property_id === p.id; });
+            var revenue = propBookings.reduce(function(s, b) { return s + (b.total_price || 0); }, 0);
+            var isActive = p.is_active !== false;
+            var priceUnit = (p.property_type === 'Boat Charter' || p.property_type === 'Diving') ? '/day' : '/night';
+            return '<div class="property-card">' +
+                '<div class="property-card-image"><img src="' + img + '" alt="' + p.name + '" onerror="this.src=\'/images/goldwynn-card.jpg\'"><span class="property-status-badge ' + (isActive ? 'badge-active' : 'badge-inactive') + '">' + (isActive ? 'Active' : 'Inactive') + '</span></div>' +
+                '<div class="property-card-body">' +
+                '<div class="property-card-name">' + p.name + '</div>' +
+                '<div class="property-card-location">' + p.island + ', Bahamas · ' + p.property_type + '</div>' +
+                '<div class="property-card-stats">' +
+                '<div><div class="prop-stat-label">Price</div><div class="prop-stat-value gold">$' + Number(p.price_per_night).toLocaleString() + '<span style="font-size:11px;color:var(--muted);font-family:\'DM Sans\',sans-serif;">' + priceUnit + '</span></div></div>' +
+                '<div><div class="prop-stat-label">Bookings</div><div class="prop-stat-value">' + propBookings.length + '</div></div>' +
+                '<div><div class="prop-stat-label">Revenue</div><div class="prop-stat-value gold">' + currency(revenue) + '</div></div>' +
+                '</div>' +
+                '<div class="property-card-actions">' +
+                '<a href="/property.html?id=' + p.id + '" class="prop-btn">View Page</a>' +
+                '<button class="toggle-btn ' + (isActive ? 'toggle-active' : 'toggle-inactive') + '" onclick="toggleStatus(' + p.id + ', ' + isActive + ')">' + (isActive ? 'Deactivate' : 'Activate') + '</button>' +
+                '</div></div></div>';
+        }).join('');
+    } catch(err) {
+        document.getElementById('propertiesGrid').innerHTML = '<div class="empty-state">Error loading properties.</div>';
+    }
+}
+loadProperties();
+</script>
+</body>
+</html>

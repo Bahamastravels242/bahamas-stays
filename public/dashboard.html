@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>My Account | Bahamas Stays</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #E7BF6A;
+            --gold-hover: #F0CA79;
+            --navy: #0A192F;
+            --navy-dark: #060E1A;
+            --cream: #F7F3EC;
+            --muted: #6B7280;
+            --border: #EAEAEA;
+        }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body {
+            width: 100%; min-height: 100%;
+            font-family: 'DM Sans', sans-serif;
+            background: #F4F6F9; color: #333;
+        }
+
+        /* NAV */
+        nav {
+            position: fixed; top: 0; left: 0; right: 0;
+            z-index: 100; height: 72px;
+            background: #0A192F;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 80px;
+            border-bottom: 1px solid rgba(200,169,106,0.15);
+        }
+        .nav-logo-wrap a {
+            display: flex; align-items: center; gap: 10px; text-decoration: none;
+        }
+        .nav-logo-wrap img { height: 48px; width: auto; }
+        .nav-logo-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px; color: white;
+            letter-spacing: 2px; text-transform: uppercase;
+        }
+        .nav-logo-sub {
+            font-size: 9px; color: var(--gold);
+            letter-spacing: 2px; text-transform: uppercase; display: block;
+        }
+        .nav-right { display: flex; align-items: center; gap: 16px; }
+        .nav-link {
+            font-size: 11px; color: rgba(255,255,255,0.70);
+            text-decoration: none; letter-spacing: 1px; text-transform: uppercase;
+            transition: color 180ms ease;
+        }
+        .nav-link:hover { color: var(--gold); }
+        .nav-btn {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 11px; font-weight: 600; padding: 9px 20px;
+            background: var(--gold); color: var(--navy);
+            border: none; border-radius: 6px; cursor: pointer;
+            letter-spacing: 0.8px; text-transform: uppercase;
+            transition: background 200ms ease; text-decoration: none;
+        }
+        .nav-btn:hover { background: var(--gold-hover); }
+
+        /* MAIN */
+        .dashboard-main {
+            max-width: 1100px; margin: 0 auto;
+            padding: 108px 40px 60px;
+        }
+
+        /* HEADER */
+        .dashboard-header {
+            display: flex; justify-content: space-between;
+            align-items: flex-start; margin-bottom: 40px;
+        }
+        .dashboard-header-left h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px; font-weight: 500;
+            color: var(--navy); letter-spacing: -0.3px;
+        }
+        .dashboard-header-left p {
+            font-size: 14px; color: var(--muted); margin-top: 6px;
+        }
+        .dashboard-header-right {
+            display: flex; align-items: center; gap: 12px;
+        }
+        .guest-avatar-large {
+            width: 56px; height: 56px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--gold), #F0CA79);
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 22px; color: var(--navy); font-weight: 500;
+        }
+        .guest-info h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px; color: var(--navy);
+        }
+        .guest-info p { font-size: 13px; color: var(--muted); margin-top: 2px; }
+
+        /* STATS */
+        .stats-row {
+            display: grid; grid-template-columns: repeat(4, 1fr);
+            gap: 16px; margin-bottom: 32px;
+        }
+        .stat-card {
+            background: white; border-radius: 14px; padding: 22px 24px;
+            border: 1px solid var(--border);
+            box-shadow: 0 1px 8px rgba(0,0,0,0.04);
+        }
+        .stat-label {
+            font-size: 9px; font-weight: 600;
+            letter-spacing: 1.8px; text-transform: uppercase;
+            color: var(--muted); margin-bottom: 10px;
+        }
+        .stat-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px; font-weight: 500;
+        }
+        .stat-value.gold { color: var(--gold); }
+        .stat-value.navy { color: var(--navy); }
+
+        /* SECTION */
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px; font-weight: 500;
+            color: var(--navy); margin-bottom: 20px;
+        }
+
+        /* BOOKING CARDS */
+        .bookings-list { display: flex; flex-direction: column; gap: 16px; margin-bottom: 40px; }
+        .booking-card {
+            background: white; border-radius: 14px; padding: 24px 28px;
+            border: 1px solid var(--border);
+            box-shadow: 0 1px 8px rgba(0,0,0,0.04);
+            display: flex; align-items: center; gap: 24px;
+        }
+        .booking-card-image {
+            width: 90px; height: 70px; border-radius: 10px;
+            overflow: hidden; flex-shrink: 0;
+        }
+        .booking-card-image img {
+            width: 100%; height: 100%; object-fit: cover;
+        }
+        .booking-card-info { flex: 1; }
+        .booking-card-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px; color: var(--navy); margin-bottom: 4px;
+        }
+        .booking-card-dates {
+            font-size: 13px; color: var(--muted); margin-bottom: 8px;
+        }
+        .booking-card-status {
+            display: inline-block; padding: 3px 12px;
+            border-radius: 12px; font-size: 10px; font-weight: 500;
+            letter-spacing: 0.5px; text-transform: uppercase;
+        }
+        .status-pending { background: rgba(138,147,162,0.10); color: #8A93A2; }
+        .status-confirmed { background: rgba(46,199,201,0.10); color: #2EC7C9; }
+        .status-completed { background: rgba(39,174,96,0.08); color: #27AE60; }
+        .booking-card-price {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px; color: var(--navy); font-weight: 500;
+            flex-shrink: 0;
+        }
+        .booking-card-price-note {
+            font-size: 11px; color: var(--muted); text-align: right; margin-top: 3px;
+        }
+        .empty-bookings {
+            text-align: center; padding: 60px 40px;
+            background: white; border-radius: 14px;
+            border: 1px solid var(--border);
+        }
+        .empty-bookings h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px; color: var(--navy); margin-bottom: 10px;
+        }
+        .empty-bookings p {
+            font-size: 14px; color: var(--muted); margin-bottom: 24px;
+        }
+        .empty-bookings a {
+            display: inline-block; padding: 12px 32px;
+            background: var(--gold); color: var(--navy);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 11px; font-weight: 600;
+            letter-spacing: 1px; text-transform: uppercase;
+            border-radius: 8px; text-decoration: none;
+            transition: background 200ms ease;
+        }
+        .empty-bookings a:hover { background: var(--gold-hover); }
+
+        /* LOGOUT */
+        .logout-btn {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 11px 24px; background: white; color: #E74C3C;
+            border: 1px solid rgba(231,76,60,0.20); border-radius: 8px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 12px; font-weight: 500;
+            letter-spacing: 0.5px; text-transform: uppercase;
+            cursor: pointer; transition: all 200ms ease;
+        }
+        .logout-btn:hover {
+            background: rgba(231,76,60,0.05);
+            border-color: rgba(231,76,60,0.40);
+        }
+        .logout-btn svg {
+            width: 14px; height: 14px; stroke: currentColor; fill: none;
+            stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--navy-dark); padding: 40px 80px;
+            border-top: 1px solid rgba(231,191,106,0.15);
+        }
+        .footer-bottom {
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .footer-tagline {
+            font-size: 12px; color: rgba(255,255,255,0.40);
+            font-style: italic;
+        }
+        .footer-tagline span { color: var(--gold); font-style: normal; }
+        .footer-copy { font-size: 11px; color: rgba(255,255,255,0.30); }
+
+        /* MOBILE */
+        @media (max-width: 768px) {
+            nav { padding: 0 20px; height: 64px; }
+            .nav-logo-name { font-size: 15px; }
+            .dashboard-main { padding: 84px 16px 80px; }
+            .dashboard-header { flex-direction: column; gap: 16px; }
+            .dashboard-header-left h1 { font-size: 26px; }
+            .stats-row { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+            .booking-card { flex-direction: column; align-items: flex-start; gap: 16px; }
+            .booking-card-image { width: 100%; height: 160px; }
+            footer { padding: 32px 20px; }
+            .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+    <div class="nav-logo-wrap">
+        <a href="/">
+            <img src="/images/bahamas-stays-logo.png" alt="Bahamas Stays">
+            <div>
+                <span class="nav-logo-name">Bahamas Stays</span>
+                <span class="nav-logo-sub">Curated Stays · Authentic Bahamas</span>
+            </div>
+        </a>
+    </div>
+    <div class="nav-right">
+        <a href="/#properties" class="nav-link">Browse Stays</a>
+        <a href="/" class="nav-btn">Back to Home</a>
+    </div>
+</nav>
+
+<!-- MAIN -->
+<div class="dashboard-main">
+
+    <div class="dashboard-header">
+        <div class="dashboard-header-left">
+            <h1 id="dashGreeting">My Account</h1>
+            <p id="dashSubline">Manage your bookings and travel history</p>
+        </div>
+        <div class="dashboard-header-right">
+            <div class="guest-avatar-large" id="guestAvatar">G</div>
+            <div class="guest-info">
+                <h3 id="guestNameDisplay">Guest</h3>
+                <p id="guestEmailDisplay">—</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="stats-row">
+        <div class="stat-card">
+            <div class="stat-label">Total Bookings</div>
+            <div class="stat-value navy" id="statBookings">—</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Total Spent</div>
+            <div class="stat-value gold" id="statSpent">—</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Nights Booked</div>
+            <div class="stat-value navy" id="statNights">—</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Islands Visited</div>
+            <div class="stat-value gold" id="statIslands">—</div>
+        </div>
+    </div>
+
+    <div class="section-title">Your Bookings</div>
+    <div class="bookings-list" id="bookingsList">
+        <div class="empty-bookings">
+            <h3>Loading your bookings...</h3>
+        </div>
+    </div>
+
+    <button class="logout-btn" onclick="handleLogout()">
+        <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        Sign Out
+    </button>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-bottom">
+        <p class="footer-tagline"><span>Curated by Bahamians.</span> Designed for the world.</p>
+        <p class="footer-copy">© 2026 Bahamas Stays · Built in the Bahamas, for the Bahamas</p>
+    </div>
+</footer>
+
+<script>
+const imageMap = {
+    'The Residences at Goldwynn': '/images/goldwynn-card.jpg',
+    'Baha Mar Resort': '/images/bahamar-card.jpg',
+    'Albany Resort & Marina': '/images/albany-card.jpg',
+    'Exuma Cays Sailing Charter': '/images/exuma-charter-card.jpg',
+    'Harbour Island Pink Sand Villa': '/images/harbour-island-card.jpg'
+};
+
+function currency(n) {
+    return '$' + Number(n).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+}
+function shortDate(str) {
+    if (!str) return '—';
+    return new Date(str).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+}
+function getInitials(name) {
+    if (!name) return 'G';
+    return name.split(' ').map(function(n) { return n[0]; }).join('').toUpperCase().slice(0,2);
+}
+
+var guestEmail = localStorage.getItem('guest_email') || '';
+var guestName = localStorage.getItem('guest_name') || 'Guest';
+
+if (!guestEmail) {
+    window.location.href = '/login.html';
+}
+
+document.getElementById('guestNameDisplay').textContent = guestName;
+document.getElementById('guestEmailDisplay').textContent = guestEmail;
+document.getElementById('guestAvatar').textContent = getInitials(guestName);
+document.getElementById('dashGreeting').textContent = 'Welcome back, ' + guestName.split(' ')[0] + '.';
+document.getElementById('dashSubline').textContent = 'Here are your upcoming and past bookings.';
+
+function handleLogout() {
+    localStorage.removeItem('guest_email');
+    localStorage.removeItem('guest_name');
+    window.location.href = '/';
+}
+
+async function loadBookings() {
+    if (!guestEmail) return;
+    try {
+        var res = await fetch('/my-bookings?email=' + encodeURIComponent(guestEmail));
+        var bookings = await res.json();
+        var list = document.getElementById('bookingsList');
+
+        var totalSpent = bookings.reduce(function(s, b) { return s + (b.total_price || 0); }, 0);
+        var totalNights = bookings.reduce(function(s, b) { return s + (b.total_nights || 0); }, 0);
+        var islands = [...new Set(bookings.map(function(b) { return b.island; }).filter(Boolean))];
+
+        document.getElementById('statBookings').textContent = bookings.length;
+        document.getElementById('statSpent').textContent = currency(totalSpent);
+        document.getElementById('statNights').textContent = totalNights;
+        document.getElementById('statIslands').textContent = islands.length || 1;
+
+        if (!bookings.length) {
+            list.innerHTML = '<div class="empty-bookings">' +
+                '<h3>No bookings yet</h3>' +
+                '<p>Start exploring the Bahamas and book your first stay.</p>' +
+                '<a href="/#properties">Browse Properties</a>' +
+                '</div>';
+            return;
+        }
+
+        list.innerHTML = bookings.map(function(b) {
+            var img = imageMap[b.property_name] || '/images/goldwynn-card.jpg';
+            var sc = b.status === 'confirmed' ? 'status-confirmed' :
+                     b.status === 'completed' ? 'status-completed' : 'status-pending';
+            var sl = b.status ? (b.status.charAt(0).toUpperCase() + b.status.slice(1)) : 'Pending';
+            return '<div class="booking-card">' +
+                '<div class="booking-card-image"><img src="' + img + '" alt="' + b.property_name + '"></div>' +
+                '<div class="booking-card-info">' +
+                '<div class="booking-card-name">' + b.property_name + '</div>' +
+                '<div class="booking-card-dates">' + shortDate(b.check_in) + ' → ' + shortDate(b.check_out) + ' · ' + (b.total_nights || '—') + ' nights</div>' +
+                '<span class="booking-card-status ' + sc + '">' + sl + '</span>' +
+                '</div>' +
+                '<div>' +
+                '<div class="booking-card-price">' + currency(b.total_price) + '</div>' +
+                '<div class="booking-card-price-note">Total paid</div>' +
+                '</div>' +
+                '</div>';
+        }).join('');
+    } catch(err) {
+        document.getElementById('bookingsList').innerHTML =
+            '<div class="empty-bookings"><h3>Error loading bookings</h3><p>Please try again.</p></div>';
+    }
+}
+
+loadBookings();
+</script>
+</body>
+</html>

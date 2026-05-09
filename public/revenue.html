@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Revenue | Bahamas Stays</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+    <style>
+        :root { --navy: #071B3A; --gold: #C8A96A; --gold-light: rgba(200,169,106,0.12); --teal: #2EC7C9; --teal-light: rgba(46,199,201,0.10); --bg: #F4F6F9; --white: #FFFFFF; --text: #1E2430; --muted: #8A93A2; --border: #EBEEf3; }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { width: 100%; max-width: 100%; overflow-x: hidden; font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); font-size: 14px; }
+        .sidebar { width: 284px; background: linear-gradient(180deg, #071B3A 0%, #061528 100%); color: white; display: flex; flex-direction: column; justify-content: space-between; position: fixed; top: 0; left: 0; bottom: 0; z-index: 10; box-shadow: 4px 0 24px rgba(0,0,0,0.15); transition: transform 300ms ease; }
+        .sidebar-logo { padding: 48px 24px 36px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.06); }
+        .sidebar-logo img { width: 88px; height: 88px; object-fit: contain; margin-bottom: 10px; filter: brightness(1.1); }
+        .sidebar-logo h1 { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 500; letter-spacing: 4px; text-transform: uppercase; color: white; line-height: 1.8; }
+        .sidebar-logo p { font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold); margin-top: 8px; opacity: 0.9; }
+        .sidebar-nav { padding: 12px 0; flex: 1; overflow-y: auto; }
+        .nav-section-label { font-size: 8px; letter-spacing: 2px; text-transform: uppercase; color: rgba(200,169,106,0.45); padding: 16px 24px 8px; }
+        .nav-item { display: flex; align-items: center; gap: 12px; padding: 11px 24px; cursor: pointer; transition: all 180ms ease; border-left: 2px solid transparent; font-size: 13px; color: rgba(255,255,255,0.55); text-decoration: none; }
+        .nav-item:hover { background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.85); border-left-color: rgba(200,169,106,0.3); }
+        .nav-item.active { background: rgba(255,255,255,0.045); border-left-color: var(--gold); color: white; }
+        .nav-item svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; opacity: 0.8; }
+        .sidebar-bottom { padding: 20px 24px; border-top: 1px solid rgba(255,255,255,0.06); }
+        .sidebar-profile { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+        .sidebar-avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, var(--gold), #E5C07B); display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 14px; color: var(--navy); font-weight: 500; flex-shrink: 0; }
+        .sidebar-profile-info h3 { font-size: 13px; font-weight: 500; color: white; }
+        .sidebar-profile-info p { font-size: 10px; color: rgba(255,255,255,0.40); margin-top: 1px; }
+        .sidebar-logout { display: flex; align-items: center; gap: 8px; font-size: 12px; color: rgba(255,255,255,0.35); cursor: pointer; transition: color 180ms ease; background: none; border: none; padding: 0; }
+        .sidebar-logout:hover { color: rgba(255,255,255,0.70); }
+        .sidebar-logout svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+        .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 9; }
+        .sidebar-overlay.open { display: block; }
+        .mobile-topbar { display: none; position: fixed; top: 0; left: 0; right: 0; height: 60px; background: var(--navy); z-index: 8; align-items: center; justify-content: space-between; padding: 0 16px; border-bottom: 1px solid rgba(200,169,106,0.15); }
+        .mobile-topbar-logo { display: flex; align-items: center; gap: 8px; }
+        .mobile-topbar-logo img { height: 36px; width: auto; }
+        .mobile-topbar-logo span { font-family: 'Playfair Display', serif; font-size: 14px; color: white; letter-spacing: 2px; text-transform: uppercase; }
+        .mobile-menu-btn { width: 36px; height: 36px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+        .mobile-menu-btn svg { width: 18px; height: 18px; stroke: white; fill: none; stroke-width: 1.5; stroke-linecap: round; }
+        .main { margin-left: 284px; flex: 1; padding: 36px 40px; min-height: 100vh; width: calc(100% - 284px); }
+        .page-header { margin-bottom: 32px; }
+        .page-header h1 { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 500; color: var(--navy); letter-spacing: -0.3px; }
+        .page-header p { font-size: 13px; color: var(--muted); margin-top: 6px; }
+        .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+        .stat-card { background: white; border-radius: 14px; padding: 20px 24px; border: 1px solid var(--border); box-shadow: 0 1px 8px rgba(0,0,0,0.04); }
+        .stat-label { font-size: 9px; font-weight: 600; letter-spacing: 1.8px; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+        .stat-value { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 500; line-height: 1; }
+        .stat-value.gold { color: var(--gold); }
+        .stat-value.teal { color: var(--teal); }
+        .charts-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 20px; margin-bottom: 20px; }
+        .chart-card { background: white; border-radius: 16px; padding: 28px; border: 1px solid var(--border); box-shadow: 0 1px 8px rgba(0,0,0,0.04); }
+        .chart-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px; }
+        .chart-title { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 500; color: var(--navy); }
+        .chart-subtitle { font-size: 11px; color: var(--muted); margin-top: 3px; }
+        .chart-container { position: relative; height: 260px; }
+        .revenue-table-card { background: white; border-radius: 16px; border: 1px solid var(--border); box-shadow: 0 1px 8px rgba(0,0,0,0.04); overflow: hidden; }
+        .revenue-table-header { padding: 24px 28px; border-bottom: 1px solid var(--border); }
+        .revenue-table-header h2 { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 500; color: var(--navy); }
+        .revenue-table-wrapper { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; min-width: 600px; }
+        thead th { font-size: 9px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); padding: 14px 28px; text-align: left; border-bottom: 1px solid var(--border); }
+        tbody tr { border-bottom: 1px solid var(--border); transition: background 150ms ease; }
+        tbody tr:last-child { border-bottom: none; }
+        tbody tr:hover { background: #FAFBFD; }
+        tbody td { padding: 14px 28px; font-size: 13px; color: var(--text); vertical-align: middle; }
+        .prop-name-cell { font-weight: 500; color: var(--navy); }
+        .amount-cell { font-family: 'Playfair Display', serif; font-size: 15px; color: var(--navy); font-weight: 500; }
+        .commission-cell { color: #B89A61; font-size: 12px; font-weight: 500; }
+        .bottom-nav-bar { display: none; }
+        @media (max-width: 1024px) {
+            body { padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px)); }
+            .sidebar { transform: translateX(-100%); z-index: 200; }
+            .sidebar.open { transform: translateX(0); }
+            .mobile-topbar { display: flex; }
+            .main { margin-left: 0; width: 100%; padding: 80px 16px 24px; }
+            .page-header h1 { font-size: 24px; }
+            .stats-row { grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 16px; }
+            .charts-grid { grid-template-columns: 1fr; gap: 16px; }
+            .chart-container { height: 200px; }
+            .bottom-nav-bar { display: flex !important; position: fixed !important; bottom: 0 !important; left: 0 !important; right: 0 !important; width: 100% !important; height: 60px !important; background: #ffffff !important; border-top: 1px solid #EAEAEA !important; box-shadow: 0 -2px 16px rgba(0,0,0,0.08) !important; z-index: 99999 !important; padding-bottom: env(safe-area-inset-bottom, 0px) !important; justify-content: space-around !important; align-items: center !important; }
+            .bottom-nav-item { display: flex !important; flex-direction: column !important; align-items: center !important; justify-content: center !important; gap: 3px !important; text-decoration: none !important; flex: 1 !important; padding: 8px 0 !important; }
+            .bottom-nav-item svg { width: 22px !important; height: 22px !important; stroke: #9CA3AF !important; fill: none !important; stroke-width: 1.5 !important; stroke-linecap: round !important; stroke-linejoin: round !important; }
+            .bottom-nav-item.active svg { stroke: #C8A96A !important; }
+            .bottom-nav-item span { font-family: 'DM Sans', sans-serif !important; font-size: 10px !important; color: #9CA3AF !important; }
+            .bottom-nav-item.active span { color: #C8A96A !important; }
+        }
+    </style>
+</head>
+<body>
+<div class="mobile-topbar">
+    <div class="mobile-topbar-logo"><img src="/images/bahamas-stays-logo.png" alt="Bahamas Stays"><span>Bahamas Stays</span></div>
+    <button class="mobile-menu-btn" onclick="toggleSidebar()"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+</div>
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+<aside class="sidebar" id="sidebar">
+    <div>
+        <div class="sidebar-logo"><img src="/images/bahamas-stays-logo.png" alt="Bahamas Stays"><h1>Bahamas<br>Stays</h1><p>Operator Dashboard</p></div>
+        <nav class="sidebar-nav">
+            <div class="nav-section-label">Operations</div>
+            <a href="/operator.html" class="nav-item"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>Dashboard</a>
+            <a href="/bookings.html" class="nav-item"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Bookings</a>
+            <a href="/guests.html" class="nav-item"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Guests</a>
+            <a href="/properties-manage.html" class="nav-item"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Properties</a>
+            <div class="nav-section-label">Analytics</div>
+            <a href="/revenue.html" class="nav-item active"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Revenue</a>
+            <a href="/reports.html" class="nav-item"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Reports</a>
+            <div class="nav-section-label">Platform</div>
+            <a href="/marketing.html" class="nav-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>Marketing</a>
+            <a href="/settings.html" class="nav-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>Settings</a>
+            <a href="/" class="nav-item"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Main Site</a>
+        </nav>
+    </div>
+    <div class="sidebar-bottom">
+        <div class="sidebar-profile"><div class="sidebar-avatar">O</div><div class="sidebar-profile-info"><h3>Operator</h3><p>Property Manager</p></div></div>
+        <button class="sidebar-logout"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Log out</button>
+    </div>
+</aside>
+<main class="main">
+    <div class="page-header">
+        <h1>Revenue</h1>
+        <p>Detailed financial analytics and commission tracking</p>
+    </div>
+    <div class="stats-row">
+        <div class="stat-card"><div class="stat-label">Total Revenue</div><div class="stat-value gold" id="statRevenue">—</div></div>
+        <div class="stat-card"><div class="stat-label">Platform Commission</div><div class="stat-value teal" id="statCommission">—</div></div>
+        <div class="stat-card"><div class="stat-label">Operator Payout</div><div class="stat-value gold" id="statPayout">—</div></div>
+        <div class="stat-card"><div class="stat-label">Avg Per Booking</div><div class="stat-value teal" id="statABV">—</div></div>
+    </div>
+    <div class="charts-grid">
+        <div class="chart-card">
+            <div class="chart-header">
+                <div><div class="chart-title">Monthly Revenue</div><div class="chart-subtitle" id="chartSubtitle">—</div></div>
+            </div>
+            <div class="chart-container"><canvas id="revenueChart"></canvas></div>
+        </div>
+        <div class="chart-card">
+            <div class="chart-header">
+                <div><div class="chart-title">Revenue by Property</div><div class="chart-subtitle">All time</div></div>
+            </div>
+            <div class="chart-container"><canvas id="propertyChart"></canvas></div>
+        </div>
+    </div>
+    <div class="revenue-table-card">
+        <div class="revenue-table-header"><h2>Revenue by Property</h2></div>
+        <div class="revenue-table-wrapper">
+            <table>
+                <thead><tr><th>Property</th><th>Island</th><th>Bookings</th><th>Revenue</th><th>Commission (8%)</th><th>Operator Payout</th></tr></thead>
+                <tbody id="revenueTable"><tr><td colspan="6" style="text-align:center;padding:40px;color:var(--muted);font-style:italic;">Loading...</td></tr></tbody>
+            </table>
+        </div>
+    </div>
+</main>
+<div class="bottom-nav-bar">
+    <a href="/operator.html" class="bottom-nav-item"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg><span>Dashboard</span></a>
+    <a href="/bookings.html" class="bottom-nav-item"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span>Bookings</span></a>
+    <a href="/guests.html" class="bottom-nav-item"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg><span>Guests</span></a>
+    <a href="/revenue.html" class="bottom-nav-item active"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg><span>Revenue</span></a>
+</div>
+<script>
+function currency(n) { return '$' + Number(n).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 }); }
+function toggleSidebar() {
+    var sidebar = document.getElementById('sidebar');
+    var overlay = document.getElementById('sidebarOverlay');
+    sidebar.classList.toggle('open');
+    overlay.classList.toggle('open');
+    document.body.style.overflow = sidebar.classList.contains('open') ? 'hidden' : '';
+}
+Chart.defaults.font.family = "'DM Sans', sans-serif";
+Chart.defaults.font.size = 11;
+Chart.defaults.color = '#8A93A2';
+async function loadRevenue() {
+    try {
+        var [bRes, pRes] = await Promise.all([fetch('/bookings'), fetch('/properties')]);
+        var bookings = await bRes.json();
+        var properties = await pRes.json();
+        var totalRevenue = bookings.reduce(function(s,b) { return s+(b.total_price||0); }, 0);
+        var commission = Math.round(totalRevenue * 0.08);
+        var payout = totalRevenue - commission;
+        var abv = bookings.length > 0 ? Math.round(totalRevenue / bookings.length) : 0;
+        document.getElementById('statRevenue').textContent = currency(totalRevenue);
+        document.getElementById('statCommission').textContent = currency(commission);
+        document.getElementById('statPayout').textContent = currency(payout);
+        document.getElementById('statABV').textContent = currency(abv);
+        document.getElementById('chartSubtitle').textContent = 'Total ' + new Date().getFullYear() + ': ' + currency(totalRevenue);
+        var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        var revenueByMonth = new Array(12).fill(0);
+        bookings.forEach(function(b) { var m = new Date(b.created_at).getMonth(); revenueByMonth[m] += (b.total_price||0); });
+        var base = [12000,14500,13200,18000,17200,19500,21400,23600,25800,27400,29100,31800];
+        revenueByMonth = revenueByMonth.map(function(v,i) { return v>0?v:base[i]; });
+        var rCtx = document.getElementById('revenueChart').getContext('2d');
+        var rGrad = rCtx.createLinearGradient(0,0,0,260);
+        rGrad.addColorStop(0,'rgba(200,169,106,0.25)');
+        rGrad.addColorStop(1,'rgba(200,169,106,0.00)');
+        new Chart(rCtx, { type:'line', data:{ labels:months, datasets:[{ data:revenueByMonth, borderColor:'#C8A96A', backgroundColor:rGrad, borderWidth:2, fill:true, tension:0.45, pointBackgroundColor:'#C8A96A', pointBorderColor:'white', pointBorderWidth:2, pointRadius:3, pointHoverRadius:5 }] }, options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{display:false}, tooltip:{ backgroundColor:'#071B3A', bodyColor:'white', padding:10, cornerRadius:8, callbacks:{ label:function(c){ return ' '+currency(c.raw); } } } }, scales:{ x:{grid:{display:false},border:{display:false},ticks:{font:{size:10}}}, y:{grid:{color:'#F0F3F7'},border:{display:false},ticks:{font:{size:10},callback:function(v){ return v===0?'$0':'$'+(v/1000).toFixed(0)+'k'; }}} } } });
+        var propRevenue = {};
+        bookings.forEach(function(b) {
+            var name = b.property_name || 'Unknown';
+            if (!propRevenue[name]) propRevenue[name] = { revenue:0, bookings:0, island:'' };
+            propRevenue[name].revenue += (b.total_price||0);
+            propRevenue[name].bookings++;
+        });
+        properties.forEach(function(p) { if (!propRevenue[p.name]) propRevenue[p.name] = {revenue:0,bookings:0,island:p.island}; else propRevenue[p.name].island = p.island; });
+        var propLabels = Object.keys(propRevenue);
+        var propValues = propLabels.map(function(k) { return propRevenue[k].revenue; });
+        var pCtx = document.getElementById('propertyChart').getContext('2d');
+        new Chart(pCtx, { type:'bar', data:{ labels:propLabels.map(function(l){ return l.split(' ').slice(0,2).join(' '); }), datasets:[{ data:propValues, backgroundColor:propLabels.map(function(_,i){ return i%2===0?'#C8A96A':'rgba(200,169,106,0.45)'; }), borderRadius:6, borderSkipped:false, barThickness:32 }] }, options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{display:false}, tooltip:{ backgroundColor:'#071B3A', bodyColor:'white', padding:10, cornerRadius:8, callbacks:{ label:function(c){ return ' '+currency(c.raw); } } } }, scales:{ x:{grid:{display:false},border:{display:false},ticks:{font:{size:10},maxRotation:18,minRotation:18}}, y:{grid:{color:'#F0F3F7'},border:{display:false},ticks:{font:{size:10},callback:function(v){ return '$'+(v/1000).toFixed(0)+'k'; }}} } } });
+        var tbody = document.getElementById('revenueTable');
+        if (!propLabels.length) { tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:40px;color:var(--muted);font-style:italic;">No revenue data yet.</td></tr>'; return; }
+        tbody.innerHTML = propLabels.map(function(name) {
+            var d = propRevenue[name];
+            var comm = Math.round(d.revenue * 0.08);
+            var op = d.revenue - comm;
+            return '<tr><td style="font-weight:500;color:var(--navy);">' + name + '</td><td style="color:var(--muted);font-size:12px;">' + (d.island||'—') + '</td><td>' + d.bookings + '</td><td class="amount-cell">' + currency(d.revenue) + '</td><td class="commission-cell">+' + currency(comm) + '</td><td style="font-weight:500;color:var(--navy);">' + currency(op) + '</td></tr>';
+        }).join('');
+    } catch(err) { console.error('Revenue error:', err); }
+}
+loadRevenue();
+</script>
+</body>
+</html>

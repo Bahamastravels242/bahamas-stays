@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Privacy Policy & Terms | Bahamas Stays</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #E7BF6A;
+            --navy: #0A192F;
+            --navy-dark: #060E1A;
+            --cream: #F7F3EC;
+            --muted: #6B7280;
+            --border: #EAEAEA;
+        }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body {
+            width: 100%; font-family: 'DM Sans', sans-serif;
+            background: var(--cream); color: #333;
+        }
+        nav {
+            position: fixed; top: 0; left: 0; right: 0;
+            z-index: 100; height: 72px;
+            background: #0A192F;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 80px;
+            border-bottom: 1px solid rgba(200,169,106,0.15);
+        }
+        .nav-logo a {
+            display: flex; align-items: center; gap: 10px; text-decoration: none;
+        }
+        .nav-logo img { height: 48px; width: auto; }
+        .nav-logo-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px; color: white;
+            letter-spacing: 2px; text-transform: uppercase;
+        }
+        .nav-logo-sub {
+            font-size: 9px; color: var(--gold);
+            letter-spacing: 2px; text-transform: uppercase; display: block;
+        }
+        .nav-back {
+            font-size: 11px; color: rgba(255,255,255,0.70);
+            text-decoration: none; letter-spacing: 1px; text-transform: uppercase;
+            transition: color 180ms ease;
+        }
+        .nav-back:hover { color: var(--gold); }
+        .page-hero {
+            background: var(--navy);
+            padding: 140px 80px 80px;
+            border-bottom: 2px solid rgba(231,191,106,0.12);
+        }
+        .page-hero-eyebrow {
+            font-size: 10px; font-weight: 500;
+            letter-spacing: 3px; text-transform: uppercase;
+            color: var(--gold); margin-bottom: 16px;
+        }
+        .page-hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px; font-weight: 500;
+            color: white; line-height: 1.1;
+            letter-spacing: -0.5px; margin-bottom: 16px;
+        }
+        .page-hero p {
+            font-size: 15px; color: rgba(255,255,255,0.60);
+            line-height: 1.75; max-width: 560px;
+        }
+        .policy-tabs {
+            background: white;
+            border-bottom: 1px solid var(--border);
+            padding: 0 80px;
+            display: flex; gap: 0;
+            position: sticky; top: 72px; z-index: 50;
+        }
+        .policy-tab {
+            padding: 18px 24px;
+            font-size: 12px; font-weight: 500;
+            letter-spacing: 1px; text-transform: uppercase;
+            color: var(--muted); cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 200ms ease;
+        }
+        .policy-tab.active {
+            color: var(--navy); border-bottom-color: var(--gold);
+        }
+        .policy-tab:hover { color: var(--navy); }
+        .policy-content {
+            max-width: 860px; margin: 0 auto;
+            padding: 64px 40px;
+        }
+        .policy-section { display: none; }
+        .policy-section.active { display: block; }
+        .policy-updated {
+            font-size: 12px; color: var(--muted);
+            margin-bottom: 40px; padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+        .policy-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px; font-weight: 500;
+            color: var(--navy); margin-bottom: 16px; margin-top: 40px;
+        }
+        .policy-content h2:first-of-type { margin-top: 0; }
+        .policy-content h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px; font-weight: 500;
+            color: var(--navy); margin-bottom: 12px; margin-top: 28px;
+        }
+        .policy-content p {
+            font-size: 15px; color: #444;
+            line-height: 1.85; margin-bottom: 16px;
+        }
+        .policy-content ul {
+            margin: 0 0 16px 24px;
+            font-size: 15px; color: #444; line-height: 1.85;
+        }
+        .policy-content ul li { margin-bottom: 8px; }
+        .policy-highlight {
+            background: rgba(231,191,106,0.08);
+            border-left: 3px solid var(--gold);
+            padding: 16px 20px; border-radius: 0 8px 8px 0;
+            margin: 24px 0;
+        }
+        .policy-highlight p { margin-bottom: 0; color: var(--navy); font-weight: 500; }
+        .contact-card {
+            background: var(--navy); border-radius: 16px;
+            padding: 36px; margin-top: 40px; text-align: center;
+        }
+        .contact-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px; color: white; margin-bottom: 10px;
+        }
+        .contact-card p {
+            font-size: 14px; color: rgba(255,255,255,0.65);
+            margin-bottom: 20px;
+        }
+        .contact-card a {
+            color: var(--gold); text-decoration: none;
+            font-weight: 500;
+        }
+        footer {
+            background: var(--navy-dark); padding: 40px 80px;
+            border-top: 1px solid rgba(231,191,106,0.15);
+        }
+        .footer-bottom {
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .footer-tagline {
+            font-size: 12px; color: rgba(255,255,255,0.40); font-style: italic;
+        }
+        .footer-tagline span { color: var(--gold); font-style: normal; }
+        .footer-copy { font-size: 11px; color: rgba(255,255,255,0.30); }
+        @media (max-width: 768px) {
+            nav { padding: 0 20px; height: 64px; }
+            .nav-logo-name { font-size: 15px; }
+            .page-hero { padding: 100px 24px 48px; }
+            .page-hero h1 { font-size: 32px; }
+            .policy-tabs { padding: 0 20px; overflow-x: auto; }
+            .policy-content { padding: 40px 20px; }
+            footer { padding: 32px 20px; }
+            .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-logo">
+        <a href="/">
+            <img src="/images/bahamas-stays-logo.png" alt="Bahamas Stays">
+            <div>
+                <span class="nav-logo-name">Bahamas Stays</span>
+                <span class="nav-logo-sub">Curated Stays · Authentic Bahamas</span>
+            </div>
+        </a>
+    </div>
+    <a href="/" class="nav-back">← Back to Home</a>
+</nav>
+
+<div class="page-hero">
+    <div class="page-hero-eyebrow">Legal & Policies</div>
+    <h1>Privacy, Terms<br>& Policies</h1>
+    <p>Bahamas Stays is committed to transparency. Please read our policies carefully before using our platform.</p>
+</div>
+
+<div class="policy-tabs">
+    <div class="policy-tab active" onclick="showTab('privacy')">Privacy Policy</div>
+    <div class="policy-tab" onclick="showTab('terms')">Terms of Service</div>
+    <div class="policy-tab" onclick="showTab('booking')">Booking Policy</div>
+    <div class="policy-tab" onclick="showTab('cancellation')">Cancellation Policy</div>
+</div>
+
+<div class="policy-content">
+
+    <!-- PRIVACY -->
+    <div class="policy-section active" id="tab-privacy">
+        <p class="policy-updated">Last updated: January 1, 2026</p>
+        <div class="policy-highlight">
+            <p>Bahamas Stays is a Bahamian-owned platform. We are committed to protecting your personal information and your right to privacy.</p>
+        </div>
+        <h2>Information We Collect</h2>
+        <p>When you use Bahamas Stays, we collect information you provide directly to us, including:</p>
+        <ul>
+            <li>Name, email address, and contact information when you create an account or make a booking</li>
+            <li>Payment information processed securely through our payment partners</li>
+            <li>Communication preferences and booking history</li>
+            <li>Reviews and ratings you submit for properties</li>
+        </ul>
+        <p>We also collect certain information automatically when you use our platform, including device information, IP address, browser type, and pages visited.</p>
+        <h2>How We Use Your Information</h2>
+        <p>We use the information we collect to:</p>
+        <ul>
+            <li>Process and confirm your bookings</li>
+            <li>Send booking confirmations and important account communications</li>
+            <li>Improve our platform and personalize your experience</li>
+            <li>Comply with Bahamian legal and regulatory requirements</li>
+            <li>Prevent fraud and ensure platform security</li>
+        </ul>
+        <h2>Information Sharing</h2>
+        <p>We share your information with property operators only to the extent necessary to fulfill your booking. We do not sell your personal information to third parties. We may share information with service providers who assist in our operations, including payment processors and email service providers.</p>
+        <h2>Data Security</h2>
+        <p>We implement industry-standard security measures to protect your personal information. All payment data is processed through secure, PCI-compliant payment processors. We do not store full payment card details on our servers.</p>
+        <h2>Your Rights</h2>
+        <p>You have the right to access, correct, or delete your personal information. To exercise these rights, contact us at privacy@bahamasstays.com.</p>
+        <h2>Cookies</h2>
+        <p>We use cookies and similar technologies to improve your browsing experience and analyze platform usage. You can control cookie settings through your browser preferences.</p>
+        <div class="contact-card">
+            <h3>Privacy Questions?</h3>
+            <p>Contact our privacy team at <a href="mailto:privacy@bahamasstays.com">privacy@bahamasstays.com</a></p>
+        </div>
+    </div>
+
+    <!-- TERMS -->
+    <div class="policy-section" id="tab-terms">
+        <p class="policy-updated">Last updated: January 1, 2026</p>
+        <div class="policy-highlight">
+            <p>By using Bahamas Stays, you agree to these Terms of Service. Please read them carefully.</p>
+        </div>
+        <h2>Acceptance of Terms</h2>
+        <p>By accessing or using the Bahamas Stays platform, you agree to be bound by these Terms of Service and all applicable laws and regulations of the Commonwealth of the Bahamas.</p>
+        <h2>Platform Use</h2>
+        <p>Bahamas Stays provides a marketplace connecting travelers with Bahamian property operators. We are not a party to the accommodation agreement between guests and operators. Our role is to facilitate bookings and provide platform services.</p>
+        <h2>User Accounts</h2>
+        <p>You are responsible for maintaining the confidentiality of your account credentials and for all activity that occurs under your account. You must provide accurate and complete information when creating an account.</p>
+        <h2>Booking Obligations</h2>
+        <p>When you make a booking through Bahamas Stays, you enter into a direct agreement with the property operator. Bahamas Stays facilitates the transaction but is not responsible for the quality of accommodation or services provided by operators.</p>
+        <h2>Prohibited Activities</h2>
+        <ul>
+            <li>Misrepresenting your identity or booking purpose</li>
+            <li>Using the platform for any unlawful purpose</li>
+            <li>Attempting to circumvent our booking and payment systems</li>
+            <li>Posting false or misleading reviews</li>
+            <li>Unauthorized commercial use of platform content</li>
+        </ul>
+        <h2>Intellectual Property</h2>
+        <p>All content on the Bahamas Stays platform, including text, images, logos, and software, is the property of Bahamas Stays or its licensors and is protected by applicable intellectual property laws.</p>
+        <h2>Limitation of Liability</h2>
+        <p>Bahamas Stays shall not be liable for any indirect, incidental, special, or consequential damages arising from your use of the platform or any bookings made through it.</p>
+        <h2>Governing Law</h2>
+        <p>These Terms of Service are governed by the laws of the Commonwealth of the Bahamas. Any disputes shall be subject to the exclusive jurisdiction of the courts of the Bahamas.</p>
+        <div class="contact-card">
+            <h3>Legal Questions?</h3>
+            <p>Contact us at <a href="mailto:legal@bahamasstays.com">legal@bahamasstays.com</a></p>
+        </div>
+    </div>
+
+    <!-- BOOKING POLICY -->
+    <div class="policy-section" id="tab-booking">
+        <p class="policy-updated">Last updated: January 1, 2026</p>
+        <div class="policy-highlight">
+            <p>All bookings made through Bahamas Stays are subject to availability and operator confirmation.</p>
+        </div>
+        <h2>Booking Process</h2>
+        <p>When you submit a booking request through Bahamas Stays, you will receive an immediate booking confirmation via email. Your booking is confirmed upon receipt of this confirmation email and successful payment processing.</p>
+        <h2>Pricing & Taxes</h2>
+        <p>All prices displayed on Bahamas Stays are in US dollars. Prices are subject to Bahamian VAT (10%) and a tourism levy of $10 per night per room. These charges are clearly displayed during the booking process and included in your total.</p>
+        <ul>
+            <li><strong>Bahamas VAT:</strong> 10% applied to all accommodation charges</li>
+            <li><strong>Tourism Levy:</strong> $10 per night, per room</li>
+            <li><strong>Platform Service Fee:</strong> Included in displayed pricing</li>
+        </ul>
+        <h2>Payment</h2>
+        <p>Full payment is required at the time of booking. We accept major credit and debit cards processed through our secure payment partners. All transactions are processed in US dollars.</p>
+        <h2>Booking Modifications</h2>
+        <p>Requests to modify existing bookings (change dates, room type, or number of guests) are subject to availability and operator approval. Please contact us at bookings@bahamasstays.com to request modifications.</p>
+        <h2>Operator Commission</h2>
+        <p>Bahamas Stays charges property operators a platform commission of 8% for Founding Partners (first 20 operators) and 10% for standard partners. This commission is deducted from operator payouts and is not an additional charge to guests.</p>
+        <div class="contact-card">
+            <h3>Booking Questions?</h3>
+            <p>Contact our bookings team at <a href="mailto:bookings@bahamasstays.com">bookings@bahamasstays.com</a></p>
+        </div>
+    </div>
+
+    <!-- CANCELLATION -->
+    <div class="policy-section" id="tab-cancellation">
+        <p class="policy-updated">Last updated: January 1, 2026</p>
+        <div class="policy-highlight">
+            <p>Bahamas Stays includes hurricane protection on all bookings — a benefit unique to our Bahamian-built platform.</p>
+        </div>
+        <h2>Standard Cancellation Policy</h2>
+        <p>Our standard cancellation policy applies to all bookings unless otherwise stated on the property listing:</p>
+        <ul>
+            <li><strong>More than 7 days before check-in:</strong> Full refund</li>
+            <li><strong>3–7 days before check-in:</strong> 50% refund</li>
+            <li><strong>Less than 72 hours before check-in:</strong> No refund</li>
+            <li><strong>No-show:</strong> No refund</li>
+        </ul>
+        <h2>Hurricane & Tropical Storm Protection</h2>
+        <p>Bahamas Stays provides full booking flexibility in the event of a named hurricane or tropical storm warning issued by the Bahamas Department of Meteorology that directly affects your destination island.</p>
+        <p>In such circumstances, guests may:</p>
+        <ul>
+            <li>Rebook for any available future dates at no additional cost</li>
+            <li>Receive a full credit valid for 24 months</li>
+            <li>Receive a full refund at the operator's discretion</li>
+        </ul>
+        <p>Hurricane protection applies when a tropical storm or hurricane warning is in effect for your destination within 48 hours of your scheduled check-in date.</p>
+        <h2>How to Cancel</h2>
+        <p>To cancel a booking, log in to your Bahamas Stays account, navigate to My Bookings, and select Cancel Booking. Alternatively, contact us at bookings@bahamasstays.com with your booking reference number.</p>
+        <h2>Refund Processing</h2>
+        <p>Eligible refunds are processed within 5–10 business days to the original payment method. Processing times may vary depending on your bank or card issuer.</p>
+        <h2>Operator-Specific Policies</h2>
+        <p>Some properties may have more flexible or more restrictive cancellation policies, which will be clearly stated on the property listing page. In the event of a conflict between a property-specific policy and this general policy, the property-specific policy applies.</p>
+        <div class="contact-card">
+            <h3>Need to Cancel?</h3>
+            <p>Contact us at <a href="mailto:bookings@bahamasstays.com">bookings@bahamasstays.com</a> with your booking reference number.</p>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    <div class="footer-bottom">
+        <p class="footer-tagline"><span>Curated by Bahamians.</span> Designed for the world.</p>
+        <p class="footer-copy">© 2026 Bahamas Stays · Built in the Bahamas, for the Bahamas</p>
+    </div>
+</footer>
+
+<script>
+function showTab(tab) {
+    document.querySelectorAll('.policy-tab').forEach(function(t) { t.classList.remove('active'); });
+    document.querySelectorAll('.policy-section').forEach(function(s) { s.classList.remove('active'); });
+    event.target.classList.add('active');
+    document.getElementById('tab-' + tab).classList.add('active');
+}
+</script>
+</body>
+</html>

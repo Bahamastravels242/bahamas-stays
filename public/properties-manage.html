@@ -9,20 +9,24 @@
         :root { --navy: #071B3A; --gold: #C8A96A; --gold-light: rgba(200,169,106,0.12); --teal: #2EC7C9; --teal-light: rgba(46,199,201,0.10); --bg: #F4F6F9; --white: #FFFFFF; --text: #1E2430; --muted: #8A93A2; --border: #EBEEf3; }
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
         html, body { width: 100%; max-width: 100%; overflow-x: hidden; font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); font-size: 14px; }
-        .sidebar { width: 284px; background: linear-gradient(180deg, #071B3A 0%, #061528 100%); color: white; display: flex; flex-direction: column; justify-content: space-between; position: fixed; top: 0; left: 0; bottom: 0; z-index: 10; box-shadow: 4px 0 24px rgba(0,0,0,0.15); transition: transform 300ms ease; }
-        .sidebar-logo { padding: 48px 24px 36px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.06); }
-        .sidebar-logo img { width: 88px; height: 88px; object-fit: contain; margin-bottom: 10px; filter: brightness(1.1); }
-        .sidebar-logo h1 { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 500; letter-spacing: 4px; text-transform: uppercase; color: white; line-height: 1.8; }
-        .sidebar-logo p { font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold); margin-top: 8px; opacity: 0.9; }
-        .sidebar-nav { padding: 12px 0; flex: 1; overflow-y: auto; }
-        .nav-section-label { font-size: 8px; letter-spacing: 2px; text-transform: uppercase; color: rgba(200,169,106,0.45); padding: 16px 24px 8px; }
-        .nav-item { display: flex; align-items: center; gap: 12px; padding: 11px 24px; cursor: pointer; transition: all 180ms ease; border-left: 2px solid transparent; font-size: 13px; color: rgba(255,255,255,0.55); text-decoration: none; }
+        .sidebar { width: 284px; background: linear-gradient(180deg, #071B3A 0%, #061528 100%); color: white; display: flex; flex-direction: column; position: fixed; top: 0; left: 0; bottom: 0; z-index: 10; box-shadow: 4px 0 24px rgba(0,0,0,0.15); transition: transform 300ms ease; overflow: hidden; }
+        .sidebar-inner { display: flex; flex-direction: column; height: 100%; overflow: hidden; }
+        .sidebar-logo { padding: 28px 24px 22px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.06); flex-shrink: 0; }
+        .sidebar-logo img { width: 80px; height: 80px; object-fit: contain; margin-bottom: 8px; filter: brightness(1.1); }
+        .sidebar-logo h1 { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 500; letter-spacing: 4px; text-transform: uppercase; color: white; line-height: 1.7; }
+        .sidebar-logo p { font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold); margin-top: 6px; opacity: 0.9; }
+        .sidebar-nav { padding: 8px 0; flex: 1; overflow-y: auto; overflow-x: hidden; }
+        .sidebar-nav::-webkit-scrollbar { width: 4px; }
+        .sidebar-nav::-webkit-scrollbar-track { background: transparent; }
+        .sidebar-nav::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 2px; }
+        .nav-section-label { font-size: 8px; letter-spacing: 2px; text-transform: uppercase; color: rgba(200,169,106,0.45); padding: 14px 24px 6px; }
+        .nav-item { display: flex; align-items: center; gap: 12px; padding: 10px 24px; cursor: pointer; transition: all 180ms ease; border-left: 2px solid transparent; font-size: 13px; color: rgba(255,255,255,0.55); text-decoration: none; letter-spacing: 0.3px; }
         .nav-item:hover { background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.85); border-left-color: rgba(200,169,106,0.3); }
         .nav-item.active { background: rgba(255,255,255,0.045); border-left-color: var(--gold); color: white; }
         .nav-item svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; opacity: 0.8; }
-        .sidebar-bottom { padding: 20px 24px; border-top: 1px solid rgba(255,255,255,0.06); }
-        .sidebar-profile { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
-        .sidebar-avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, var(--gold), #E5C07B); display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 14px; color: var(--navy); font-weight: 500; flex-shrink: 0; }
+        .sidebar-bottom { padding: 16px 24px; border-top: 1px solid rgba(255,255,255,0.06); flex-shrink: 0; }
+        .sidebar-profile { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+        .sidebar-avatar { width: 34px; height: 34px; border-radius: 50%; background: linear-gradient(135deg, var(--gold), #E5C07B); display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 13px; color: var(--navy); font-weight: 500; flex-shrink: 0; }
         .sidebar-profile-info h3 { font-size: 13px; font-weight: 500; color: white; }
         .sidebar-profile-info p { font-size: 10px; color: rgba(255,255,255,0.40); margin-top: 1px; }
         .sidebar-logout { display: flex; align-items: center; gap: 8px; font-size: 12px; color: rgba(255,255,255,0.35); cursor: pointer; transition: color 180ms ease; background: none; border: none; padding: 0; }
@@ -37,9 +41,9 @@
         .mobile-menu-btn { width: 36px; height: 36px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
         .mobile-menu-btn svg { width: 18px; height: 18px; stroke: white; fill: none; stroke-width: 1.5; stroke-linecap: round; }
         .main { margin-left: 284px; flex: 1; padding: 36px 40px; min-height: 100vh; width: calc(100% - 284px); }
-        .page-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 32px; }
-        .page-header-left h1 { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 500; color: var(--navy); letter-spacing: -0.3px; }
-        .page-header-left p { font-size: 13px; color: var(--muted); margin-top: 6px; }
+        .page-header { margin-bottom: 32px; }
+        .page-header h1 { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 500; color: var(--navy); letter-spacing: -0.3px; }
+        .page-header p { font-size: 13px; color: var(--muted); margin-top: 6px; }
         .properties-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
         .property-card { background: white; border-radius: 16px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 1px 8px rgba(0,0,0,0.04); transition: transform 200ms ease, box-shadow 200ms ease; }
         .property-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
@@ -55,14 +59,57 @@
         .prop-stat-label { font-size: 9px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
         .prop-stat-value { font-family: 'Playfair Display', serif; font-size: 18px; color: var(--navy); }
         .prop-stat-value.gold { color: var(--gold); }
-        .property-card-actions { display: flex; gap: 8px; }
-        .prop-btn { flex: 1; font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 600; padding: 9px; border-radius: 8px; border: 1px solid var(--border); background: white; color: var(--navy); cursor: pointer; transition: all 150ms ease; letter-spacing: 0.3px; text-align: center; }
+        .property-card-actions { display: flex; gap: 8px; margin-bottom: 16px; }
+        .prop-btn { flex: 1; font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 600; padding: 9px; border-radius: 8px; border: 1px solid var(--border); background: white; color: var(--navy); cursor: pointer; transition: all 150ms ease; text-align: center; text-decoration: none; display: flex; align-items: center; justify-content: center; }
         .prop-btn:hover { background: var(--navy); color: white; border-color: var(--navy); }
-        .prop-btn.primary { background: var(--gold); color: var(--navy); border-color: var(--gold); }
-        .prop-btn.primary:hover { background: #D4B27A; }
         .toggle-btn { font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 600; padding: 9px 14px; border-radius: 8px; cursor: pointer; transition: all 150ms ease; letter-spacing: 0.3px; border: none; }
         .toggle-active { background: var(--teal-light); color: var(--teal); }
         .toggle-inactive { background: rgba(231,76,60,0.08); color: #E74C3C; }
+
+        /* ── CALENDAR SECTION ── */
+        .calendar-section { border-top: 1px solid var(--border); padding-top: 16px; }
+        .calendar-section-title { font-size: 10px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+        .calendar-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+        .calendar-month-label { font-family: 'Playfair Display', serif; font-size: 14px; color: var(--navy); }
+        .cal-nav-btn { width: 26px; height: 26px; border: 1px solid var(--border); border-radius: 6px; background: white; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 12px; color: var(--muted); transition: all 150ms ease; }
+        .cal-nav-btn:hover { background: var(--navy); color: white; border-color: var(--navy); }
+        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
+        .cal-day-header { font-size: 9px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); text-align: center; padding: 4px 0; }
+        .cal-day { width: 100%; aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: 11px; border-radius: 4px; cursor: pointer; transition: all 150ms ease; color: var(--text); border: 1px solid transparent; }
+        .cal-day:hover { background: var(--gold-light); border-color: var(--gold); }
+        .cal-day.empty { cursor: default; }
+        .cal-day.empty:hover { background: none; border-color: transparent; }
+        .cal-day.today { font-weight: 600; color: var(--navy); }
+        .cal-day.booked { background: rgba(46,199,201,0.12); color: var(--teal); cursor: default; }
+        .cal-day.booked:hover { background: rgba(46,199,201,0.12); border-color: transparent; }
+        .cal-day.blocked { background: rgba(231,76,60,0.08); color: #E74C3C; }
+        .cal-day.blocked:hover { background: rgba(231,76,60,0.15); border-color: rgba(231,76,60,0.30); }
+        .cal-day.selected { background: var(--gold); color: var(--navy); font-weight: 600; }
+        .cal-day.past { color: #D1D5DB; cursor: default; }
+        .cal-day.past:hover { background: none; border-color: transparent; }
+        .calendar-legend { display: flex; gap: 12px; margin-top: 10px; flex-wrap: wrap; }
+        .legend-item { display: flex; align-items: center; gap: 5px; font-size: 10px; color: var(--muted); }
+        .legend-dot { width: 8px; height: 8px; border-radius: 2px; }
+        .legend-dot.available { background: white; border: 1px solid var(--border); }
+        .legend-dot.booked { background: rgba(46,199,201,0.12); border: 1px solid var(--teal); }
+        .legend-dot.blocked { background: rgba(231,76,60,0.08); border: 1px solid #E74C3C; }
+        .legend-dot.selected { background: var(--gold); }
+        .cal-actions { display: flex; gap: 8px; margin-top: 10px; }
+        .cal-action-btn { flex: 1; font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 600; padding: 8px; border-radius: 8px; border: none; cursor: pointer; transition: all 150ms ease; letter-spacing: 0.3px; }
+        .cal-block-btn { background: rgba(231,76,60,0.08); color: #E74C3C; }
+        .cal-block-btn:hover { background: rgba(231,76,60,0.16); }
+        .cal-unblock-btn { background: var(--teal-light); color: var(--teal); }
+        .cal-unblock-btn:hover { background: rgba(46,199,201,0.20); }
+        .cal-reason-input { width: 100%; padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 12px; color: var(--text); outline: none; margin-top: 8px; display: none; }
+        .cal-reason-input:focus { border-color: var(--gold); }
+        .ical-section { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); }
+        .ical-title { font-size: 10px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+        .ical-row { display: flex; gap: 8px; }
+        .ical-input { flex: 1; padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 12px; color: var(--text); outline: none; }
+        .ical-input:focus { border-color: var(--gold); }
+        .ical-sync-btn { font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 600; padding: 8px 14px; background: var(--gold); color: var(--navy); border: none; border-radius: 8px; cursor: pointer; white-space: nowrap; transition: background 150ms ease; }
+        .ical-sync-btn:hover { background: #D4B27A; }
+
         .empty-state { text-align: center; padding: 60px; color: var(--muted); font-size: 14px; font-style: italic; grid-column: 1/-1; }
         .bottom-nav-bar { display: none; }
         @media (max-width: 1024px) {
@@ -71,8 +118,7 @@
             .sidebar.open { transform: translateX(0); }
             .mobile-topbar { display: flex; }
             .main { margin-left: 0; width: 100%; padding: 80px 16px 24px; }
-            .page-header { flex-direction: column; gap: 16px; margin-bottom: 20px; }
-            .page-header-left h1 { font-size: 24px; }
+            .page-header h1 { font-size: 24px; }
             .properties-grid { grid-template-columns: 1fr; }
             .bottom-nav-bar { display: flex !important; position: fixed !important; bottom: 0 !important; left: 0 !important; right: 0 !important; width: 100% !important; height: 60px !important; background: #ffffff !important; border-top: 1px solid #EAEAEA !important; box-shadow: 0 -2px 16px rgba(0,0,0,0.08) !important; z-index: 99999 !important; padding-bottom: env(safe-area-inset-bottom, 0px) !important; justify-content: space-around !important; align-items: center !important; }
             .bottom-nav-item { display: flex !important; flex-direction: column !important; align-items: center !important; justify-content: center !important; gap: 3px !important; text-decoration: none !important; flex: 1 !important; padding: 8px 0 !important; }
@@ -90,38 +136,31 @@
 </div>
 <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
 <aside class="sidebar" id="sidebar">
-    <div>
+    <div class="sidebar-inner">
         <div class="sidebar-logo"><img src="/images/bahamas-stays-logo.png" alt="Bahamas Stays"><h1>Bahamas<br>Stays</h1><p>Operator Dashboard</p></div>
         <nav class="sidebar-nav">
             <div class="nav-section-label">Operations</div>
             <a href="/operator.html" class="nav-item"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>Dashboard</a>
             <a href="/bookings.html" class="nav-item"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Bookings</a>
-            <a href="/guests.html" class="nav-item"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Guests</a>
+            <a href="/guests.html" class="nav-item"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Guests</a>
             <a href="/properties-manage.html" class="nav-item active"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Properties</a>
             <div class="nav-section-label">Analytics</div>
             <a href="/revenue.html" class="nav-item"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Revenue</a>
-            <a href="/reports.html" class="nav-item"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Reports</a>
+            <a href="/reports.html" class="nav-item"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>Reports</a>
             <div class="nav-section-label">Platform</div>
             <a href="/marketing.html" class="nav-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>Marketing</a>
-            <a href="/settings.html" class="nav-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>Settings</a>
+            <a href="/settings.html" class="nav-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>Settings</a>
             <a href="/" class="nav-item"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Main Site</a>
         </nav>
-    </div>
-    <div class="sidebar-bottom">
-        <div class="sidebar-profile"><div class="sidebar-avatar">O</div><div class="sidebar-profile-info"><h3>Operator</h3><p>Property Manager</p></div></div>
-        <button class="sidebar-logout"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Log out</button>
+        <div class="sidebar-bottom">
+            <div class="sidebar-profile"><div class="sidebar-avatar">O</div><div class="sidebar-profile-info"><h3>Operator</h3><p>Property Manager</p></div></div>
+            <button class="sidebar-logout"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Log out</button>
+        </div>
     </div>
 </aside>
 <main class="main">
-    <div class="page-header">
-        <div class="page-header-left">
-            <h1>Properties</h1>
-            <p>Manage your listed properties and availability</p>
-        </div>
-    </div>
-    <div class="properties-grid" id="propertiesGrid">
-        <div class="empty-state">Loading properties...</div>
-    </div>
+    <div class="page-header"><h1>Properties</h1><p>Manage listings, availability, and date blocking</p></div>
+    <div class="properties-grid" id="propertiesGrid"><div class="empty-state">Loading properties...</div></div>
 </main>
 <div class="bottom-nav-bar">
     <a href="/operator.html" class="bottom-nav-item"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg><span>Dashboard</span></a>
@@ -130,21 +169,130 @@
     <a href="/revenue.html" class="bottom-nav-item"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg><span>Revenue</span></a>
 </div>
 <script>
-const cardImageMap = { 'The Residences at Goldwynn': '/images/goldwynn-card.jpg', 'Baha Mar Resort': '/images/bahamar-card.jpg', 'Albany Resort & Marina': '/images/albany-card.jpg', 'Exuma Cays Sailing Charter': '/images/exuma-charter-card.jpg', 'Harbour Island Pink Sand Villa': '/images/harbour-island-card.jpg' };
-function currency(n) { return '$' + Number(n).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 }); }
-function toggleSidebar() {
-    var sidebar = document.getElementById('sidebar');
-    var overlay = document.getElementById('sidebarOverlay');
-    sidebar.classList.toggle('open');
-    overlay.classList.toggle('open');
-    document.body.style.overflow = sidebar.classList.contains('open') ? 'hidden' : '';
+var cardImageMap = {'The Residences at Goldwynn':'/images/goldwynn-card.jpg','Baha Mar Resort':'/images/bahamar-card.jpg','Albany Resort & Marina':'/images/albany-card.jpg','Exuma Cays Sailing Charter':'/images/exuma-charter-card.jpg','Harbour Island Pink Sand Villa':'/images/harbour-island-card.jpg'};
+var calendarState = {};
+
+function currency(n) { return '$' + Number(n).toLocaleString('en-US',{minimumFractionDigits:0,maximumFractionDigits:0}); }
+function toggleSidebar() { var s=document.getElementById('sidebar'); var o=document.getElementById('sidebarOverlay'); s.classList.toggle('open'); o.classList.toggle('open'); document.body.style.overflow=s.classList.contains('open')?'hidden':''; }
+
+function initCalendar(propertyId, unavailable) {
+    if (!calendarState[propertyId]) {
+        var now = new Date();
+        calendarState[propertyId] = { year: now.getFullYear(), month: now.getMonth(), selected: [], unavailable: unavailable || [] };
+    } else {
+        calendarState[propertyId].unavailable = unavailable || [];
+    }
+    renderCalendar(propertyId);
 }
+
+function renderCalendar(propertyId) {
+    var state = calendarState[propertyId];
+    var container = document.getElementById('cal-' + propertyId);
+    if (!container) return;
+    var year = state.year;
+    var month = state.month;
+    var monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    var firstDay = new Date(year, month, 1).getDay();
+    var daysInMonth = new Date(year, month + 1, 0).getDate();
+    var today = new Date().toISOString().split('T')[0];
+    var bookedDates = state.unavailable.filter(function(d){return d.reason==='booked';}).map(function(d){return d.date;});
+    var blockedDates = state.unavailable.filter(function(d){return d.reason!=='booked';}).map(function(d){return d.date;});
+    var days = ['Su','Mo','Tu','We','Th','Fr','Sa'];
+    var html = '<div class="calendar-header"><button class="cal-nav-btn" onclick="changeMonth(\''+propertyId+'\', -1)">‹</button><span class="calendar-month-label">'+monthNames[month]+' '+year+'</span><button class="cal-nav-btn" onclick="changeMonth(\''+propertyId+'\', 1)">›</button></div><div class="calendar-grid">';
+    days.forEach(function(d){ html += '<div class="cal-day-header">'+d+'</div>'; });
+    for (var i=0;i<firstDay;i++) html += '<div class="cal-day empty"></div>';
+    for (var day=1;day<=daysInMonth;day++) {
+        var dateStr = year + '-' + String(month+1).padStart(2,'0') + '-' + String(day).padStart(2,'0');
+        var isPast = dateStr < today;
+        var isToday = dateStr === today;
+        var isBooked = bookedDates.includes(dateStr);
+        var isBlocked = blockedDates.includes(dateStr);
+        var isSelected = state.selected.includes(dateStr);
+        var cls = 'cal-day';
+        if (isPast) cls += ' past';
+        else if (isBooked) cls += ' booked';
+        else if (isBlocked) cls += ' blocked';
+        else if (isSelected) cls += ' selected';
+        if (isToday) cls += ' today';
+        var onclick = (!isPast && !isBooked) ? 'onclick="toggleDate(\''+propertyId+'\', \''+dateStr+'\')"' : '';
+        html += '<div class="'+cls+'" '+onclick+'>'+day+'</div>';
+    }
+    html += '</div><div class="calendar-legend"><div class="legend-item"><div class="legend-dot available"></div>Available</div><div class="legend-item"><div class="legend-dot booked"></div>Booked</div><div class="legend-item"><div class="legend-dot blocked"></div>Blocked</div><div class="legend-item"><div class="legend-dot selected"></div>Selected</div></div>';
+    html += '<div class="cal-actions"><button class="cal-action-btn cal-block-btn" onclick="blockSelected(\''+propertyId+'\')">Block Selected</button><button class="cal-action-btn cal-unblock-btn" onclick="unblockSelected(\''+propertyId+'\')">Unblock Selected</button></div>';
+    html += '<input type="text" class="cal-reason-input" id="reason-'+propertyId+'" placeholder="Reason (e.g. Owner stay, Renovation)">';
+    html += '<div class="ical-section"><div class="ical-title">iCal Sync</div><div class="ical-row"><input type="text" class="ical-input" id="ical-'+propertyId+'" placeholder="Paste Airbnb/Booking.com iCal URL..."><button class="ical-sync-btn" onclick="syncIcal(\''+propertyId+'\')">Sync</button></div></div>';
+    container.innerHTML = html;
+}
+
+function changeMonth(propertyId, dir) {
+    var state = calendarState[propertyId];
+    state.month += dir;
+    if (state.month > 11) { state.month = 0; state.year++; }
+    if (state.month < 0) { state.month = 11; state.year--; }
+    renderCalendar(propertyId);
+}
+
+function toggleDate(propertyId, dateStr) {
+    var state = calendarState[propertyId];
+    var idx = state.selected.indexOf(dateStr);
+    if (idx > -1) state.selected.splice(idx, 1);
+    else state.selected.push(dateStr);
+    renderCalendar(propertyId);
+}
+
+async function blockSelected(propertyId) {
+    var state = calendarState[propertyId];
+    if (!state.selected.length) { alert('Please select dates to block.'); return; }
+    var reasonEl = document.getElementById('reason-'+propertyId);
+    var reason = reasonEl ? reasonEl.value || 'blocked' : 'blocked';
+    try {
+        var res = await fetch('/block-dates', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({property_id: parseInt(propertyId), dates: state.selected, reason: reason}) });
+        var result = await res.json();
+        if (result.success) {
+            state.selected.forEach(function(d){ state.unavailable.push({date:d,reason:reason}); });
+            state.selected = [];
+            renderCalendar(propertyId);
+            alert('✅ ' + result.blocked + ' date(s) blocked successfully.');
+        }
+    } catch(err) { alert('Error blocking dates. Please try again.'); }
+}
+
+async function unblockSelected(propertyId) {
+    var state = calendarState[propertyId];
+    if (!state.selected.length) { alert('Please select dates to unblock.'); return; }
+    try {
+        var res = await fetch('/block-dates', { method: 'DELETE', headers: {'Content-Type':'application/json'}, body: JSON.stringify({property_id: parseInt(propertyId), dates: state.selected}) });
+        var result = await res.json();
+        if (result.success) {
+            state.unavailable = state.unavailable.filter(function(d){ return !state.selected.includes(d.date); });
+            state.selected = [];
+            renderCalendar(propertyId);
+            alert('✅ Dates unblocked successfully.');
+        }
+    } catch(err) { alert('Error unblocking dates. Please try again.'); }
+}
+
+async function syncIcal(propertyId) {
+    var input = document.getElementById('ical-'+propertyId);
+    var url = input ? input.value.trim() : '';
+    if (!url) { alert('Please paste an iCal URL first.'); return; }
+    try {
+        var res = await fetch('/ical-sync', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({property_id: parseInt(propertyId), ical_url: url}) });
+        var result = await res.json();
+        if (result.success) {
+            alert('✅ Synced ' + result.synced + ' dates from your iCal feed.');
+            loadProperties();
+        }
+    } catch(err) { alert('Error syncing iCal. Please check the URL and try again.'); }
+}
+
 async function toggleStatus(id, current) {
     try {
-        await fetch('/admin/property/' + id, { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ is_active: !current }) });
+        await fetch('/admin/property/'+id, {method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({is_active:!current})});
         loadProperties();
-    } catch(err) { console.log('Error:', err); }
+    } catch(err) { console.log('Error:',err); }
 }
+
 async function loadProperties() {
     try {
         var [pRes, bRes] = await Promise.all([fetch('/properties'), fetch('/bookings')]);
@@ -154,28 +302,41 @@ async function loadProperties() {
         if (!properties.length) { grid.innerHTML = '<div class="empty-state">No properties found.</div>'; return; }
         grid.innerHTML = properties.map(function(p) {
             var img = cardImageMap[p.name] || '/images/goldwynn-card.jpg';
-            var propBookings = bookings.filter(function(b) { return b.property_id === p.id; });
-            var revenue = propBookings.reduce(function(s, b) { return s + (b.total_price || 0); }, 0);
+            var propBookings = bookings.filter(function(b){return b.property_id===p.id;});
+            var revenue = propBookings.reduce(function(s,b){return s+(b.total_price||0);},0);
             var isActive = p.is_active !== false;
-            var priceUnit = (p.property_type === 'Boat Charter' || p.property_type === 'Diving') ? '/day' : '/night';
-            return '<div class="property-card">' +
-                '<div class="property-card-image"><img src="' + img + '" alt="' + p.name + '" onerror="this.src=\'/images/goldwynn-card.jpg\'"><span class="property-status-badge ' + (isActive ? 'badge-active' : 'badge-inactive') + '">' + (isActive ? 'Active' : 'Inactive') + '</span></div>' +
-                '<div class="property-card-body">' +
-                '<div class="property-card-name">' + p.name + '</div>' +
-                '<div class="property-card-location">' + p.island + ', Bahamas · ' + p.property_type + '</div>' +
-                '<div class="property-card-stats">' +
-                '<div><div class="prop-stat-label">Price</div><div class="prop-stat-value gold">$' + Number(p.price_per_night).toLocaleString() + '<span style="font-size:11px;color:var(--muted);font-family:\'DM Sans\',sans-serif;">' + priceUnit + '</span></div></div>' +
-                '<div><div class="prop-stat-label">Bookings</div><div class="prop-stat-value">' + propBookings.length + '</div></div>' +
-                '<div><div class="prop-stat-label">Revenue</div><div class="prop-stat-value gold">' + currency(revenue) + '</div></div>' +
-                '</div>' +
-                '<div class="property-card-actions">' +
-                '<a href="/property.html?id=' + p.id + '" class="prop-btn">View Page</a>' +
-                '<button class="toggle-btn ' + (isActive ? 'toggle-active' : 'toggle-inactive') + '" onclick="toggleStatus(' + p.id + ', ' + isActive + ')">' + (isActive ? 'Deactivate' : 'Activate') + '</button>' +
-                '</div></div></div>';
+            var priceUnit = (p.property_type==='Boat Charter'||p.property_type==='Diving') ? '/day' : '/night';
+            return '<div class="property-card">'+
+                '<div class="property-card-image"><img src="'+img+'" alt="'+p.name+'" onerror="this.src=\'/images/goldwynn-card.jpg\'"><span class="property-status-badge '+(isActive?'badge-active':'badge-inactive')+'">'+(isActive?'Active':'Inactive')+'</span></div>'+
+                '<div class="property-card-body">'+
+                '<div class="property-card-name">'+p.name+'</div>'+
+                '<div class="property-card-location">'+p.island+', Bahamas · '+p.property_type+'</div>'+
+                '<div class="property-card-stats">'+
+                '<div><div class="prop-stat-label">Price</div><div class="prop-stat-value gold">$'+Number(p.price_per_night).toLocaleString()+'<span style="font-size:10px;color:var(--muted);font-family:DM Sans,sans-serif;">'+priceUnit+'</span></div></div>'+
+                '<div><div class="prop-stat-label">Bookings</div><div class="prop-stat-value">'+propBookings.length+'</div></div>'+
+                '<div><div class="prop-stat-label">Revenue</div><div class="prop-stat-value gold">'+currency(revenue)+'</div></div>'+
+                '</div>'+
+                '<div class="property-card-actions">'+
+                '<a href="/property.html?id='+p.id+'" class="prop-btn">View Page</a>'+
+                '<button class="toggle-btn '+(isActive?'toggle-active':'toggle-inactive')+'" onclick="toggleStatus('+p.id+', '+isActive+')">'+(isActive?'Deactivate':'Activate')+'</button>'+
+                '</div>'+
+                '<div class="calendar-section">'+
+                '<div class="calendar-section-title">Availability Calendar</div>'+
+                '<div id="cal-'+p.id+'">Loading calendar...</div>'+
+                '</div>'+
+                '</div></div>';
         }).join('');
-    } catch(err) {
-        document.getElementById('propertiesGrid').innerHTML = '<div class="empty-state">Error loading properties.</div>';
-    }
+
+        // Load availability for each property
+        properties.forEach(async function(p) {
+            try {
+                var avRes = await fetch('/availability?property_id=' + p.id);
+                var unavailable = await avRes.json();
+                initCalendar(p.id, unavailable);
+            } catch(e) { initCalendar(p.id, []); }
+        });
+
+    } catch(err) { document.getElementById('propertiesGrid').innerHTML='<div class="empty-state">Error loading properties.</div>'; }
 }
 loadProperties();
 </script>

@@ -4,6 +4,7 @@ const cookieParser = require('cookie-parser');
 const { createClient } = require('@supabase/supabase-js');
 const { Resend } = require('resend');
 const path = require('path');
+const https = require('https');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -63,6 +64,175 @@ app.get('/properties/:id', async (req, res) => {
     }
 });
 
+// ── AVAILABILITY ──
+app.get('/availability', async (req, res) => {
+    try {
+        const { property_id } = req.query;
+        if (!property_id) return res.json([]);
+
+        // Get confirmed bookings
+        const { data: bookings, error: bookingError } = await supabase
+            .from('bookings')
+            .select('check_in, check_out')
+            .eq('property_id', property_id)
+            .eq('status', 'confirmed');
+        if (bookingError) throw bookingError;
+
+        // Get manually blocked dates
+        const { data: blocked, error: blockedError } = await supabase
+            .from('blocked_dates')
+            .select('date, reason')
+            .eq('property_id', property_id);
+
+        // Combine all unavailable dates
+        var unavailableDates = [];
+
+        // Add booked date ranges
+        (bookings || []).forEach(function(b) {
+            var start = new Date(b.check_in);
+            var end = new Date(b.check_out);
+            var current = new Date(start);
+            while (current < end) {
+                unavailableDates.push({
+                    date: current.toISOString().split('T')[0],
+                    reason: 'booked'
+                });
+                current.setDate(current.getDate() + 1);
+            }
+        });
+
+        // Add manually blocked dates
+        (blocked || []).forEach(function(b) {
+            unavailableDates.push({
+                date: b.date,
+                reason: b.reason || 'blocked'
+            });
+        });
+
+        res.json(unavailableDates);
+    } catch (err) {
+        console.error('Error fetching availability:', err);
+        res.status(500).json({ error: 'Failed to fetch availability' });
+    }
+});
+
+// ── BLOCK DATES (Operator) ──
+app.post('/block-dates', async (req, res) => {
+    try {
+        const { property_id, dates, reason } = req.body;
+        if (!property_id || !dates || !dates.length) {
+            return res.status(400).json({ error: 'property_id and dates required' });
+        }
+        const rows = dates.map(function(date) {
+            return { property_id, date, reason: reason || 'blocked' };
+        });
+        const { data, error } = await supabase
+            .from('blocked_dates')
+            .upsert(rows, { onConflict: 'property_id,date' });
+        if (error) throw error;
+        res.json({ success: true, blocked: dates.length });
+    } catch (err) {
+        console.error('Error blocking dates:', err);
+        res.status(500).json({ error: 'Failed to block dates' });
+    }
+});
+
+// ── UNBLOCK DATES (Operator) ──
+app.delete('/block-dates', async (req, res) => {
+    try {
+        const { property_id, dates } = req.body;
+        if (!property_id || !dates || !dates.length) {
+            return res.status(400).json({ error: 'property_id and dates required' });
+        }
+        const { error } = await supabase
+            .from('blocked_dates')
+            .delete()
+            .eq('property_id', property_id)
+            .in('date', dates);
+        if (error) throw error;
+        res.json({ success: true });
+    } catch (err) {
+        console.error('Error unblocking dates:', err);
+        res.status(500).json({ error: 'Failed to unblock dates' });
+    }
+});
+
+// ── iCAL SYNC ──
+app.post('/ical-sync', async (req, res) => {
+    try {
+        const { property_id, ical_url } = req.body;
+        if (!property_id || !ical_url) {
+            return res.status(400).json({ error: 'property_id and ical_url required' });
+        }
+
+        // Save the iCal URL to the property
+        await supabase
+            .from('properties')
+            .update({ ical_url })
+            .eq('id', property_id);
+
+        // Fetch and parse the iCal feed
+        var blockedDates = await parseIcal(ical_url);
+
+        if (blockedDates.length > 0) {
+            var rows = blockedDates.map(function(date) {
+                return { property_id, date, reason: 'ical-sync' };
+            });
+            await supabase
+                .from('blocked_dates')
+                .upsert(rows, { onConflict: 'property_id,date' });
+        }
+
+        res.json({ success: true, synced: blockedDates.length });
+    } catch (err) {
+        console.error('iCal sync error:', err);
+        res.status(500).json({ error: 'Failed to sync iCal' });
+    }
+});
+
+// ── iCAL PARSER ──
+function parseIcal(url) {
+    return new Promise(function(resolve, reject) {
+        https.get(url, function(response) {
+            var data = '';
+            response.on('data', function(chunk) { data += chunk; });
+            response.on('end', function() {
+                try {
+                    var dates = [];
+                    var events = data.split('BEGIN:VEVENT');
+                    events.shift(); // Remove header
+                    events.forEach(function(event) {
+                        var dtStartMatch = event.match(/DTSTART[^:]*:(\d{8})/);
+                        var dtEndMatch = event.match(/DTEND[^:]*:(\d{8})/);
+                        if (dtStartMatch && dtEndMatch) {
+                            var startStr = dtStartMatch[1];
+                            var endStr = dtEndMatch[1];
+                            var start = new Date(
+                                startStr.slice(0,4) + '-' +
+                                startStr.slice(4,6) + '-' +
+                                startStr.slice(6,8)
+                            );
+                            var end = new Date(
+                                endStr.slice(0,4) + '-' +
+                                endStr.slice(4,6) + '-' +
+                                endStr.slice(6,8)
+                            );
+                            var current = new Date(start);
+                            while (current < end) {
+                                dates.push(current.toISOString().split('T')[0]);
+                                current.setDate(current.getDate() + 1);
+                            }
+                        }
+                    });
+                    resolve(dates);
+                } catch(e) {
+                    resolve([]);
+                }
+            });
+        }).on('error', function() { resolve([]); });
+    });
+}
+
 // ── BOOKINGS ──
 app.get('/bookings', async (req, res) => {
     try {
@@ -82,6 +252,43 @@ app.post('/bookings', async (req, res) => {
     try {
         const { property_id, guest_name, guest_email, check_in, check_out } = req.body;
 
+        // Check availability first
+        var checkInDate = new Date(check_in);
+        var checkOutDate = new Date(check_out);
+        var requestedDates = [];
+        var current = new Date(checkInDate);
+        while (current < checkOutDate) {
+            requestedDates.push(current.toISOString().split('T')[0]);
+            current.setDate(current.getDate() + 1);
+        }
+
+        // Check blocked dates
+        const { data: blocked } = await supabase
+            .from('blocked_dates')
+            .select('date')
+            .eq('property_id', property_id)
+            .in('date', requestedDates);
+
+        if (blocked && blocked.length > 0) {
+            return res.status(400).json({
+                error: 'Some dates are not available',
+                unavailable_dates: blocked.map(b => b.date)
+            });
+        }
+
+        // Check existing bookings
+        const { data: existing } = await supabase
+            .from('bookings')
+            .select('id')
+            .eq('property_id', property_id)
+            .eq('status', 'confirmed')
+            .lt('check_in', check_out)
+            .gt('check_out', check_in);
+
+        if (existing && existing.length > 0) {
+            return res.status(400).json({ error: 'These dates are already booked' });
+        }
+
         const { data: property, error: propError } = await supabase
             .from('properties')
             .select('*')
@@ -89,8 +296,6 @@ app.post('/bookings', async (req, res) => {
             .single();
         if (propError) throw propError;
 
-        const checkInDate = new Date(check_in);
-        const checkOutDate = new Date(check_out);
         const total_nights = Math.ceil((checkOutDate - checkInDate) / (1000 * 60 * 60 * 24));
         const total_price = total_nights * property.price_per_night;
 
@@ -118,28 +323,28 @@ app.post('/bookings', async (req, res) => {
                 to: guest_email,
                 subject: `Booking Confirmed — ${property.name}`,
                 html: `
-                    <div style="font-family: 'DM Sans', Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #f8f6f0;">
-                        <div style="background: #0A192F; padding: 40px; text-align: center;">
-                            <h1 style="font-family: Georgia, serif; color: white; font-size: 28px; margin: 0; letter-spacing: 2px;">BAHAMAS STAYS</h1>
-                            <p style="color: #E7BF6A; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; margin-top: 8px;">Booking Confirmation</p>
+                    <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;background:#f8f6f0;">
+                        <div style="background:#0A192F;padding:40px;text-align:center;">
+                            <h1 style="font-family:Georgia,serif;color:white;font-size:28px;margin:0;letter-spacing:2px;">BAHAMAS STAYS</h1>
+                            <p style="color:#E7BF6A;font-size:11px;letter-spacing:3px;text-transform:uppercase;margin-top:8px;">Booking Confirmation</p>
                         </div>
-                        <div style="padding: 48px 40px;">
-                            <h2 style="font-family: Georgia, serif; color: #0A192F; font-size: 24px;">Your booking is confirmed, ${guest_name}.</h2>
-                            <p style="color: #666; font-size: 15px; line-height: 1.75; margin-top: 12px;">Thank you for booking with Bahamas Stays. Here are your reservation details:</p>
-                            <div style="background: white; border-radius: 12px; padding: 28px; margin: 28px 0; border-left: 4px solid #E7BF6A;">
-                                <p style="font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: #9CA3AF; margin-bottom: 16px;">Reservation Details</p>
-                                <p style="font-family: Georgia, serif; font-size: 20px; color: #0A192F; margin-bottom: 16px;">${property.name}</p>
-                                <p style="color: #666; font-size: 14px; margin-bottom: 8px;">📍 ${property.island}, Bahamas</p>
-                                <p style="color: #666; font-size: 14px; margin-bottom: 8px;">📅 Check-in: <strong>${check_in}</strong></p>
-                                <p style="color: #666; font-size: 14px; margin-bottom: 8px;">📅 Check-out: <strong>${check_out}</strong></p>
-                                <p style="color: #666; font-size: 14px; margin-bottom: 8px;">🌙 Total Nights: <strong>${total_nights}</strong></p>
-                                <p style="color: #0A192F; font-size: 18px; font-weight: bold; margin-top: 16px; padding-top: 16px; border-top: 1px solid #EAEAEA;">Total: $${total_price.toLocaleString()}</p>
+                        <div style="padding:48px 40px;">
+                            <h2 style="font-family:Georgia,serif;color:#0A192F;font-size:24px;">Your booking is confirmed, ${guest_name}.</h2>
+                            <p style="color:#666;font-size:15px;line-height:1.75;margin-top:12px;">Thank you for booking with Bahamas Stays.</p>
+                            <div style="background:white;border-radius:12px;padding:28px;margin:28px 0;border-left:4px solid #E7BF6A;">
+                                <p style="font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#9CA3AF;margin-bottom:16px;">Reservation Details</p>
+                                <p style="font-family:Georgia,serif;font-size:20px;color:#0A192F;margin-bottom:16px;">${property.name}</p>
+                                <p style="color:#666;font-size:14px;margin-bottom:8px;">📍 ${property.island}, Bahamas</p>
+                                <p style="color:#666;font-size:14px;margin-bottom:8px;">📅 Check-in: <strong>${check_in}</strong></p>
+                                <p style="color:#666;font-size:14px;margin-bottom:8px;">📅 Check-out: <strong>${check_out}</strong></p>
+                                <p style="color:#666;font-size:14px;margin-bottom:8px;">🌙 Total Nights: <strong>${total_nights}</strong></p>
+                                <p style="color:#0A192F;font-size:18px;font-weight:bold;margin-top:16px;padding-top:16px;border-top:1px solid #EAEAEA;">Total: $${total_price.toLocaleString()}</p>
                             </div>
-                            <p style="color: #666; font-size: 14px; line-height: 1.75;">If you have any questions about your booking, please contact us at <a href="mailto:bookings@bahamasstays.com" style="color: #E7BF6A;">bookings@bahamasstays.com</a></p>
+                            <p style="color:#666;font-size:14px;line-height:1.75;">Questions? Contact us at <a href="mailto:bookings@bahamasstays.com" style="color:#E7BF6A;">bookings@bahamasstays.com</a></p>
                         </div>
-                        <div style="background: #060E1A; padding: 32px 40px; text-align: center;">
-                            <p style="color: rgba(255,255,255,0.40); font-size: 12px; font-style: italic;">Curated by Bahamians. Designed for the world.</p>
-                            <p style="color: rgba(255,255,255,0.25); font-size: 11px; margin-top: 8px;">© 2026 Bahamas Stays</p>
+                        <div style="background:#060E1A;padding:32px 40px;text-align:center;">
+                            <p style="color:rgba(255,255,255,0.40);font-size:12px;font-style:italic;">Curated by Bahamians. Designed for the world.</p>
+                            <p style="color:rgba(255,255,255,0.25);font-size:11px;margin-top:8px;">© 2026 Bahamas Stays Holdings Ltd.</p>
                         </div>
                     </div>
                 `
@@ -170,23 +375,6 @@ app.get('/my-bookings', async (req, res) => {
     } catch (err) {
         console.error('Error fetching my bookings:', err);
         res.status(500).json({ error: 'Failed to fetch bookings' });
-    }
-});
-
-// ── AVAILABILITY ──
-app.get('/availability', async (req, res) => {
-    try {
-        const { property_id } = req.query;
-        const { data, error } = await supabase
-            .from('bookings')
-            .select('check_in, check_out')
-            .eq('property_id', property_id)
-            .eq('status', 'confirmed');
-        if (error) throw error;
-        res.json(data);
-    } catch (err) {
-        console.error('Error fetching availability:', err);
-        res.status(500).json({ error: 'Failed to fetch availability' });
     }
 });
 

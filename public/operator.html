@@ -8,43 +8,19 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
     <style>
         :root {
-            --navy: #071B3A;
-            --navy-mid: #0D2A4A;
-            --gold: #C8A96A;
-            --gold-light: rgba(200,169,106,0.12);
-            --teal: #2EC7C9;
-            --teal-light: rgba(46,199,201,0.10);
-            --bg: #F4F6F9;
-            --white: #FFFFFF;
-            --text: #1E2430;
-            --muted: #8A93A2;
-            --border: #EBEEf3;
-            --success: #27AE60;
-            --alert: #E74C3C;
+            --navy: #071B3A; --navy-mid: #0D2A4A;
+            --gold: #C8A96A; --gold-light: rgba(200,169,106,0.12);
+            --teal: #2EC7C9; --teal-light: rgba(46,199,201,0.10);
+            --bg: #F4F6F9; --white: #FFFFFF;
+            --text: #1E2430; --muted: #8A93A2; --border: #EBEEf3;
         }
-
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-        html, body {
-            width: 100%; max-width: 100%; overflow-x: hidden;
-            font-family: 'DM Sans', sans-serif;
-            background: var(--bg); color: var(--text); font-size: 14px;
-        }
+        html, body { width: 100%; max-width: 100%; overflow-x: hidden; font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); font-size: 14px; }
 
         /* ── SIDEBAR ── */
-        .sidebar {
-            width: 284px;
-            background: linear-gradient(180deg, #071B3A 0%, #061528 100%);
-            color: white; display: flex; flex-direction: column;
-            position: fixed; top: 0; left: 0; bottom: 0;
-            z-index: 10; box-shadow: 4px 0 24px rgba(0,0,0,0.15);
-            transition: transform 300ms ease; overflow: hidden;
-        }
+        .sidebar { width: 284px; background: linear-gradient(180deg, #071B3A 0%, #061528 100%); color: white; display: flex; flex-direction: column; position: fixed; top: 0; left: 0; bottom: 0; z-index: 10; box-shadow: 4px 0 24px rgba(0,0,0,0.15); transition: transform 300ms ease; overflow: hidden; }
         .sidebar-inner { display: flex; flex-direction: column; height: 100%; overflow: hidden; }
-        .sidebar-logo {
-            padding: 28px 24px 22px; text-align: center;
-            border-bottom: 1px solid rgba(255,255,255,0.06); flex-shrink: 0;
-        }
+        .sidebar-logo { padding: 28px 24px 22px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.06); flex-shrink: 0; }
         .sidebar-logo img { width: 80px; height: 80px; object-fit: contain; margin-bottom: 8px; filter: brightness(1.1); }
         .sidebar-logo h1 { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 500; letter-spacing: 4px; text-transform: uppercase; color: white; line-height: 1.7; }
         .sidebar-logo p { font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold); margin-top: 6px; opacity: 0.9; }
@@ -121,8 +97,6 @@
 
         /* ── BOTTOM ROW ── */
         .bottom-grid { display: grid; grid-template-columns: 1.8fr 1fr; gap: 16px; }
-
-        /* ── TABLE ── */
         .table-card { background: white; border-radius: 16px; padding: 28px; border: 1px solid var(--border); box-shadow: 0 1px 8px rgba(0,0,0,0.04); overflow-x: auto; }
         .table-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
         .table-title { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 500; color: var(--navy); }
@@ -161,13 +135,9 @@
         .donut-footer-label { font-size: 11px; color: var(--muted); }
         .donut-footer-value { font-family: 'Playfair Display', serif; font-size: 14px; color: var(--gold); }
         .empty-state { text-align: center; padding: 32px; color: var(--muted); font-size: 13px; font-style: italic; }
-
-        /* ── BOTTOM NAV ── */
         .bottom-nav-bar { display: none; }
 
-        /* ════════════════════════════════
-           MOBILE
-        ════════════════════════════════ */
+        /* ── MOBILE ── */
         @media (max-width: 1024px) {
             body { padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px)); }
             .sidebar { transform: translateX(-100%); z-index: 200; }
@@ -188,16 +158,7 @@
             .bottom-grid { grid-template-columns: 1fr; gap: 12px; }
             .table-card { padding: 20px 16px; }
             .donut-card { padding: 20px 16px; }
-            .bottom-nav-bar {
-                display: flex !important; position: fixed !important;
-                bottom: 0 !important; left: 0 !important; right: 0 !important;
-                width: 100% !important; height: 60px !important;
-                background: #ffffff !important; border-top: 1px solid #EAEAEA !important;
-                box-shadow: 0 -2px 16px rgba(0,0,0,0.08) !important;
-                z-index: 99999 !important;
-                padding-bottom: env(safe-area-inset-bottom, 0px) !important;
-                justify-content: space-around !important; align-items: center !important;
-            }
+            .bottom-nav-bar { display: flex !important; position: fixed !important; bottom: 0 !important; left: 0 !important; right: 0 !important; width: 100% !important; height: 60px !important; background: #ffffff !important; border-top: 1px solid #EAEAEA !important; box-shadow: 0 -2px 16px rgba(0,0,0,0.08) !important; z-index: 99999 !important; padding-bottom: env(safe-area-inset-bottom, 0px) !important; justify-content: space-around !important; align-items: center !important; }
             .bottom-nav-item { display: flex !important; flex-direction: column !important; align-items: center !important; justify-content: center !important; gap: 3px !important; text-decoration: none !important; flex: 1 !important; padding: 8px 0 !important; }
             .bottom-nav-item svg { width: 22px !important; height: 22px !important; stroke: #9CA3AF !important; fill: none !important; stroke-width: 1.5 !important; stroke-linecap: round !important; }
             .bottom-nav-item.active svg { stroke: #C8A96A !important; }
@@ -207,8 +168,6 @@
     </style>
 </head>
 <body>
-
-<!-- MOBILE TOP BAR -->
 <div class="mobile-topbar">
     <div class="mobile-topbar-logo">
         <img src="/images/bahamas-stays-logo.png" alt="Bahamas Stays">
@@ -218,11 +177,7 @@
         <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
     </button>
 </div>
-
-<!-- SIDEBAR OVERLAY -->
 <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
-
-<!-- SIDEBAR -->
 <aside class="sidebar" id="sidebar">
     <div class="sidebar-inner">
         <div class="sidebar-logo">
@@ -232,62 +187,27 @@
         </div>
         <nav class="sidebar-nav">
             <div class="nav-section-label">Operations</div>
-            <a href="/operator.html" class="nav-item active">
-                <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
-                Dashboard
-            </a>
-            <a href="/bookings.html" class="nav-item">
-                <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                Bookings
-            </a>
-            <a href="/guests.html" class="nav-item">
-                <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                Guests
-            </a>
-            <a href="/properties-manage.html" class="nav-item">
-                <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-                Properties
-            </a>
+            <a href="/operator.html" class="nav-item active"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>Dashboard</a>
+            <a href="/bookings.html" class="nav-item"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Bookings</a>
+            <a href="/guests.html" class="nav-item"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Guests</a>
+            <a href="/properties-manage.html" class="nav-item"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Properties</a>
             <div class="nav-section-label">Analytics</div>
-            <a href="/revenue.html" class="nav-item">
-                <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-                Revenue
-            </a>
-            <a href="/reports.html" class="nav-item">
-                <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-                Reports
-            </a>
+            <a href="/revenue.html" class="nav-item"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Revenue</a>
+            <a href="/reports.html" class="nav-item"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>Reports</a>
             <div class="nav-section-label">Platform</div>
-            <a href="/marketing.html" class="nav-item">
-                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
-                Marketing
-            </a>
-            <a href="/settings.html" class="nav-item">
-                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
-                Settings
-            </a>
-            <a href="/" class="nav-item">
-                <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
-                Main Site
-            </a>
+            <a href="/marketing.html" class="nav-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>Marketing</a>
+            <a href="/settings.html" class="nav-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>Settings</a>
+            <a href="/" class="nav-item"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Main Site</a>
         </nav>
         <div class="sidebar-bottom">
             <div class="sidebar-profile">
                 <div class="sidebar-avatar">O</div>
-                <div class="sidebar-profile-info">
-                    <h3>Operator</h3>
-                    <p>Property Manager</p>
-                </div>
+                <div class="sidebar-profile-info"><h3>Operator</h3><p>Property Manager</p></div>
             </div>
-            <button class="sidebar-logout">
-                <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-                Log out
-            </button>
+            <button class="sidebar-logout"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Log out</button>
         </div>
     </div>
 </aside>
-
-<!-- MAIN -->
 <main class="main">
     <div class="header">
         <div class="header-greeting">
@@ -295,135 +215,45 @@
             <p>Here's what's happening at Bahamas Stays today.</p>
         </div>
         <div class="header-right">
-            <div class="header-search">
-                <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                <input type="text" placeholder="Search bookings, guests...">
-            </div>
-            <div class="header-date">
-                <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                <span id="currentDate">—</span>
-            </div>
-            <div class="header-icon-btn">
-                <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-            </div>
-            <div class="header-profile">
-                <div class="header-profile-avatar">O</div>
-                <span>Operator</span>
-            </div>
+            <div class="header-search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input type="text" placeholder="Search bookings, guests..."></div>
+            <div class="header-date"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span id="currentDate">—</span></div>
+            <div class="header-icon-btn"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
+            <div class="header-profile"><div class="header-profile-avatar">O</div><span>Operator</span></div>
         </div>
     </div>
-
     <div class="kpi-grid">
-        <div class="kpi-card">
-            <div class="kpi-label">Total Revenue</div>
-            <div class="kpi-value gold" id="kpiRevenue">—</div>
-            <div class="kpi-change" id="kpiRevenueNote">—</div>
-            <div class="kpi-sparkline" id="spark1"></div>
-        </div>
-        <div class="kpi-card">
-            <div class="kpi-label">Total Bookings</div>
-            <div class="kpi-value teal" id="kpiBookings">—</div>
-            <div class="kpi-change" id="kpiBookingsNote">—</div>
-            <div class="kpi-sparkline" id="spark2"></div>
-        </div>
-        <div class="kpi-card">
-            <div class="kpi-label">Platform Commission</div>
-            <div class="kpi-value teal" id="kpiCommission">—</div>
-            <div class="kpi-change" id="kpiCommissionNote">—</div>
-            <div class="kpi-sparkline" id="spark3"></div>
-        </div>
-        <div class="kpi-card">
-            <div class="kpi-label">Avg Booking Value</div>
-            <div class="kpi-value gold" id="kpiABV">—</div>
-            <div class="kpi-change" id="kpiABVNote">—</div>
-            <div class="kpi-sparkline" id="spark4"></div>
-        </div>
+        <div class="kpi-card"><div class="kpi-label">Total Revenue</div><div class="kpi-value gold" id="kpiRevenue">—</div><div class="kpi-change" id="kpiRevenueNote">—</div><div class="kpi-sparkline" id="spark1"></div></div>
+        <div class="kpi-card"><div class="kpi-label">Total Bookings</div><div class="kpi-value teal" id="kpiBookings">—</div><div class="kpi-change" id="kpiBookingsNote">—</div><div class="kpi-sparkline" id="spark2"></div></div>
+        <div class="kpi-card"><div class="kpi-label">Platform Commission</div><div class="kpi-value teal" id="kpiCommission">—</div><div class="kpi-change" id="kpiCommissionNote">—</div><div class="kpi-sparkline" id="spark3"></div></div>
+        <div class="kpi-card"><div class="kpi-label">Avg Booking Value</div><div class="kpi-value gold" id="kpiABV">—</div><div class="kpi-change" id="kpiABVNote">—</div><div class="kpi-sparkline" id="spark4"></div></div>
     </div>
-
     <div class="charts-grid">
-        <div class="chart-card">
-            <div class="chart-header">
-                <div>
-                    <div class="chart-title">Revenue Overview</div>
-                    <div class="chart-subtitle" id="revenueSubtitle">—</div>
-                </div>
-                <div class="chart-pill">Monthly</div>
-            </div>
-            <div class="chart-container"><canvas id="revenueChart"></canvas></div>
-        </div>
-        <div class="chart-card">
-            <div class="chart-header">
-                <div>
-                    <div class="chart-title">Bookings by Property</div>
-                    <div class="chart-subtitle">All time distribution</div>
-                </div>
-                <div class="chart-pill">All Time</div>
-            </div>
-            <div class="chart-container"><canvas id="bookingsChart"></canvas></div>
-        </div>
+        <div class="chart-card"><div class="chart-header"><div><div class="chart-title">Revenue Overview</div><div class="chart-subtitle" id="revenueSubtitle">—</div></div><div class="chart-pill">Monthly</div></div><div class="chart-container"><canvas id="revenueChart"></canvas></div></div>
+        <div class="chart-card"><div class="chart-header"><div><div class="chart-title">Bookings by Property</div><div class="chart-subtitle">All time distribution</div></div><div class="chart-pill">All Time</div></div><div class="chart-container"><canvas id="bookingsChart"></canvas></div></div>
     </div>
-
     <div class="bottom-grid">
         <div class="table-card">
-            <div class="table-header">
-                <div class="table-title">Recent Bookings</div>
-                <a href="/bookings.html" class="table-link">View all →</a>
-            </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th><th>Guest</th><th>Property</th>
-                        <th>Check-In</th><th>Status</th><th>Total</th><th>Commission</th>
-                    </tr>
-                </thead>
-                <tbody id="bookingsTable">
-                    <tr><td colspan="7" class="empty-state">Loading bookings...</td></tr>
-                </tbody>
-            </table>
+            <div class="table-header"><div class="table-title">Recent Bookings</div><a href="/bookings.html" class="table-link">View all →</a></div>
+            <table><thead><tr><th>ID</th><th>Guest</th><th>Property</th><th>Check-In</th><th>Status</th><th>Total</th><th>Commission</th></tr></thead><tbody id="bookingsTable"><tr><td colspan="7" class="empty-state">Loading bookings...</td></tr></tbody></table>
         </div>
         <div class="donut-card">
             <div class="donut-title">Property Status</div>
-            <div class="donut-wrapper">
-                <canvas id="donutChart" width="140" height="140"></canvas>
-                <div class="donut-center">
-                    <div class="donut-center-number" id="totalProps">—</div>
-                    <div class="donut-center-label">Properties</div>
-                </div>
-            </div>
+            <div class="donut-wrapper"><canvas id="donutChart" width="140" height="140"></canvas><div class="donut-center"><div class="donut-center-number" id="totalProps">—</div><div class="donut-center-label">Properties</div></div></div>
             <div id="donutLegend"></div>
-            <div class="donut-footer">
-                <span class="donut-footer-label">8% Commission Rate</span>
-                <span class="donut-footer-value">Partner Revenue Share</span>
-            </div>
+            <div class="donut-footer"><span class="donut-footer-label">8% Commission Rate</span><span class="donut-footer-value">Partner Revenue Share</span></div>
         </div>
     </div>
 </main>
-
-<!-- BOTTOM NAV -->
 <div class="bottom-nav-bar">
-    <a href="/operator.html" class="bottom-nav-item active">
-        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
-        <span>Dashboard</span>
-    </a>
-    <a href="/bookings.html" class="bottom-nav-item">
-        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-        <span>Bookings</span>
-    </a>
-    <a href="/guests.html" class="bottom-nav-item">
-        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
-        <span>Guests</span>
-    </a>
-    <a href="/revenue.html" class="bottom-nav-item">
-        <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-        <span>Revenue</span>
-    </a>
+    <a href="/operator.html" class="bottom-nav-item active"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg><span>Dashboard</span></a>
+    <a href="/bookings.html" class="bottom-nav-item"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span>Bookings</span></a>
+    <a href="/guests.html" class="bottom-nav-item"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg><span>Guests</span></a>
+    <a href="/revenue.html" class="bottom-nav-item"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg><span>Revenue</span></a>
 </div>
-
 <script>
 // ── PASSWORD PROTECTION ──
 (function() {
     if (sessionStorage.getItem('operator_auth') === 'BahamasOps2026') return;
-
     document.body.innerHTML = `
     <div style="min-height:100vh;display:flex;font-family:'DM Sans',sans-serif;">
         <div style="flex:1;background:linear-gradient(to bottom,rgba(6,14,26,0.85) 0%,rgba(6,14,26,0.55) 50%,rgba(6,14,26,0.88) 100%),url('/images/bahamas-stays-hero.jpg') center/cover no-repeat;display:flex;flex-direction:column;justify-content:space-between;padding:48px 56px;">
@@ -441,7 +271,7 @@
             </div>
             <p style="font-size:12px;color:rgba(255,255,255,0.40);font-style:italic;"><span style="color:#C8A96A;font-style:normal;">Curated by Bahamians.</span> Designed for the world.</p>
         </div>
-        <div style="width:480px;flex-shrink:0;background:white;display:flex;flex-direction:column;justify-content:center;padding:60px 56px;overflow-y:auto;">
+        <div style="width:480px;flex-shrink:0;background:white;display:flex;flex-direction:column;justify-content:center;padding:60px 56px;overflow-y:auto;min-height:100vh;">
             <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#C8A96A;margin-bottom:12px;">Operator Portal</div>
             <h2 style="font-family:'Playfair Display',serif;font-size:32px;font-weight:500;color:#071B3A;margin-bottom:8px;letter-spacing:-0.3px;">Sign In</h2>
             <p style="font-size:14px;color:#6B7280;margin-bottom:32px;line-height:1.6;">Access your operator dashboard and property management tools.</p>
@@ -454,11 +284,10 @@
                 <label style="display:block;font-size:9px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:#9CA3AF;margin-bottom:7px;">Password</label>
                 <input id="opPassword" type="password" placeholder="••••••••••••" style="width:100%;padding:13px 16px;border:1px solid #EAEAEA;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;color:#111827;outline:none;background:#FAFAFA;box-sizing:border-box;">
             </div>
-            <button onclick="opLogin()" style="width:100%;padding:15px;background:#C8A96A;color:#071B3A;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;border:none;border-radius:10px;cursor:pointer;margin-bottom:12px;transition:background 200ms ease;">Sign In to Dashboard</button>
+            <button onclick="opLogin()" style="width:100%;padding:15px;background:#C8A96A;color:#071B3A;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;border:none;border-radius:10px;cursor:pointer;margin-bottom:12px;">Sign In to Dashboard</button>
             <a href="/" style="display:block;text-align:center;padding:13px;background:white;color:#071B3A;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;letter-spacing:0.5px;text-transform:uppercase;border:1px solid #EAEAEA;border-radius:10px;text-decoration:none;">← Return to Main Site</a>
         </div>
     </div>`;
-
     document.addEventListener('keydown', function(e) { if (e.key === 'Enter') opLogin(); });
 })();
 
@@ -473,17 +302,9 @@ function opLogin() {
     }
 }
 
-function currency(n) {
-    return '$' + Number(n).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
-}
-function shortDate(str) {
-    if (!str) return '—';
-    return new Date(str).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-}
-function greet() {
-    var h = new Date().getHours();
-    return h < 12 ? 'Good morning.' : h < 17 ? 'Good afternoon.' : 'Good evening.';
-}
+function currency(n) { return '$' + Number(n).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 }); }
+function shortDate(str) { if (!str) return '—'; return new Date(str).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }); }
+function greet() { var h = new Date().getHours(); return h < 12 ? 'Good morning.' : h < 17 ? 'Good afternoon.' : 'Good evening.'; }
 
 document.getElementById('greeting') && (document.getElementById('greeting').textContent = greet());
 document.getElementById('currentDate') && (document.getElementById('currentDate').textContent = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }));
@@ -517,12 +338,10 @@ async function loadDashboard() {
         var [bRes, pRes] = await Promise.all([fetch('/bookings'), fetch('/properties')]);
         var bookings = await bRes.json();
         var properties = await pRes.json();
-
         var totalRevenue = bookings.reduce(function(s, b) { return s + (b.total_price || 0); }, 0);
         var totalBookings = bookings.length;
         var commission = Math.round(totalRevenue * 0.08);
         var abv = totalBookings > 0 ? Math.round(totalRevenue / totalBookings) : 0;
-
         document.getElementById('kpiRevenue').textContent = currency(totalRevenue);
         document.getElementById('kpiRevenueNote').textContent = totalBookings + ' bookings · all time';
         document.getElementById('kpiBookings').textContent = totalBookings;
@@ -531,65 +350,33 @@ async function loadDashboard() {
         document.getElementById('kpiCommissionNote').textContent = '8% founding partner rate';
         document.getElementById('kpiABV').textContent = currency(abv);
         document.getElementById('kpiABVNote').textContent = 'Per booking average';
-
         sparkline('spark1', [2,4,3,6,5,8,totalBookings||1], 'gold-bar');
         sparkline('spark2', [1,3,2,5,4,7,totalBookings||1], 'teal-bar');
         sparkline('spark3', [1,2,2,4,3,6,totalBookings||1], 'teal-bar');
         sparkline('spark4', [3,4,3,5,4,6,abv>0?5:1], 'gold-bar');
-
         var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
         var revenueByMonth = new Array(12).fill(0);
         bookings.forEach(function(b) { var m = new Date(b.created_at).getMonth(); revenueByMonth[m] += (b.total_price || 0); });
         var baseRevenue = [12000,14500,13200,18000,17200,19500,21400,23600,25800,27400,29100,31800];
         revenueByMonth = revenueByMonth.map(function(v, i) { return v > 0 ? v : baseRevenue[i]; });
         document.getElementById('revenueSubtitle').textContent = 'Total ' + new Date().getFullYear() + ': ' + currency(totalRevenue);
-
         var rCtx = document.getElementById('revenueChart').getContext('2d');
         var rGrad = rCtx.createLinearGradient(0, 0, 0, 240);
         rGrad.addColorStop(0, 'rgba(46,199,201,0.22)');
         rGrad.addColorStop(1, 'rgba(46,199,201,0.00)');
-        new Chart(rCtx, {
-            type: 'line',
-            data: { labels: months, datasets: [{ data: revenueByMonth, borderColor: '#2EC7C9', backgroundColor: rGrad, borderWidth: 2, fill: true, tension: 0.45, pointBackgroundColor: '#2EC7C9', pointBorderColor: 'white', pointBorderWidth: 2, pointRadius: 3, pointHoverRadius: 5 }] },
-            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { backgroundColor: '#071B3A', titleColor: 'rgba(255,255,255,0.6)', bodyColor: 'white', padding: 10, cornerRadius: 8, callbacks: { label: function(c) { return ' ' + currency(c.raw); } } } }, scales: { x: { grid: { display: false }, border: { display: false }, ticks: { font: { size: 10 } } }, y: { grid: { color: '#F0F3F7' }, border: { display: false }, ticks: { font: { size: 10 }, callback: function(v) { return v === 0 ? '$0' : '$' + (v/1000).toFixed(0) + 'k'; } } } } }
-        });
-
+        new Chart(rCtx, { type: 'line', data: { labels: months, datasets: [{ data: revenueByMonth, borderColor: '#2EC7C9', backgroundColor: rGrad, borderWidth: 2, fill: true, tension: 0.45, pointBackgroundColor: '#2EC7C9', pointBorderColor: 'white', pointBorderWidth: 2, pointRadius: 3, pointHoverRadius: 5 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { backgroundColor: '#071B3A', titleColor: 'rgba(255,255,255,0.6)', bodyColor: 'white', padding: 10, cornerRadius: 8, callbacks: { label: function(c) { return ' ' + currency(c.raw); } } } }, scales: { x: { grid: { display: false }, border: { display: false }, ticks: { font: { size: 10 } } }, y: { grid: { color: '#F0F3F7' }, border: { display: false }, ticks: { font: { size: 10 }, callback: function(v) { return v === 0 ? '$0' : '$' + (v/1000).toFixed(0) + 'k'; } } } } } });
         var byProp = { 'Goldwynn': 0, 'Baha Mar': 0, 'Albany': 0, 'Exuma Charter': 0, 'Harbour Island': 0 };
-        bookings.forEach(function(b) {
-            var name = (b.property_name || '');
-            if (name.includes('Goldwynn')) byProp['Goldwynn'] += 1;
-            else if (name.includes('Baha')) byProp['Baha Mar'] += 1;
-            else if (name.includes('Albany')) byProp['Albany'] += 1;
-            else if (name.includes('Exuma')) byProp['Exuma Charter'] += 1;
-            else if (name.includes('Harbour')) byProp['Harbour Island'] += 1;
-        });
+        bookings.forEach(function(b) { var name = (b.property_name || ''); if (name.includes('Goldwynn')) byProp['Goldwynn']++; else if (name.includes('Baha')) byProp['Baha Mar']++; else if (name.includes('Albany')) byProp['Albany']++; else if (name.includes('Exuma')) byProp['Exuma Charter']++; else if (name.includes('Harbour')) byProp['Harbour Island']++; });
         if (byProp['Baha Mar'] === 0) byProp['Baha Mar'] = 2;
         if (byProp['Exuma Charter'] === 0) byProp['Exuma Charter'] = 1;
         if (byProp['Harbour Island'] === 0) byProp['Harbour Island'] = 1;
-
         var bCtx = document.getElementById('bookingsChart').getContext('2d');
-        new Chart(bCtx, {
-            type: 'bar',
-            data: { labels: Object.keys(byProp), datasets: [{ data: Object.values(byProp), backgroundColor: Object.keys(byProp).map(function(_, i) { return i % 2 === 0 ? '#2EC7C9' : 'rgba(46,199,201,0.45)'; }), borderRadius: 6, borderSkipped: false, barThickness: 36 }] },
-            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { backgroundColor: '#071B3A', titleColor: 'rgba(255,255,255,0.6)', bodyColor: 'white', padding: 10, cornerRadius: 8, callbacks: { label: function(c) { return ' ' + c.raw + ' booking' + (c.raw !== 1 ? 's' : ''); } } } }, scales: { x: { grid: { display: false }, border: { display: false }, ticks: { font: { size: 10 }, maxRotation: 18, minRotation: 18 } }, y: { grid: { color: '#F0F3F7' }, border: { display: false }, ticks: { font: { size: 10 }, stepSize: 1 } } } }
-        });
-
+        new Chart(bCtx, { type: 'bar', data: { labels: Object.keys(byProp), datasets: [{ data: Object.values(byProp), backgroundColor: Object.keys(byProp).map(function(_, i) { return i % 2 === 0 ? '#2EC7C9' : 'rgba(46,199,201,0.45)'; }), borderRadius: 6, borderSkipped: false, barThickness: 36 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { backgroundColor: '#071B3A', titleColor: 'rgba(255,255,255,0.6)', bodyColor: 'white', padding: 10, cornerRadius: 8, callbacks: { label: function(c) { return ' ' + c.raw + ' booking' + (c.raw !== 1 ? 's' : ''); } } } }, scales: { x: { grid: { display: false }, border: { display: false }, ticks: { font: { size: 10 }, maxRotation: 18, minRotation: 18 } }, y: { grid: { color: '#F0F3F7' }, border: { display: false }, ticks: { font: { size: 10 }, stepSize: 1 } } } } });
         var realisticNames = ['Sarah Mitchell','James Thornton','Priya Kapoor','Marcus Webb','Catherine Lowe','David Okafor','Emma Rousseau'];
         var mixedStatuses = ['confirmed','checked-in','pending','confirmed','completed','confirmed','pending'];
         var tbody = document.getElementById('bookingsTable');
-        if (!bookings.length) {
-            tbody.innerHTML = '<tr><td colspan="7" class="empty-state">No bookings yet.</td></tr>';
-        } else {
-            tbody.innerHTML = bookings.slice(0, 8).map(function(b, i) {
-                var guestName = realisticNames[i] || b.guest_name;
-                var status = mixedStatuses[i] || b.status || 'pending';
-                var sc = status === 'confirmed' ? 'status-confirmed' : status === 'checked-in' ? 'status-checked-in' : status === 'completed' ? 'status-completed' : 'status-pending';
-                var sl = status.charAt(0).toUpperCase() + status.slice(1).replace('-', ' ');
-                var comm = Math.round((b.total_price || 0) * 0.08);
-                return '<tr><td class="booking-id">#' + b.id + '</td><td class="guest-name">' + guestName + '</td><td class="property-name-cell">' + (b.property_name || '—') + '</td><td>' + shortDate(b.check_in) + '</td><td><span class="status-pill ' + sc + '">' + sl + '</span></td><td class="booking-total">' + currency(b.total_price) + '</td><td class="commission-cell">+' + currency(comm) + '</td></tr>';
-            }).join('');
-        }
-
+        if (!bookings.length) { tbody.innerHTML = '<tr><td colspan="7" class="empty-state">No bookings yet.</td></tr>'; }
+        else { tbody.innerHTML = bookings.slice(0, 8).map(function(b, i) { var guestName = realisticNames[i] || b.guest_name; var status = mixedStatuses[i] || b.status || 'pending'; var sc = status === 'confirmed' ? 'status-confirmed' : status === 'checked-in' ? 'status-checked-in' : status === 'completed' ? 'status-completed' : 'status-pending'; var sl = status.charAt(0).toUpperCase() + status.slice(1).replace('-', ' '); var comm = Math.round((b.total_price || 0) * 0.08); return '<tr><td class="booking-id">#' + b.id + '</td><td class="guest-name">' + guestName + '</td><td class="property-name-cell">' + (b.property_name || '—') + '</td><td>' + shortDate(b.check_in) + '</td><td><span class="status-pill ' + sc + '">' + sl + '</span></td><td class="booking-total">' + currency(b.total_price) + '</td><td class="commission-cell">+' + currency(comm) + '</td></tr>'; }).join(''); }
         var bookedIds = [...new Set(bookings.map(function(b) { return b.property_id; }))];
         var bookedCount = bookedIds.length;
         var availableCount = Math.max(0, properties.length - bookedCount);
@@ -597,18 +384,10 @@ async function loadDashboard() {
         var donutData = [{ name: 'With Bookings', value: bookedCount, color: '#2EC7C9' }, { name: 'Available', value: availableCount, color: '#C8A96A' }].filter(function(d) { return d.value > 0; });
         if (!donutData.length) donutData = [{ name: 'No Data', value: 1, color: '#EBEEf3' }];
         var dCtx = document.getElementById('donutChart').getContext('2d');
-        new Chart(dCtx, {
-            type: 'doughnut',
-            data: { labels: donutData.map(function(d) { return d.name; }), datasets: [{ data: donutData.map(function(d) { return d.value; }), backgroundColor: donutData.map(function(d) { return d.color; }), borderWidth: 0, hoverOffset: 3 }] },
-            options: { responsive: false, cutout: '78%', plugins: { legend: { display: false }, tooltip: { backgroundColor: '#071B3A', bodyColor: 'white', padding: 8, cornerRadius: 6 } } }
-        });
-        document.getElementById('donutLegend').innerHTML = donutData.map(function(d) {
-            return '<div class="donut-legend-item"><div class="donut-legend-left"><div class="donut-dot" style="background:' + d.color + '"></div>' + d.name + '</div><span class="donut-legend-value">' + d.value + '</span></div>';
-        }).join('');
-
+        new Chart(dCtx, { type: 'doughnut', data: { labels: donutData.map(function(d) { return d.name; }), datasets: [{ data: donutData.map(function(d) { return d.value; }), backgroundColor: donutData.map(function(d) { return d.color; }), borderWidth: 0, hoverOffset: 3 }] }, options: { responsive: false, cutout: '78%', plugins: { legend: { display: false }, tooltip: { backgroundColor: '#071B3A', bodyColor: 'white', padding: 8, cornerRadius: 6 } } } });
+        document.getElementById('donutLegend').innerHTML = donutData.map(function(d) { return '<div class="donut-legend-item"><div class="donut-legend-left"><div class="donut-dot" style="background:' + d.color + '"></div>' + d.name + '</div><span class="donut-legend-value">' + d.value + '</span></div>'; }).join('');
     } catch(err) { console.error('Dashboard error:', err); }
 }
-
 loadDashboard();
 </script>
 </body>

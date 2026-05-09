@@ -9,20 +9,24 @@
         :root { --navy: #071B3A; --gold: #C8A96A; --gold-light: rgba(200,169,106,0.12); --teal: #2EC7C9; --teal-light: rgba(46,199,201,0.10); --bg: #F4F6F9; --white: #FFFFFF; --text: #1E2430; --muted: #8A93A2; --border: #EBEEf3; }
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
         html, body { width: 100%; max-width: 100%; overflow-x: hidden; font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); font-size: 14px; }
-        .sidebar { width: 284px; background: linear-gradient(180deg, #071B3A 0%, #061528 100%); color: white; display: flex; flex-direction: column; justify-content: space-between; position: fixed; top: 0; left: 0; bottom: 0; z-index: 10; box-shadow: 4px 0 24px rgba(0,0,0,0.15); transition: transform 300ms ease; }
-        .sidebar-logo { padding: 48px 24px 36px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.06); }
-        .sidebar-logo img { width: 88px; height: 88px; object-fit: contain; margin-bottom: 10px; filter: brightness(1.1); }
-        .sidebar-logo h1 { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 500; letter-spacing: 4px; text-transform: uppercase; color: white; line-height: 1.8; }
-        .sidebar-logo p { font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold); margin-top: 8px; opacity: 0.9; }
-        .sidebar-nav { padding: 12px 0; flex: 1; overflow-y: auto; }
-        .nav-section-label { font-size: 8px; letter-spacing: 2px; text-transform: uppercase; color: rgba(200,169,106,0.45); padding: 16px 24px 8px; }
-        .nav-item { display: flex; align-items: center; gap: 12px; padding: 11px 24px; cursor: pointer; transition: all 180ms ease; border-left: 2px solid transparent; font-size: 13px; color: rgba(255,255,255,0.55); text-decoration: none; }
+        .sidebar { width: 284px; background: linear-gradient(180deg, #071B3A 0%, #061528 100%); color: white; display: flex; flex-direction: column; position: fixed; top: 0; left: 0; bottom: 0; z-index: 10; box-shadow: 4px 0 24px rgba(0,0,0,0.15); transition: transform 300ms ease; overflow: hidden; }
+        .sidebar-inner { display: flex; flex-direction: column; height: 100%; overflow: hidden; }
+        .sidebar-logo { padding: 28px 24px 22px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.06); flex-shrink: 0; }
+        .sidebar-logo img { width: 80px; height: 80px; object-fit: contain; margin-bottom: 8px; filter: brightness(1.1); }
+        .sidebar-logo h1 { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 500; letter-spacing: 4px; text-transform: uppercase; color: white; line-height: 1.7; }
+        .sidebar-logo p { font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold); margin-top: 6px; opacity: 0.9; }
+        .sidebar-nav { padding: 8px 0; flex: 1; overflow-y: auto; overflow-x: hidden; }
+        .sidebar-nav::-webkit-scrollbar { width: 4px; }
+        .sidebar-nav::-webkit-scrollbar-track { background: transparent; }
+        .sidebar-nav::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 2px; }
+        .nav-section-label { font-size: 8px; letter-spacing: 2px; text-transform: uppercase; color: rgba(200,169,106,0.45); padding: 14px 24px 6px; }
+        .nav-item { display: flex; align-items: center; gap: 12px; padding: 10px 24px; cursor: pointer; transition: all 180ms ease; border-left: 2px solid transparent; font-size: 13px; color: rgba(255,255,255,0.55); text-decoration: none; letter-spacing: 0.3px; }
         .nav-item:hover { background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.85); border-left-color: rgba(200,169,106,0.3); }
         .nav-item.active { background: rgba(255,255,255,0.045); border-left-color: var(--gold); color: white; }
         .nav-item svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; opacity: 0.8; }
-        .sidebar-bottom { padding: 20px 24px; border-top: 1px solid rgba(255,255,255,0.06); }
-        .sidebar-profile { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
-        .sidebar-avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, var(--gold), #E5C07B); display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 14px; color: var(--navy); font-weight: 500; flex-shrink: 0; }
+        .sidebar-bottom { padding: 16px 24px; border-top: 1px solid rgba(255,255,255,0.06); flex-shrink: 0; }
+        .sidebar-profile { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+        .sidebar-avatar { width: 34px; height: 34px; border-radius: 50%; background: linear-gradient(135deg, var(--gold), #E5C07B); display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 13px; color: var(--navy); font-weight: 500; flex-shrink: 0; }
         .sidebar-profile-info h3 { font-size: 13px; font-weight: 500; color: white; }
         .sidebar-profile-info p { font-size: 10px; color: rgba(255,255,255,0.40); margin-top: 1px; }
         .sidebar-logout { display: flex; align-items: center; gap: 8px; font-size: 12px; color: rgba(255,255,255,0.35); cursor: pointer; transition: color 180ms ease; background: none; border: none; padding: 0; }
@@ -55,7 +59,6 @@
         .report-btn.gold { background: var(--gold); color: var(--navy); }
         .report-btn.gold:hover { background: #D4B27A; }
         .report-btn.teal { background: var(--teal-light); color: var(--teal); }
-        .report-btn.teal:hover { background: rgba(46,199,201,0.20); }
         .report-preview { background: white; border-radius: 16px; border: 1px solid var(--border); box-shadow: 0 1px 8px rgba(0,0,0,0.04); overflow: hidden; }
         .report-preview-header { padding: 24px 28px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
         .report-preview-header h2 { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 500; color: var(--navy); }
@@ -93,58 +96,37 @@
 </div>
 <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
 <aside class="sidebar" id="sidebar">
-    <div>
+    <div class="sidebar-inner">
         <div class="sidebar-logo"><img src="/images/bahamas-stays-logo.png" alt="Bahamas Stays"><h1>Bahamas<br>Stays</h1><p>Operator Dashboard</p></div>
         <nav class="sidebar-nav">
             <div class="nav-section-label">Operations</div>
             <a href="/operator.html" class="nav-item"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>Dashboard</a>
             <a href="/bookings.html" class="nav-item"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Bookings</a>
-            <a href="/guests.html" class="nav-item"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Guests</a>
+            <a href="/guests.html" class="nav-item"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Guests</a>
             <a href="/properties-manage.html" class="nav-item"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Properties</a>
             <div class="nav-section-label">Analytics</div>
             <a href="/revenue.html" class="nav-item"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Revenue</a>
             <a href="/reports.html" class="nav-item active"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>Reports</a>
             <div class="nav-section-label">Platform</div>
             <a href="/marketing.html" class="nav-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>Marketing</a>
-            <a href="/settings.html" class="nav-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>Settings</a>
+            <a href="/settings.html" class="nav-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>Settings</a>
             <a href="/" class="nav-item"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Main Site</a>
         </nav>
-    </div>
-    <div class="sidebar-bottom">
-        <div class="sidebar-profile"><div class="sidebar-avatar">O</div><div class="sidebar-profile-info"><h3>Operator</h3><p>Property Manager</p></div></div>
-        <button class="sidebar-logout"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Log out</button>
+        <div class="sidebar-bottom">
+            <div class="sidebar-profile"><div class="sidebar-avatar">O</div><div class="sidebar-profile-info"><h3>Operator</h3><p>Property Manager</p></div></div>
+            <button class="sidebar-logout"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Log out</button>
+        </div>
     </div>
 </aside>
 <main class="main">
-    <div class="page-header">
-        <h1>Reports</h1>
-        <p>Generate and download operational reports</p>
-    </div>
+    <div class="page-header"><h1>Reports</h1><p>Generate and review operational reports</p></div>
     <div class="reports-grid">
-        <div class="report-card" onclick="generateReport('bookings')">
-            <div class="report-icon teal"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
-            <div class="report-title">Bookings Report</div>
-            <div class="report-desc">Complete list of all bookings with guest details, dates, property names, and total revenue.</div>
-            <button class="report-btn teal">Generate Report</button>
-        </div>
-        <div class="report-card" onclick="generateReport('revenue')">
-            <div class="report-icon gold"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
-            <div class="report-title">Revenue Report</div>
-            <div class="report-desc">Monthly revenue breakdown with platform commission, operator payouts, and property performance.</div>
-            <button class="report-btn gold">Generate Report</button>
-        </div>
-        <div class="report-card" onclick="generateReport('guests')">
-            <div class="report-icon teal"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
-            <div class="report-title">Guest Report</div>
-            <div class="report-desc">Full guest directory with contact information, booking history, and total spend per guest.</div>
-            <button class="report-btn teal">Generate Report</button>
-        </div>
+        <div class="report-card" onclick="generateReport('bookings')"><div class="report-icon teal"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div><div class="report-title">Bookings Report</div><div class="report-desc">Complete list of all bookings with guest details, dates, and revenue.</div><button class="report-btn teal">Generate</button></div>
+        <div class="report-card" onclick="generateReport('revenue')"><div class="report-icon gold"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><div class="report-title">Revenue Report</div><div class="report-desc">Monthly revenue with commission, operator payouts, and property performance.</div><button class="report-btn gold">Generate</button></div>
+        <div class="report-card" onclick="generateReport('guests')"><div class="report-icon teal"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div><div class="report-title">Guest Report</div><div class="report-desc">Full guest directory with contact information and total spend per guest.</div><button class="report-btn teal">Generate</button></div>
     </div>
     <div class="report-preview">
-        <div class="report-preview-header">
-            <h2 id="previewTitle">Platform Summary</h2>
-            <span id="previewDate">—</span>
-        </div>
+        <div class="report-preview-header"><h2 id="previewTitle">Platform Summary</h2><span id="previewDate">—</span></div>
         <div class="report-preview-body">
             <div class="report-summary-grid">
                 <div class="summary-item"><div class="summary-label">Total Bookings</div><div class="summary-value teal" id="sumBookings">—</div></div>
@@ -163,104 +145,47 @@
     <a href="/revenue.html" class="bottom-nav-item"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg><span>Revenue</span></a>
 </div>
 <script>
-let allBookings = [];
-const realisticNames = ['Sarah Mitchell','James Thornton','Priya Kapoor','Marcus Webb','Catherine Lowe','David Okafor','Emma Rousseau'];
-function currency(n) { return '$' + Number(n).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 }); }
-function shortDate(str) { if (!str) return '—'; return new Date(str).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }); }
-function toggleSidebar() {
-    var sidebar = document.getElementById('sidebar');
-    var overlay = document.getElementById('sidebarOverlay');
-    sidebar.classList.toggle('open');
-    overlay.classList.toggle('open');
-    document.body.style.overflow = sidebar.classList.contains('open') ? 'hidden' : '';
-}
+var allBookings = [];
+var realisticNames = ['Sarah Mitchell','James Thornton','Priya Kapoor','Marcus Webb','Catherine Lowe','David Okafor','Emma Rousseau'];
+function currency(n) { return '$' + Number(n).toLocaleString('en-US',{minimumFractionDigits:0,maximumFractionDigits:0}); }
+function shortDate(str) { if (!str) return '—'; return new Date(str).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}); }
+function toggleSidebar() { var s=document.getElementById('sidebar'); var o=document.getElementById('sidebarOverlay'); s.classList.toggle('open'); o.classList.toggle('open'); document.body.style.overflow=s.classList.contains('open')?'hidden':''; }
 function generateReport(type) {
-    document.getElementById('previewDate').textContent = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+    document.getElementById('previewDate').textContent = new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
     var content = document.getElementById('reportContent');
-    if (type === 'bookings') {
-        document.getElementById('previewTitle').textContent = 'Bookings Report';
-        content.innerHTML = '<table style="width:100%;border-collapse:collapse;min-width:500px;">' +
-            '<thead><tr style="border-bottom:1px solid var(--border);">' +
-            '<th style="font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);padding:10px 0;text-align:left;">ID</th>' +
-            '<th style="font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);padding:10px 0;text-align:left;">Guest</th>' +
-            '<th style="font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);padding:10px 0;text-align:left;">Property</th>' +
-            '<th style="font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);padding:10px 0;text-align:left;">Check-In</th>' +
-            '<th style="font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);padding:10px 0;text-align:left;">Total</th>' +
-            '</tr></thead><tbody>' +
-            allBookings.map(function(b,i) {
-                return '<tr style="border-bottom:1px solid var(--border);">' +
-                    '<td style="padding:12px 0;font-size:12px;color:var(--muted);">#'+b.id+'</td>' +
-                    '<td style="padding:12px 0;font-size:13px;font-weight:500;color:var(--navy);">'+(realisticNames[i]||b.guest_name)+'</td>' +
-                    '<td style="padding:12px 0;font-size:12px;color:var(--muted);">'+(b.property_name||'—')+'</td>' +
-                    '<td style="padding:12px 0;font-size:12px;">'+shortDate(b.check_in)+'</td>' +
-                    '<td style="padding:12px 0;font-family:\'Playfair Display\',serif;font-size:14px;color:var(--navy);font-weight:500;">'+currency(b.total_price)+'</td>' +
-                    '</tr>';
-            }).join('') + '</tbody></table>';
-    } else if (type === 'revenue') {
-        document.getElementById('previewTitle').textContent = 'Revenue Report';
-        var byMonth = {};
-        allBookings.forEach(function(b) {
-            var m = new Date(b.created_at).toLocaleDateString('en-US',{month:'long',year:'numeric'});
-            if (!byMonth[m]) byMonth[m] = 0;
-            byMonth[m] += (b.total_price||0);
-        });
-        content.innerHTML = '<table style="width:100%;border-collapse:collapse;">' +
-            '<thead><tr style="border-bottom:1px solid var(--border);">' +
-            '<th style="font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);padding:10px 0;text-align:left;">Month</th>' +
-            '<th style="font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);padding:10px 0;text-align:left;">Revenue</th>' +
-            '<th style="font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);padding:10px 0;text-align:left;">Commission (8%)</th>' +
-            '<th style="font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);padding:10px 0;text-align:left;">Operator Payout</th>' +
-            '</tr></thead><tbody>' +
-            Object.keys(byMonth).map(function(m) {
-                var rev = byMonth[m]; var comm = Math.round(rev*0.08); var payout = rev-comm;
-                return '<tr style="border-bottom:1px solid var(--border);">' +
-                    '<td style="padding:12px 0;font-size:13px;font-weight:500;color:var(--navy);">'+m+'</td>' +
-                    '<td style="padding:12px 0;font-family:\'Playfair Display\',serif;font-size:14px;color:var(--navy);">'+currency(rev)+'</td>' +
-                    '<td style="padding:12px 0;font-size:12px;color:#B89A61;">+'+currency(comm)+'</td>' +
-                    '<td style="padding:12px 0;font-size:13px;font-weight:500;color:var(--navy);">'+currency(payout)+'</td>' +
-                    '</tr>';
-            }).join('') + '</tbody></table>';
+    var th = 'font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);padding:10px 0;text-align:left;';
+    var td = 'padding:12px 0;border-bottom:1px solid var(--border);';
+    if (type==='bookings') {
+        document.getElementById('previewTitle').textContent='Bookings Report';
+        content.innerHTML='<div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;min-width:500px;"><thead><tr><th style="'+th+'">ID</th><th style="'+th+'">Guest</th><th style="'+th+'">Property</th><th style="'+th+'">Check-In</th><th style="'+th+'">Total</th></tr></thead><tbody>'+
+        allBookings.map(function(b,i){ return '<tr><td style="'+td+'font-size:12px;color:var(--muted);">#'+b.id+'</td><td style="'+td+'font-weight:500;color:var(--navy);">'+(realisticNames[i]||b.guest_name)+'</td><td style="'+td+'font-size:12px;color:var(--muted);">'+(b.property_name||'—')+'</td><td style="'+td+'">'+shortDate(b.check_in)+'</td><td style="'+td+'font-family:Playfair Display,serif;font-size:14px;">'+currency(b.total_price)+'</td></tr>'; }).join('')+'</tbody></table></div>';
+    } else if (type==='revenue') {
+        document.getElementById('previewTitle').textContent='Revenue Report';
+        var byMonth={};
+        allBookings.forEach(function(b){ var m=new Date(b.created_at).toLocaleDateString('en-US',{month:'long',year:'numeric'}); if(!byMonth[m])byMonth[m]=0; byMonth[m]+=(b.total_price||0); });
+        content.innerHTML='<div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;"><thead><tr><th style="'+th+'">Month</th><th style="'+th+'">Revenue</th><th style="'+th+'">Commission (8%)</th><th style="'+th+'">Operator Payout</th></tr></thead><tbody>'+
+        Object.keys(byMonth).map(function(m){ var rev=byMonth[m]; var comm=Math.round(rev*0.08); var payout=rev-comm; return '<tr><td style="'+td+'font-weight:500;color:var(--navy);">'+m+'</td><td style="'+td+'font-family:Playfair Display,serif;font-size:14px;">'+currency(rev)+'</td><td style="'+td+'color:#B89A61;">+'+currency(comm)+'</td><td style="'+td+'font-weight:500;color:var(--navy);">'+currency(payout)+'</td></tr>'; }).join('')+'</tbody></table></div>';
     } else {
-        document.getElementById('previewTitle').textContent = 'Guest Report';
-        var guestMap = {};
-        allBookings.forEach(function(b,i) {
-            var name = realisticNames[i]||b.guest_name||'Guest';
-            var key = b.guest_email||name;
-            if (!guestMap[key]) guestMap[key] = {name:name,email:b.guest_email||'—',bookings:0,spent:0};
-            guestMap[key].bookings++;
-            guestMap[key].spent += (b.total_price||0);
-        });
-        content.innerHTML = '<table style="width:100%;border-collapse:collapse;">' +
-            '<thead><tr style="border-bottom:1px solid var(--border);">' +
-            '<th style="font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);padding:10px 0;text-align:left;">Guest</th>' +
-            '<th style="font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);padding:10px 0;text-align:left;">Email</th>' +
-            '<th style="font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);padding:10px 0;text-align:left;">Bookings</th>' +
-            '<th style="font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);padding:10px 0;text-align:left;">Total Spent</th>' +
-            '</tr></thead><tbody>' +
-            Object.values(guestMap).map(function(g) {
-                return '<tr style="border-bottom:1px solid var(--border);">' +
-                    '<td style="padding:12px 0;font-size:13px;font-weight:500;color:var(--navy);">'+g.name+'</td>' +
-                    '<td style="padding:12px 0;font-size:12px;color:var(--muted);">'+g.email+'</td>' +
-                    '<td style="padding:12px 0;font-size:13px;">'+g.bookings+'</td>' +
-                    '<td style="padding:12px 0;font-family:\'Playfair Display\',serif;font-size:14px;color:var(--navy);">'+currency(g.spent)+'</td>' +
-                    '</tr>';
-            }).join('') + '</tbody></table>';
+        document.getElementById('previewTitle').textContent='Guest Report';
+        var guestMap={};
+        allBookings.forEach(function(b,i){ var name=realisticNames[i]||b.guest_name||'Guest'; var key=b.guest_email||name; if(!guestMap[key])guestMap[key]={name:name,email:b.guest_email||'—',bookings:0,spent:0}; guestMap[key].bookings++; guestMap[key].spent+=(b.total_price||0); });
+        content.innerHTML='<div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;"><thead><tr><th style="'+th+'">Guest</th><th style="'+th+'">Email</th><th style="'+th+'">Bookings</th><th style="'+th+'">Total Spent</th></tr></thead><tbody>'+
+        Object.values(guestMap).map(function(g){ return '<tr><td style="'+td+'font-weight:500;color:var(--navy);">'+g.name+'</td><td style="'+td+'font-size:12px;color:var(--muted);">'+g.email+'</td><td style="'+td+'">'+g.bookings+'</td><td style="'+td+'font-family:Playfair Display,serif;font-size:14px;">'+currency(g.spent)+'</td></tr>'; }).join('')+'</tbody></table></div>';
     }
 }
 async function loadReports() {
     try {
-        var res = await fetch('/bookings');
-        allBookings = await res.json();
-        var total = allBookings.length;
-        var revenue = allBookings.reduce(function(s,b){return s+(b.total_price||0);},0);
-        var commission = Math.round(revenue*0.08);
-        var payout = revenue-commission;
-        document.getElementById('sumBookings').textContent = total;
-        document.getElementById('sumRevenue').textContent = currency(revenue);
-        document.getElementById('sumCommission').textContent = currency(commission);
-        document.getElementById('sumPayout').textContent = currency(payout);
-        document.getElementById('previewDate').textContent = new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
-    } catch(err) { console.error('Reports error:', err); }
+        var res=await fetch('/bookings');
+        allBookings=await res.json();
+        var revenue=allBookings.reduce(function(s,b){return s+(b.total_price||0);},0);
+        var commission=Math.round(revenue*0.08);
+        var payout=revenue-commission;
+        document.getElementById('sumBookings').textContent=allBookings.length;
+        document.getElementById('sumRevenue').textContent=currency(revenue);
+        document.getElementById('sumCommission').textContent=currency(commission);
+        document.getElementById('sumPayout').textContent=currency(payout);
+        document.getElementById('previewDate').textContent=new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
+    } catch(err) { console.error('Reports error:',err); }
 }
 loadReports();
 </script>

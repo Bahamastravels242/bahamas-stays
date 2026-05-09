@@ -10,20 +10,24 @@
         :root { --navy: #071B3A; --gold: #C8A96A; --gold-light: rgba(200,169,106,0.12); --teal: #2EC7C9; --teal-light: rgba(46,199,201,0.10); --bg: #F4F6F9; --white: #FFFFFF; --text: #1E2430; --muted: #8A93A2; --border: #EBEEf3; }
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
         html, body { width: 100%; max-width: 100%; overflow-x: hidden; font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); font-size: 14px; }
-        .sidebar { width: 284px; background: linear-gradient(180deg, #071B3A 0%, #061528 100%); color: white; display: flex; flex-direction: column; justify-content: space-between; position: fixed; top: 0; left: 0; bottom: 0; z-index: 10; box-shadow: 4px 0 24px rgba(0,0,0,0.15); transition: transform 300ms ease; }
-        .sidebar-logo { padding: 48px 24px 36px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.06); }
-        .sidebar-logo img { width: 88px; height: 88px; object-fit: contain; margin-bottom: 10px; filter: brightness(1.1); }
-        .sidebar-logo h1 { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 500; letter-spacing: 4px; text-transform: uppercase; color: white; line-height: 1.8; }
-        .sidebar-logo p { font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold); margin-top: 8px; opacity: 0.9; }
-        .sidebar-nav { padding: 12px 0; flex: 1; overflow-y: auto; }
-        .nav-section-label { font-size: 8px; letter-spacing: 2px; text-transform: uppercase; color: rgba(200,169,106,0.45); padding: 16px 24px 8px; }
-        .nav-item { display: flex; align-items: center; gap: 12px; padding: 11px 24px; cursor: pointer; transition: all 180ms ease; border-left: 2px solid transparent; font-size: 13px; color: rgba(255,255,255,0.55); text-decoration: none; }
+        .sidebar { width: 284px; background: linear-gradient(180deg, #071B3A 0%, #061528 100%); color: white; display: flex; flex-direction: column; position: fixed; top: 0; left: 0; bottom: 0; z-index: 10; box-shadow: 4px 0 24px rgba(0,0,0,0.15); transition: transform 300ms ease; overflow: hidden; }
+        .sidebar-inner { display: flex; flex-direction: column; height: 100%; overflow: hidden; }
+        .sidebar-logo { padding: 28px 24px 22px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.06); flex-shrink: 0; }
+        .sidebar-logo img { width: 80px; height: 80px; object-fit: contain; margin-bottom: 8px; filter: brightness(1.1); }
+        .sidebar-logo h1 { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 500; letter-spacing: 4px; text-transform: uppercase; color: white; line-height: 1.7; }
+        .sidebar-logo p { font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold); margin-top: 6px; opacity: 0.9; }
+        .sidebar-nav { padding: 8px 0; flex: 1; overflow-y: auto; overflow-x: hidden; }
+        .sidebar-nav::-webkit-scrollbar { width: 4px; }
+        .sidebar-nav::-webkit-scrollbar-track { background: transparent; }
+        .sidebar-nav::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 2px; }
+        .nav-section-label { font-size: 8px; letter-spacing: 2px; text-transform: uppercase; color: rgba(200,169,106,0.45); padding: 14px 24px 6px; }
+        .nav-item { display: flex; align-items: center; gap: 12px; padding: 10px 24px; cursor: pointer; transition: all 180ms ease; border-left: 2px solid transparent; font-size: 13px; color: rgba(255,255,255,0.55); text-decoration: none; letter-spacing: 0.3px; }
         .nav-item:hover { background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.85); border-left-color: rgba(200,169,106,0.3); }
         .nav-item.active { background: rgba(255,255,255,0.045); border-left-color: var(--gold); color: white; }
         .nav-item svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; opacity: 0.8; }
-        .sidebar-bottom { padding: 20px 24px; border-top: 1px solid rgba(255,255,255,0.06); }
-        .sidebar-profile { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
-        .sidebar-avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, var(--gold), #E5C07B); display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 14px; color: var(--navy); font-weight: 500; flex-shrink: 0; }
+        .sidebar-bottom { padding: 16px 24px; border-top: 1px solid rgba(255,255,255,0.06); flex-shrink: 0; }
+        .sidebar-profile { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+        .sidebar-avatar { width: 34px; height: 34px; border-radius: 50%; background: linear-gradient(135deg, var(--gold), #E5C07B); display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 13px; color: var(--navy); font-weight: 500; flex-shrink: 0; }
         .sidebar-profile-info h3 { font-size: 13px; font-weight: 500; color: white; }
         .sidebar-profile-info p { font-size: 10px; color: rgba(255,255,255,0.40); margin-top: 1px; }
         .sidebar-logout { display: flex; align-items: center; gap: 8px; font-size: 12px; color: rgba(255,255,255,0.35); cursor: pointer; transition: color 180ms ease; background: none; border: none; padding: 0; }
@@ -63,7 +67,6 @@
         tbody tr:last-child { border-bottom: none; }
         tbody tr:hover { background: #FAFBFD; }
         tbody td { padding: 14px 28px; font-size: 13px; color: var(--text); vertical-align: middle; }
-        .prop-name-cell { font-weight: 500; color: var(--navy); }
         .amount-cell { font-family: 'Playfair Display', serif; font-size: 15px; color: var(--navy); font-weight: 500; }
         .commission-cell { color: #B89A61; font-size: 12px; font-weight: 500; }
         .bottom-nav-bar { display: none; }
@@ -93,33 +96,30 @@
 </div>
 <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
 <aside class="sidebar" id="sidebar">
-    <div>
+    <div class="sidebar-inner">
         <div class="sidebar-logo"><img src="/images/bahamas-stays-logo.png" alt="Bahamas Stays"><h1>Bahamas<br>Stays</h1><p>Operator Dashboard</p></div>
         <nav class="sidebar-nav">
             <div class="nav-section-label">Operations</div>
             <a href="/operator.html" class="nav-item"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>Dashboard</a>
             <a href="/bookings.html" class="nav-item"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Bookings</a>
-            <a href="/guests.html" class="nav-item"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Guests</a>
+            <a href="/guests.html" class="nav-item"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Guests</a>
             <a href="/properties-manage.html" class="nav-item"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Properties</a>
             <div class="nav-section-label">Analytics</div>
             <a href="/revenue.html" class="nav-item active"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Revenue</a>
-            <a href="/reports.html" class="nav-item"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Reports</a>
+            <a href="/reports.html" class="nav-item"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>Reports</a>
             <div class="nav-section-label">Platform</div>
             <a href="/marketing.html" class="nav-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>Marketing</a>
-            <a href="/settings.html" class="nav-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>Settings</a>
+            <a href="/settings.html" class="nav-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>Settings</a>
             <a href="/" class="nav-item"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Main Site</a>
         </nav>
-    </div>
-    <div class="sidebar-bottom">
-        <div class="sidebar-profile"><div class="sidebar-avatar">O</div><div class="sidebar-profile-info"><h3>Operator</h3><p>Property Manager</p></div></div>
-        <button class="sidebar-logout"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Log out</button>
+        <div class="sidebar-bottom">
+            <div class="sidebar-profile"><div class="sidebar-avatar">O</div><div class="sidebar-profile-info"><h3>Operator</h3><p>Property Manager</p></div></div>
+            <button class="sidebar-logout"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Log out</button>
+        </div>
     </div>
 </aside>
 <main class="main">
-    <div class="page-header">
-        <h1>Revenue</h1>
-        <p>Detailed financial analytics and commission tracking</p>
-    </div>
+    <div class="page-header"><h1>Revenue</h1><p>Detailed financial analytics and commission tracking</p></div>
     <div class="stats-row">
         <div class="stat-card"><div class="stat-label">Total Revenue</div><div class="stat-value gold" id="statRevenue">—</div></div>
         <div class="stat-card"><div class="stat-label">Platform Commission</div><div class="stat-value teal" id="statCommission">—</div></div>
@@ -127,26 +127,13 @@
         <div class="stat-card"><div class="stat-label">Avg Per Booking</div><div class="stat-value teal" id="statABV">—</div></div>
     </div>
     <div class="charts-grid">
-        <div class="chart-card">
-            <div class="chart-header">
-                <div><div class="chart-title">Monthly Revenue</div><div class="chart-subtitle" id="chartSubtitle">—</div></div>
-            </div>
-            <div class="chart-container"><canvas id="revenueChart"></canvas></div>
-        </div>
-        <div class="chart-card">
-            <div class="chart-header">
-                <div><div class="chart-title">Revenue by Property</div><div class="chart-subtitle">All time</div></div>
-            </div>
-            <div class="chart-container"><canvas id="propertyChart"></canvas></div>
-        </div>
+        <div class="chart-card"><div class="chart-header"><div><div class="chart-title">Monthly Revenue</div><div class="chart-subtitle" id="chartSubtitle">—</div></div></div><div class="chart-container"><canvas id="revenueChart"></canvas></div></div>
+        <div class="chart-card"><div class="chart-header"><div><div class="chart-title">Revenue by Property</div><div class="chart-subtitle">All time</div></div></div><div class="chart-container"><canvas id="propertyChart"></canvas></div></div>
     </div>
     <div class="revenue-table-card">
         <div class="revenue-table-header"><h2>Revenue by Property</h2></div>
         <div class="revenue-table-wrapper">
-            <table>
-                <thead><tr><th>Property</th><th>Island</th><th>Bookings</th><th>Revenue</th><th>Commission (8%)</th><th>Operator Payout</th></tr></thead>
-                <tbody id="revenueTable"><tr><td colspan="6" style="text-align:center;padding:40px;color:var(--muted);font-style:italic;">Loading...</td></tr></tbody>
-            </table>
+            <table><thead><tr><th>Property</th><th>Island</th><th>Bookings</th><th>Revenue</th><th>Commission (8%)</th><th>Operator Payout</th></tr></thead><tbody id="revenueTable"><tr><td colspan="6" style="text-align:center;padding:40px;color:var(--muted);font-style:italic;">Loading...</td></tr></tbody></table>
         </div>
     </div>
 </main>
@@ -157,14 +144,8 @@
     <a href="/revenue.html" class="bottom-nav-item active"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg><span>Revenue</span></a>
 </div>
 <script>
-function currency(n) { return '$' + Number(n).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 }); }
-function toggleSidebar() {
-    var sidebar = document.getElementById('sidebar');
-    var overlay = document.getElementById('sidebarOverlay');
-    sidebar.classList.toggle('open');
-    overlay.classList.toggle('open');
-    document.body.style.overflow = sidebar.classList.contains('open') ? 'hidden' : '';
-}
+function currency(n) { return '$' + Number(n).toLocaleString('en-US',{minimumFractionDigits:0,maximumFractionDigits:0}); }
+function toggleSidebar() { var s=document.getElementById('sidebar'); var o=document.getElementById('sidebarOverlay'); s.classList.toggle('open'); o.classList.toggle('open'); document.body.style.overflow=s.classList.contains('open')?'hidden':''; }
 Chart.defaults.font.family = "'DM Sans', sans-serif";
 Chart.defaults.font.size = 11;
 Chart.defaults.color = '#8A93A2';
@@ -173,46 +154,36 @@ async function loadRevenue() {
         var [bRes, pRes] = await Promise.all([fetch('/bookings'), fetch('/properties')]);
         var bookings = await bRes.json();
         var properties = await pRes.json();
-        var totalRevenue = bookings.reduce(function(s,b) { return s+(b.total_price||0); }, 0);
-        var commission = Math.round(totalRevenue * 0.08);
-        var payout = totalRevenue - commission;
-        var abv = bookings.length > 0 ? Math.round(totalRevenue / bookings.length) : 0;
+        var totalRevenue = bookings.reduce(function(s,b){return s+(b.total_price||0);},0);
+        var commission = Math.round(totalRevenue*0.08);
+        var payout = totalRevenue-commission;
+        var abv = bookings.length>0?Math.round(totalRevenue/bookings.length):0;
         document.getElementById('statRevenue').textContent = currency(totalRevenue);
         document.getElementById('statCommission').textContent = currency(commission);
         document.getElementById('statPayout').textContent = currency(payout);
         document.getElementById('statABV').textContent = currency(abv);
-        document.getElementById('chartSubtitle').textContent = 'Total ' + new Date().getFullYear() + ': ' + currency(totalRevenue);
+        document.getElementById('chartSubtitle').textContent = 'Total '+new Date().getFullYear()+': '+currency(totalRevenue);
         var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
         var revenueByMonth = new Array(12).fill(0);
-        bookings.forEach(function(b) { var m = new Date(b.created_at).getMonth(); revenueByMonth[m] += (b.total_price||0); });
+        bookings.forEach(function(b){ var m=new Date(b.created_at).getMonth(); revenueByMonth[m]+=(b.total_price||0); });
         var base = [12000,14500,13200,18000,17200,19500,21400,23600,25800,27400,29100,31800];
-        revenueByMonth = revenueByMonth.map(function(v,i) { return v>0?v:base[i]; });
+        revenueByMonth = revenueByMonth.map(function(v,i){return v>0?v:base[i];});
         var rCtx = document.getElementById('revenueChart').getContext('2d');
         var rGrad = rCtx.createLinearGradient(0,0,0,260);
         rGrad.addColorStop(0,'rgba(200,169,106,0.25)');
         rGrad.addColorStop(1,'rgba(200,169,106,0.00)');
-        new Chart(rCtx, { type:'line', data:{ labels:months, datasets:[{ data:revenueByMonth, borderColor:'#C8A96A', backgroundColor:rGrad, borderWidth:2, fill:true, tension:0.45, pointBackgroundColor:'#C8A96A', pointBorderColor:'white', pointBorderWidth:2, pointRadius:3, pointHoverRadius:5 }] }, options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{display:false}, tooltip:{ backgroundColor:'#071B3A', bodyColor:'white', padding:10, cornerRadius:8, callbacks:{ label:function(c){ return ' '+currency(c.raw); } } } }, scales:{ x:{grid:{display:false},border:{display:false},ticks:{font:{size:10}}}, y:{grid:{color:'#F0F3F7'},border:{display:false},ticks:{font:{size:10},callback:function(v){ return v===0?'$0':'$'+(v/1000).toFixed(0)+'k'; }}} } } });
+        new Chart(rCtx,{type:'line',data:{labels:months,datasets:[{data:revenueByMonth,borderColor:'#C8A96A',backgroundColor:rGrad,borderWidth:2,fill:true,tension:0.45,pointBackgroundColor:'#C8A96A',pointBorderColor:'white',pointBorderWidth:2,pointRadius:3,pointHoverRadius:5}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{backgroundColor:'#071B3A',bodyColor:'white',padding:10,cornerRadius:8,callbacks:{label:function(c){return ' '+currency(c.raw);}}}},scales:{x:{grid:{display:false},border:{display:false},ticks:{font:{size:10}}},y:{grid:{color:'#F0F3F7'},border:{display:false},ticks:{font:{size:10},callback:function(v){return v===0?'$0':'$'+(v/1000).toFixed(0)+'k';}}}}}});
         var propRevenue = {};
-        bookings.forEach(function(b) {
-            var name = b.property_name || 'Unknown';
-            if (!propRevenue[name]) propRevenue[name] = { revenue:0, bookings:0, island:'' };
-            propRevenue[name].revenue += (b.total_price||0);
-            propRevenue[name].bookings++;
-        });
-        properties.forEach(function(p) { if (!propRevenue[p.name]) propRevenue[p.name] = {revenue:0,bookings:0,island:p.island}; else propRevenue[p.name].island = p.island; });
+        bookings.forEach(function(b){ var name=b.property_name||'Unknown'; if(!propRevenue[name]) propRevenue[name]={revenue:0,bookings:0,island:''}; propRevenue[name].revenue+=(b.total_price||0); propRevenue[name].bookings++; });
+        properties.forEach(function(p){ if(!propRevenue[p.name]) propRevenue[p.name]={revenue:0,bookings:0,island:p.island}; else propRevenue[p.name].island=p.island; });
         var propLabels = Object.keys(propRevenue);
-        var propValues = propLabels.map(function(k) { return propRevenue[k].revenue; });
+        var propValues = propLabels.map(function(k){return propRevenue[k].revenue;});
         var pCtx = document.getElementById('propertyChart').getContext('2d');
-        new Chart(pCtx, { type:'bar', data:{ labels:propLabels.map(function(l){ return l.split(' ').slice(0,2).join(' '); }), datasets:[{ data:propValues, backgroundColor:propLabels.map(function(_,i){ return i%2===0?'#C8A96A':'rgba(200,169,106,0.45)'; }), borderRadius:6, borderSkipped:false, barThickness:32 }] }, options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{display:false}, tooltip:{ backgroundColor:'#071B3A', bodyColor:'white', padding:10, cornerRadius:8, callbacks:{ label:function(c){ return ' '+currency(c.raw); } } } }, scales:{ x:{grid:{display:false},border:{display:false},ticks:{font:{size:10},maxRotation:18,minRotation:18}}, y:{grid:{color:'#F0F3F7'},border:{display:false},ticks:{font:{size:10},callback:function(v){ return '$'+(v/1000).toFixed(0)+'k'; }}} } } });
+        new Chart(pCtx,{type:'bar',data:{labels:propLabels.map(function(l){return l.split(' ').slice(0,2).join(' ');}),datasets:[{data:propValues,backgroundColor:propLabels.map(function(_,i){return i%2===0?'#C8A96A':'rgba(200,169,106,0.45)';}),borderRadius:6,borderSkipped:false,barThickness:32}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{backgroundColor:'#071B3A',bodyColor:'white',padding:10,cornerRadius:8,callbacks:{label:function(c){return ' '+currency(c.raw);}}}},scales:{x:{grid:{display:false},border:{display:false},ticks:{font:{size:10},maxRotation:18,minRotation:18}},y:{grid:{color:'#F0F3F7'},border:{display:false},ticks:{font:{size:10},callback:function(v){return '$'+(v/1000).toFixed(0)+'k';}}}}}});
         var tbody = document.getElementById('revenueTable');
-        if (!propLabels.length) { tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:40px;color:var(--muted);font-style:italic;">No revenue data yet.</td></tr>'; return; }
-        tbody.innerHTML = propLabels.map(function(name) {
-            var d = propRevenue[name];
-            var comm = Math.round(d.revenue * 0.08);
-            var op = d.revenue - comm;
-            return '<tr><td style="font-weight:500;color:var(--navy);">' + name + '</td><td style="color:var(--muted);font-size:12px;">' + (d.island||'—') + '</td><td>' + d.bookings + '</td><td class="amount-cell">' + currency(d.revenue) + '</td><td class="commission-cell">+' + currency(comm) + '</td><td style="font-weight:500;color:var(--navy);">' + currency(op) + '</td></tr>';
-        }).join('');
-    } catch(err) { console.error('Revenue error:', err); }
+        if (!propLabels.length) { tbody.innerHTML='<tr><td colspan="6" style="text-align:center;padding:40px;color:var(--muted);font-style:italic;">No revenue data yet.</td></tr>'; return; }
+        tbody.innerHTML = propLabels.map(function(name){ var d=propRevenue[name]; var comm=Math.round(d.revenue*0.08); var op=d.revenue-comm; return '<tr><td style="font-weight:500;color:var(--navy);">'+name+'</td><td style="color:var(--muted);font-size:12px;">'+(d.island||'—')+'</td><td>'+d.bookings+'</td><td class="amount-cell">'+currency(d.revenue)+'</td><td class="commission-cell">+'+currency(comm)+'</td><td style="font-weight:500;color:var(--navy);">'+currency(op)+'</td></tr>'; }).join('');
+    } catch(err) { console.error('Revenue error:',err); }
 }
 loadRevenue();
 </script>

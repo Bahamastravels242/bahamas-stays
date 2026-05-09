@@ -80,6 +80,14 @@
             width: 100%; cursor: pointer; padding-left: 2px;
             letter-spacing: 0.2px; min-width: 130px;
         }
+        .search-field input[type="date"]::-webkit-calendar-picker-indicator {
+            display: none;
+            -webkit-appearance: none;
+        }
+        .search-field select::-webkit-calendar-picker-indicator {
+            display: none;
+            -webkit-appearance: none;
+        }
         .search-field select { font-family: 'DM Sans', sans-serif; font-size: 13px; color: #6B7280; border: none; outline: none; background: transparent; width: 100%; cursor: pointer; appearance: none; -webkit-appearance: none; }
         .search-btn { background: var(--gold); color: var(--navy); font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 600; padding: 0 28px; height: 100%; border: none; cursor: pointer; white-space: nowrap; letter-spacing: 1.2px; text-transform: uppercase; display: flex; align-items: center; gap: 8px; flex-shrink: 0; min-width: 160px; justify-content: center; transition: background 200ms ease; }
         .search-btn:hover { background: var(--gold-hover); }

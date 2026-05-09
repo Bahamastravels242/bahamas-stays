@@ -1,222 +1,288 @@
-const express = require('express')
-const cors = require('cors')
-const { createClient } = require('@supabase/supabase-js')
-require('dotenv').config()
-const { Resend } = require('resend')
-const resend = new Resend(process.env.RESEND_API_KEY)
+require('dotenv').config();
+const express = require('express');
+const cookieParser = require('cookie-parser');
+const { createClient } = require('@supabase/supabase-js');
+const { Resend } = require('resend');
+const path = require('path');
 
-const app = express()
-app.use(cors())
-app.use(express.json())
-app.use(express.static('public'))
+const app = express();
+const PORT = process.env.PORT || 3000;
 
-const supabase = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_KEY
-)
+const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
+const resend = new Resend(process.env.RESEND_API_KEY);
 
-// Test route
-app.get('/', (req, res) => {
-  res.json({ message: 'Bahamas Booking Platform API is running!' })
-})
+app.use(express.json());
+app.use(cookieParser());
 
-// Get all properties
+// ── COMING SOON GATE ──
+const PREVIEW_PASSWORD = 'BahamasPreview2026';
+
+app.get('/', function(req, res) {
+    var cookie = req.cookies && req.cookies.preview_access;
+    var query = req.query.preview;
+    if (query === PREVIEW_PASSWORD) {
+        res.cookie('preview_access', PREVIEW_PASSWORD, { maxAge: 86400000 });
+        return res.sendFile(path.join(__dirname, 'public', 'index.html'));
+    }
+    if (cookie === PREVIEW_PASSWORD) {
+        return res.sendFile(path.join(__dirname, 'public', 'index.html'));
+    }
+    return res.sendFile(path.join(__dirname, 'public', 'coming-soon.html'));
+});
+
+// ── STATIC FILES ──
+app.use(express.static('public'));
+
+// ── PROPERTIES ──
 app.get('/properties', async (req, res) => {
-  const { data, error } = await supabase
-    .from('properties')
-    .select('*')
-  if (error) return res.status(500).json({ error: error.message })
-  res.json(data)
-})
+    try {
+        const { data, error } = await supabase
+            .from('properties')
+            .select('*')
+            .eq('is_active', true);
+        if (error) throw error;
+        res.json(data);
+    } catch (err) {
+        console.error('Error fetching properties:', err);
+        res.status(500).json({ error: 'Failed to fetch properties' });
+    }
+});
 
-// Get single property by ID
 app.get('/properties/:id', async (req, res) => {
-  try {
-    const { data, error } = await supabase
-      .from('properties')
-      .select('*')
-      .eq('id', req.params.id)
-      .single()
-    if (error) throw error
-    res.json(data)
-  } catch(err) {
-    res.status(500).json({ error: err.message })
-  }
-})
+    try {
+        const { data, error } = await supabase
+            .from('properties')
+            .select('*')
+            .eq('id', req.params.id)
+            .single();
+        if (error) throw error;
+        res.json(data);
+    } catch (err) {
+        console.error('Error fetching property:', err);
+        res.status(500).json({ error: 'Failed to fetch property' });
+    }
+});
 
-// Get all bookings
+// ── BOOKINGS ──
 app.get('/bookings', async (req, res) => {
-  const { data, error } = await supabase
-    .from('bookings')
-    .select('*, properties(name)')
-    .order('created_at', { ascending: false })
+    try {
+        const { data, error } = await supabase
+            .from('bookings')
+            .select('*')
+            .order('created_at', { ascending: false });
+        if (error) throw error;
+        res.json(data);
+    } catch (err) {
+        console.error('Error fetching bookings:', err);
+        res.status(500).json({ error: 'Failed to fetch bookings' });
+    }
+});
 
-  if (error) return res.status(500).json({ error: error.message })
-
-  const bookings = data.map(b => ({
-    id: b.id,
-    property_id: b.property_id,
-    property_name: b.properties?.name || null,
-    guest_name: b.guest_name,
-    guest_email: b.guest_email,
-    check_in: b.check_in,
-    check_out: b.check_out,
-    total_nights: b.total_nights,
-    total_price: b.total_price,
-    status: b.status,
-    created_at: b.created_at
-  }))
-
-  res.json(bookings)
-})
-
-// Create a booking
 app.post('/bookings', async (req, res) => {
-  const { property_id, guest_name, guest_email, check_in, check_out } = req.body
+    try {
+        const { property_id, guest_name, guest_email, check_in, check_out } = req.body;
 
-  const nights = Math.ceil((new Date(check_out) - new Date(check_in)) / (1000 * 60 * 60 * 24))
+        const { data: property, error: propError } = await supabase
+            .from('properties')
+            .select('*')
+            .eq('id', property_id)
+            .single();
+        if (propError) throw propError;
 
-  const { data: property } = await supabase
-    .from('properties')
-    .select('price_per_night, name')
-    .eq('id', property_id)
-    .single()
+        const checkInDate = new Date(check_in);
+        const checkOutDate = new Date(check_out);
+        const total_nights = Math.ceil((checkOutDate - checkInDate) / (1000 * 60 * 60 * 24));
+        const total_price = total_nights * property.price_per_night;
 
-  const total_price = nights * property.price_per_night
+        const { data: booking, error: bookingError } = await supabase
+            .from('bookings')
+            .insert([{
+                property_id,
+                property_name: property.name,
+                guest_name,
+                guest_email,
+                check_in,
+                check_out,
+                total_nights,
+                total_price,
+                status: 'confirmed'
+            }])
+            .select()
+            .single();
+        if (bookingError) throw bookingError;
 
-  const { data, error } = await supabase
-    .from('bookings')
-    .insert([{ property_id, guest_name, guest_email, check_in, check_out, total_nights: nights, total_price }])
-    .select()
+        // Send confirmation email
+        try {
+            await resend.emails.send({
+                from: 'Bahamas Stays <bookings@bahamasstays.com>',
+                to: guest_email,
+                subject: `Booking Confirmed — ${property.name}`,
+                html: `
+                    <div style="font-family: 'DM Sans', Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #f8f6f0;">
+                        <div style="background: #0A192F; padding: 40px; text-align: center;">
+                            <h1 style="font-family: Georgia, serif; color: white; font-size: 28px; margin: 0; letter-spacing: 2px;">BAHAMAS STAYS</h1>
+                            <p style="color: #E7BF6A; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; margin-top: 8px;">Booking Confirmation</p>
+                        </div>
+                        <div style="padding: 48px 40px;">
+                            <h2 style="font-family: Georgia, serif; color: #0A192F; font-size: 24px;">Your booking is confirmed, ${guest_name}.</h2>
+                            <p style="color: #666; font-size: 15px; line-height: 1.75; margin-top: 12px;">Thank you for booking with Bahamas Stays. Here are your reservation details:</p>
+                            <div style="background: white; border-radius: 12px; padding: 28px; margin: 28px 0; border-left: 4px solid #E7BF6A;">
+                                <p style="font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: #9CA3AF; margin-bottom: 16px;">Reservation Details</p>
+                                <p style="font-family: Georgia, serif; font-size: 20px; color: #0A192F; margin-bottom: 16px;">${property.name}</p>
+                                <p style="color: #666; font-size: 14px; margin-bottom: 8px;">📍 ${property.island}, Bahamas</p>
+                                <p style="color: #666; font-size: 14px; margin-bottom: 8px;">📅 Check-in: <strong>${check_in}</strong></p>
+                                <p style="color: #666; font-size: 14px; margin-bottom: 8px;">📅 Check-out: <strong>${check_out}</strong></p>
+                                <p style="color: #666; font-size: 14px; margin-bottom: 8px;">🌙 Total Nights: <strong>${total_nights}</strong></p>
+                                <p style="color: #0A192F; font-size: 18px; font-weight: bold; margin-top: 16px; padding-top: 16px; border-top: 1px solid #EAEAEA;">Total: $${total_price.toLocaleString()}</p>
+                            </div>
+                            <p style="color: #666; font-size: 14px; line-height: 1.75;">If you have any questions about your booking, please contact us at <a href="mailto:bookings@bahamasstays.com" style="color: #E7BF6A;">bookings@bahamasstays.com</a></p>
+                        </div>
+                        <div style="background: #060E1A; padding: 32px 40px; text-align: center;">
+                            <p style="color: rgba(255,255,255,0.40); font-size: 12px; font-style: italic;">Curated by Bahamians. Designed for the world.</p>
+                            <p style="color: rgba(255,255,255,0.25); font-size: 11px; margin-top: 8px;">© 2026 Bahamas Stays</p>
+                        </div>
+                    </div>
+                `
+            });
+        } catch (emailErr) {
+            console.error('Email error:', emailErr);
+        }
 
-  if (error) return res.status(500).json({ error: error.message })
-  const booking = data[0]
+        res.json({ success: true, booking });
+    } catch (err) {
+        console.error('Error creating booking:', err);
+        res.status(500).json({ error: 'Failed to create booking' });
+    }
+});
 
-  await resend.emails.send({
-    from: 'Bahamas Stays <onboarding@resend.dev>',
-    to: guest_email,
-    subject: 'Booking Confirmed — ' + booking.id + ' | Bahamas Stays',
-    html: `
-      <div style="font-family: Georgia, serif; max-width: 600px; margin: 0 auto; padding: 40px 20px;">
-        <div style="background: linear-gradient(135deg, #006994, #00a8cc); padding: 30px; border-radius: 12px; text-align: center; margin-bottom: 30px;">
-          <h1 style="color: white; margin: 0; font-size: 28px;">Bahamas Stays</h1>
-          <p style="color: rgba(255,255,255,0.9); margin: 8px 0 0;">Your booking is confirmed!</p>
-        </div>
-        <h2 style="color: #006994;">Thank you, ${guest_name}!</h2>
-        <p style="color: #666; line-height: 1.6;">Your reservation has been confirmed. Here are your booking details:</p>
-        <div style="background: #f8f6f0; border-radius: 12px; padding: 24px; margin: 24px 0;">
-          <h3 style="color: #1a1a1a; margin-top: 0;">${property.name || 'Your Property'}</h3>
-          <table style="width: 100%; border-collapse: collapse;">
-            <tr><td style="padding: 8px 0; color: #666;">Booking ID</td><td style="padding: 8px 0; font-weight: bold;">#BS-${booking.id}</td></tr>
-            <tr><td style="padding: 8px 0; color: #666;">Check-in</td><td style="padding: 8px 0; font-weight: bold;">${check_in}</td></tr>
-            <tr><td style="padding: 8px 0; color: #666;">Check-out</td><td style="padding: 8px 0; font-weight: bold;">${check_out}</td></tr>
-            <tr><td style="padding: 8px 0; color: #666;">Total nights</td><td style="padding: 8px 0; font-weight: bold;">${nights}</td></tr>
-            <tr><td style="padding: 8px 0; color: #666; border-top: 1px solid #ddd; padding-top: 12px;">Total paid</td><td style="padding: 8px 0; font-weight: bold; color: #006994; font-size: 18px; border-top: 1px solid #ddd; padding-top: 12px;">$${booking.total_price}</td></tr>
-          </table>
-        </div>
-        <p style="color: #666; line-height: 1.6;">If you have any questions about your booking, please don't hesitate to contact us. We look forward to welcoming you to the Bahamas!</p>
-        <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee;">
-          <p style="color: #999; font-size: 13px;">© 2026 Bahamas Stays · Built in the Bahamas, for the Bahamas</p>
-        </div>
-      </div>
-    `
-  })
-
-  res.json({ success: true, booking: data[0] })
-})
-
-// Get bookings for a specific guest by email
+// ── MY BOOKINGS ──
 app.get('/my-bookings', async (req, res) => {
-  const { email } = req.query
-  if (!email) return res.status(400).json({ error: 'Email required' })
+    try {
+        const { email } = req.query;
+        if (!email) return res.json([]);
+        const { data, error } = await supabase
+            .from('bookings')
+            .select('*')
+            .eq('guest_email', email)
+            .order('created_at', { ascending: false });
+        if (error) throw error;
+        res.json(data);
+    } catch (err) {
+        console.error('Error fetching my bookings:', err);
+        res.status(500).json({ error: 'Failed to fetch bookings' });
+    }
+});
 
-  const { data, error } = await supabase
-    .from('bookings')
-    .select('*, properties(name)')
-    .eq('guest_email', email)
-    .order('created_at', { ascending: false })
-
-  if (error) return res.status(500).json({ error: error.message })
-
-  const bookings = data.map(b => ({
-    ...b,
-    property_name: b.properties?.name || null
-  }))
-
-  res.json(bookings)
-})
-
-// Check availability
+// ── AVAILABILITY ──
 app.get('/availability', async (req, res) => {
-  const { check_in, check_out } = req.query
-  if (!check_in || !check_out) return res.json([])
+    try {
+        const { property_id } = req.query;
+        const { data, error } = await supabase
+            .from('bookings')
+            .select('check_in, check_out')
+            .eq('property_id', property_id)
+            .eq('status', 'confirmed');
+        if (error) throw error;
+        res.json(data);
+    } catch (err) {
+        console.error('Error fetching availability:', err);
+        res.status(500).json({ error: 'Failed to fetch availability' });
+    }
+});
 
-  const { data, error } = await supabase
-    .from('bookings')
-    .select('property_id')
-    .lt('check_in', check_out)
-    .gt('check_out', check_in)
-
-  if (error) return res.status(500).json({ error: error.message })
-
-  const bookedIds = data.map(b => b.property_id)
-  res.json(bookedIds)
-})
-
-// Get reviews for a property
+// ── REVIEWS ──
 app.get('/reviews/:property_id', async (req, res) => {
-  const { data, error } = await supabase
-    .from('reviews')
-    .select('*')
-    .eq('property_id', req.params.property_id)
-    .order('created_at', { ascending: false })
+    try {
+        const { data, error } = await supabase
+            .from('reviews')
+            .select('*')
+            .eq('property_id', req.params.property_id)
+            .order('created_at', { ascending: false });
+        if (error) throw error;
+        res.json(data);
+    } catch (err) {
+        console.error('Error fetching reviews:', err);
+        res.status(500).json({ error: 'Failed to fetch reviews' });
+    }
+});
 
-  if (error) return res.status(500).json({ error: error.message })
-  res.json(data)
-})
-
-// Submit a review
 app.post('/reviews', async (req, res) => {
-  const { property_id, guest_name, guest_email, rating, comment } = req.body
+    try {
+        const { property_id, guest_email, guest_name, rating, comment } = req.body;
+        const { data, error } = await supabase
+            .from('reviews')
+            .insert([{ property_id, guest_email, guest_name, rating, comment }])
+            .select()
+            .single();
+        if (error) throw error;
+        res.json({ success: true, review: data });
+    } catch (err) {
+        console.error('Error creating review:', err);
+        res.status(500).json({ error: 'Failed to create review' });
+    }
+});
 
-  if (!property_id || !guest_name || !guest_email || !rating) {
-    return res.status(400).json({ error: 'Missing required fields' })
-  }
-
-  const { data, error } = await supabase
-    .from('reviews')
-    .insert([{ property_id, guest_name, guest_email, rating, comment }])
-    .select()
-
-  if (error) return res.status(500).json({ error: error.message })
-  res.json({ success: true, review: data[0] })
-})
-
-// Admin — get all reviews
+// ── ADMIN ──
 app.get('/admin/reviews', async (req, res) => {
-  const { data, error } = await supabase
-    .from('reviews')
-    .select('*')
-    .order('created_at', { ascending: false })
+    try {
+        const { data, error } = await supabase
+            .from('reviews')
+            .select('*')
+            .order('created_at', { ascending: false });
+        if (error) throw error;
+        res.json(data);
+    } catch (err) {
+        console.error('Error fetching admin reviews:', err);
+        res.status(500).json({ error: 'Failed to fetch reviews' });
+    }
+});
 
-  if (error) return res.status(500).json({ error: error.message })
-  res.json(data)
-})
-
-// Admin — toggle property active/inactive
 app.patch('/admin/property/:id', async (req, res) => {
-  const { is_active } = req.body
-  const { data, error } = await supabase
-    .from('properties')
-    .update({ is_active })
-    .eq('id', req.params.id)
-    .select()
+    try {
+        const { is_active } = req.body;
+        const { data, error } = await supabase
+            .from('properties')
+            .update({ is_active })
+            .eq('id', req.params.id)
+            .select()
+            .single();
+        if (error) throw error;
+        res.json({ success: true, property: data });
+    } catch (err) {
+        console.error('Error updating property:', err);
+        res.status(500).json({ error: 'Failed to update property' });
+    }
+});
 
-  if (error) return res.status(500).json({ error: error.message })
-  res.json({ success: true, property: data[0] })
-})
+// ── AUTH ──
+app.post('/login', async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+        if (error) return res.json({ success: false, message: error.message });
+        res.json({ success: true, name: data.user?.user_metadata?.full_name || email });
+    } catch (err) {
+        console.error('Login error:', err);
+        res.status(500).json({ success: false, message: 'Login failed' });
+    }
+});
 
-const PORT = process.env.PORT || 3000
+app.post('/register', async (req, res) => {
+    try {
+        const { name, email, password } = req.body;
+        const { data, error } = await supabase.auth.signUp({
+            email, password,
+            options: { data: { full_name: name } }
+        });
+        if (error) return res.json({ success: false, message: error.message });
+        res.json({ success: true, name });
+    } catch (err) {
+        console.error('Register error:', err);
+        res.status(500).json({ success: false, message: 'Registration failed' });
+    }
+});
+
+// ── START ──
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`)
-})
+    console.log(`Bahamas Stays running on port ${PORT}`);
+});

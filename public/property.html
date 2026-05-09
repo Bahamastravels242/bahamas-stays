@@ -7,1034 +7,305 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --gold: #E7BF6A;
-            --gold-hover: #F0CA79;
-            --navy: #0A192F;
-            --navy-dark: #060E1A;
-            --cream: #F7F3EC;
-            --white: #FFFFFF;
+            --gold: #E7BF6A; --gold-hover: #F0CA79;
+            --navy: #0A192F; --navy-dark: #060E1A;
+            --cream: #F7F3EC; --muted: #6B7280; --border: #EAEAEA;
         }
-
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-        html, body {
-            width: 100%;
-            max-width: 100%;
-            overflow-x: hidden;
-            font-family: 'DM Sans', sans-serif;
-            background: var(--cream);
-            color: #333;
-        }
+        html, body { width: 100%; font-family: 'DM Sans', sans-serif; background: var(--cream); color: #333; }
 
-        /* ── NAVIGATION ── */
+        /* ── NAV ── */
         nav {
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            z-index: 100;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 80px;
-            height: 80px;
-            background: #0A192F;
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: 72px;
+            background: #0A192F; display: flex; justify-content: space-between;
+            align-items: center; padding: 0 80px;
             border-bottom: 1px solid rgba(200,169,106,0.15);
-            width: 100%;
         }
-        .nav-logo-wrap { display: flex; flex-direction: column; gap: 3px; }
-        .nav-logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 20px; font-weight: 500;
-            color: #fff; letter-spacing: 2px;
-            text-decoration: none; text-transform: uppercase;
-        }
-        .nav-logo-sub {
-            font-family: 'DM Sans', sans-serif;
-            font-size: 9px; color: var(--gold);
-            letter-spacing: 2.5px; text-transform: uppercase;
-        }
-        .nav-links {
-            display: flex; gap: 32px; list-style: none;
-        }
-        .nav-links a {
-            font-family: 'DM Sans', sans-serif;
-            font-size: 11px; color: rgba(255,255,255,0.78);
-            text-decoration: none; letter-spacing: 1.5px;
-            text-transform: uppercase; position: relative;
-            transition: color 180ms ease;
-        }
-        .nav-links a::after {
-            content: ''; position: absolute;
-            bottom: -4px; left: 0; width: 100%; height: 1px;
-            background: rgba(231,191,106,0.75);
-            transform: scaleX(0); transform-origin: left;
-            transition: transform 200ms ease;
-        }
-        .nav-links a:hover { color: #fff; }
-        .nav-links a:hover::after { transform: scaleX(1); }
-        .nav-back {
-            font-family: 'DM Sans', sans-serif;
-            font-size: 11px; color: rgba(255,255,255,0.78);
-            text-decoration: none; letter-spacing: 1.5px;
-            text-transform: uppercase;
-            transition: color 180ms ease;
-            display: flex; align-items: center; gap: 6px;
-        }
-        .nav-back:hover { color: var(--gold); }
-        .nav-back svg {
-            width: 14px; height: 14px;
-            stroke: currentColor; fill: none;
-            stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
-        }
-        .nav-hamburger { display: none; }
-
-        /* ── MOBILE MENU ── */
-        .mobile-menu {
-            display: none;
-            position: fixed; inset: 0;
-            background: #060E1A;
-            z-index: 500;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 28px;
-        }
-        .mobile-menu.open { display: flex; }
-        .mobile-menu-close {
-            position: absolute; top: 20px; right: 20px;
-            background: none; border: none; cursor: pointer; padding: 8px;
-        }
-        .mobile-menu-close svg {
-            width: 28px; height: 28px;
-            stroke: white; fill: none;
-            stroke-width: 1.5; stroke-linecap: round;
-        }
-        .mobile-menu-logo {
-            display: flex; align-items: center; gap: 10px; margin-bottom: 8px;
-        }
-        .mobile-menu-logo img { height: 48px; width: auto; }
-        .mobile-menu-logo span {
-            font-family: 'Playfair Display', serif;
-            font-size: 18px; color: white;
-            letter-spacing: 3px; text-transform: uppercase;
-        }
-        .mobile-menu a {
-            font-family: 'Playfair Display', serif;
-            font-size: 26px; font-weight: 500;
-            color: rgba(255,255,255,0.85); text-decoration: none;
-            letter-spacing: 1.5px; text-transform: uppercase;
-            transition: color 200ms ease;
-        }
-        .mobile-menu a:hover { color: var(--gold); }
-        .mobile-menu-divider {
-            width: 40px; height: 1px;
-            background: rgba(231,191,106,0.30);
-        }
-        .mobile-menu-cta {
-            margin-top: 8px;
-            background: var(--gold) !important;
-            color: var(--navy) !important;
-            padding: 14px 40px !important;
-            border-radius: 8px !important;
-            font-family: 'DM Sans', sans-serif !important;
-            font-size: 12px !important;
-            font-weight: 600 !important;
-            letter-spacing: 1.5px !important;
-            text-transform: uppercase !important;
-        }
+        .nav-logo a { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .nav-logo img { height: 48px; width: auto; }
+        .nav-logo-name { font-family: 'Playfair Display', serif; font-size: 18px; color: white; letter-spacing: 2px; text-transform: uppercase; display: block; }
+        .nav-logo-sub { font-size: 9px; color: var(--gold); letter-spacing: 2px; text-transform: uppercase; display: block; }
+        .nav-right { display: flex; align-items: center; gap: 16px; }
+        .nav-link { font-size: 11px; color: rgba(255,255,255,0.70); text-decoration: none; letter-spacing: 1px; text-transform: uppercase; transition: color 180ms ease; }
+        .nav-link:hover { color: var(--gold); }
+        .nav-btn { font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 600; padding: 9px 20px; background: var(--gold); color: var(--navy); border: none; border-radius: 6px; cursor: pointer; letter-spacing: 0.8px; text-transform: uppercase; transition: background 200ms ease; text-decoration: none; }
+        .nav-btn:hover { background: var(--gold-hover); }
 
         /* ── HERO ── */
-        .property-hero {
-            position: relative;
-            width: 100%;
-            height: 70vh;
-            min-height: 520px;
-            display: flex;
-            align-items: flex-end;
-            overflow: hidden;
-            margin-top: 80px;
-        }
-        .property-hero-bg {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, #0A192F, #0F4C5C);
-        }
-        .property-hero-bg img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-        .property-hero-overlay {
-            position: absolute; inset: 0;
-            background: linear-gradient(
-                to bottom,
-                rgba(10,25,47,0.10) 0%,
-                rgba(10,25,47,0.20) 40%,
-                rgba(10,25,47,0.82) 100%
-            );
-        }
-        .property-hero-content {
-            position: relative; z-index: 2;
-            padding: 0 80px 56px;
-            width: 100%;
-        }
-        .property-hero-eyebrow {
-            font-family: 'DM Sans', sans-serif;
-            font-size: 10px; font-weight: 500;
-            letter-spacing: 3px; text-transform: uppercase;
-            color: var(--gold); margin-bottom: 12px;
-        }
-        .property-hero-name {
-            font-family: 'Playfair Display', serif;
-            font-size: 52px; font-weight: 500;
-            color: #fff; line-height: 1.06;
-            letter-spacing: -0.5px; margin-bottom: 16px;
-        }
-        .property-hero-meta {
-            display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
-        }
-        .property-hero-location {
-            font-family: 'DM Sans', sans-serif;
-            font-size: 14px; color: rgba(255,255,255,0.80);
-            display: flex; align-items: center; gap: 6px;
-        }
-        .property-hero-location svg {
-            width: 14px; height: 14px;
-            stroke: var(--gold); fill: none;
-            stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
-        }
-        .property-type-pill {
-            font-family: 'DM Sans', sans-serif;
-            font-size: 10px; font-weight: 500;
-            letter-spacing: 1.5px; text-transform: uppercase;
-            color: var(--gold);
-            border: 1px solid rgba(231,191,106,0.50);
-            padding: 5px 14px; border-radius: 20px;
-        }
-        .property-hero-stars {
-            font-size: 16px; color: var(--gold); letter-spacing: 2px;
-        }
+        .property-hero { position: relative; height: 70vh; overflow: hidden; margin-top: 72px; }
+        .property-hero img { width: 100%; height: 100%; object-fit: cover; }
+        .property-hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(10,25,47,0.15) 0%, rgba(10,25,47,0.60) 100%); }
+        .property-hero-content { position: absolute; bottom: 48px; left: 80px; right: 80px; }
+        .property-hero-type { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+        .property-hero-name { font-family: 'Playfair Display', serif; font-size: 52px; font-weight: 500; color: white; line-height: 1.05; letter-spacing: -0.5px; margin-bottom: 12px; }
+        .property-hero-location { font-size: 15px; color: rgba(255,255,255,0.75); display: flex; align-items: center; gap: 8px; }
+        .property-hero-location svg { width: 14px; height: 14px; stroke: var(--gold); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 
-        /* ── MAIN CONTENT ── */
-        .property-main {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 60px 80px;
-            display: grid;
-            grid-template-columns: 1fr 380px;
-            gap: 60px;
-            align-items: start;
-            width: 100%;
-        }
+        /* ── MAIN LAYOUT ── */
+        .property-main { max-width: 1200px; margin: 0 auto; padding: 60px 40px; display: grid; grid-template-columns: 1fr 380px; gap: 48px; align-items: start; }
 
-        /* ── LEFT COLUMN ── */
-        .property-section {
-            margin-bottom: 48px;
-            padding-bottom: 48px;
-            border-bottom: 1px solid rgba(10,25,47,0.08);
-        }
-        .property-section:last-child {
-            border-bottom: none; margin-bottom: 0;
-        }
-        .property-section-eyebrow {
-            font-family: 'DM Sans', sans-serif;
-            font-size: 10px; font-weight: 500;
-            letter-spacing: 3px; text-transform: uppercase;
-            color: var(--gold); margin-bottom: 12px;
-        }
-        .property-section h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 28px; font-weight: 500;
-            color: var(--navy); margin-bottom: 16px;
-        }
-        .property-description {
-            font-family: 'DM Sans', sans-serif;
-            font-size: 15px; font-weight: 300;
-            color: #555; line-height: 1.85;
-        }
-        .property-description p { margin-bottom: 14px; }
-        .property-description p:last-child { margin-bottom: 0; }
+        /* ── LEFT CONTENT ── */
+        .property-content {}
+        .property-section { margin-bottom: 48px; }
+        .property-section-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 500; color: var(--navy); margin-bottom: 16px; }
+        .property-description { font-size: 15px; color: #555; line-height: 1.85; }
+        .property-stars { font-size: 18px; color: var(--gold); letter-spacing: 3px; margin-bottom: 12px; }
+        .property-amenities { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+        .amenity-item { display: flex; align-items: center; gap: 10px; padding: 12px 16px; background: white; border-radius: 10px; border: 1px solid var(--border); }
+        .amenity-item svg { width: 16px; height: 16px; stroke: var(--gold); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+        .amenity-item span { font-size: 13px; color: var(--navy); }
 
-        /* ── AMENITIES ── */
-        .amenities-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-        }
-        .amenity-item {
-            display: flex; align-items: center; gap: 10px;
-            background: white; border-radius: 8px;
-            padding: 12px 16px;
-            border: 1px solid rgba(10,25,47,0.06);
-            transition: border-color 200ms ease, box-shadow 200ms ease;
-        }
-        .amenity-item:hover {
-            border-color: rgba(231,191,106,0.35);
-            box-shadow: 0 4px 12px rgba(10,25,47,0.06);
-        }
-        .amenity-item svg {
-            width: 16px; height: 16px;
-            stroke: var(--gold); fill: none;
-            stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
-            flex-shrink: 0;
-        }
-        .amenity-item span {
-            font-family: 'DM Sans', sans-serif;
-            font-size: 13px; color: #444;
-        }
-
-        /* ── CANCELLATION ── */
-        .cancellation-box {
-            background: white; border-radius: 12px;
-            padding: 24px; border: 1px solid rgba(10,25,47,0.06);
-        }
-        .cancellation-box p {
-            font-family: 'DM Sans', sans-serif;
-            font-size: 14px; color: #555; line-height: 1.75;
-        }
+        /* ── AVAILABILITY CALENDAR ── */
+        .availability-section { background: white; border-radius: 16px; padding: 28px; border: 1px solid var(--border); box-shadow: 0 1px 8px rgba(0,0,0,0.04); margin-bottom: 48px; }
+        .availability-title { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--navy); margin-bottom: 6px; }
+        .availability-sub { font-size: 13px; color: var(--muted); margin-bottom: 24px; }
+        .cal-nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+        .cal-month-label { font-family: 'Playfair Display', serif; font-size: 18px; color: var(--navy); }
+        .cal-nav-btn { width: 32px; height: 32px; border: 1px solid var(--border); border-radius: 8px; background: white; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; color: var(--muted); transition: all 150ms ease; }
+        .cal-nav-btn:hover { background: var(--navy); color: white; border-color: var(--navy); }
+        .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; }
+        .cal-day-header { font-size: 10px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); text-align: center; padding: 6px 0; }
+        .cal-day { width: 100%; aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: 13px; border-radius: 6px; cursor: pointer; transition: all 150ms ease; color: #333; border: 1px solid transparent; position: relative; }
+        .cal-day:hover:not(.unavailable):not(.past):not(.empty) { background: rgba(231,191,106,0.15); border-color: var(--gold); }
+        .cal-day.empty { cursor: default; }
+        .cal-day.today { font-weight: 700; color: var(--navy); }
+        .cal-day.unavailable { background: rgba(231,76,60,0.06); color: #E74C3C; cursor: not-allowed; text-decoration: line-through; }
+        .cal-day.past { color: #D1D5DB; cursor: default; }
+        .cal-day.selected-start { background: var(--navy); color: white; font-weight: 600; border-radius: 6px 0 0 6px; }
+        .cal-day.selected-end { background: var(--navy); color: white; font-weight: 600; border-radius: 0 6px 6px 0; }
+        .cal-day.selected-start.selected-end { border-radius: 6px; }
+        .cal-day.in-range { background: rgba(10,25,47,0.08); border-radius: 0; }
+        .cal-legend { display: flex; gap: 16px; margin-top: 14px; flex-wrap: wrap; }
+        .cal-legend-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--muted); }
+        .cal-legend-dot { width: 10px; height: 10px; border-radius: 3px; }
+        .cal-legend-dot.available { background: white; border: 1px solid var(--border); }
+        .cal-legend-dot.unavailable { background: rgba(231,76,60,0.10); border: 1px solid #E74C3C; }
+        .cal-legend-dot.selected { background: var(--navy); }
+        .cal-selected-dates { margin-top: 16px; padding: 14px 16px; background: rgba(10,25,47,0.04); border-radius: 10px; display: none; }
+        .cal-selected-dates-row { display: flex; justify-content: space-between; align-items: center; }
+        .cal-selected-label { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 3px; }
+        .cal-selected-value { font-family: 'Playfair Display', serif; font-size: 16px; color: var(--navy); }
+        .cal-selected-nights { font-size: 13px; color: var(--gold); font-weight: 500; }
+        .cal-book-btn { width: 100%; padding: 14px; background: var(--gold); color: var(--navy); font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; border: none; border-radius: 10px; cursor: pointer; margin-top: 14px; transition: background 200ms ease; display: none; }
+        .cal-book-btn:hover { background: var(--gold-hover); }
+        .cal-reset-btn { width: 100%; padding: 10px; background: white; color: var(--muted); font-family: 'DM Sans', sans-serif; font-size: 12px; border: 1px solid var(--border); border-radius: 10px; cursor: pointer; margin-top: 8px; transition: all 150ms ease; display: none; }
+        .cal-reset-btn:hover { border-color: var(--navy); color: var(--navy); }
 
         /* ── BOOKING CARD ── */
-        .booking-card {
-            background: white; border-radius: 16px;
-            padding: 32px;
-            box-shadow: 0 8px 40px rgba(10,25,47,0.12);
-            position: sticky; top: 100px;
-        }
-        .booking-card-price {
-            margin-bottom: 24px; padding-bottom: 24px;
-            border-bottom: 1px solid #F2F2F2;
-        }
-        .booking-price-from {
-            font-family: 'DM Sans', sans-serif;
-            font-size: 10px; font-weight: 500;
-            letter-spacing: 1.5px; text-transform: uppercase;
-            color: #9CA3AF; margin-bottom: 4px;
-        }
-        .booking-price-amount {
-            font-family: 'Playfair Display', serif;
-            font-size: 36px; font-weight: 500; color: var(--navy); line-height: 1;
-        }
-        .booking-price-unit {
-            font-family: 'DM Sans', sans-serif;
-            font-size: 13px; color: #9CA3AF;
-        }
-        .booking-price-note {
-            font-family: 'DM Sans', sans-serif;
-            font-size: 11px; color: #9CA3AF; margin-top: 6px;
-        }
+        .booking-sidebar { position: sticky; top: 100px; }
+        .booking-card { background: white; border-radius: 20px; padding: 32px; box-shadow: 0 8px 40px rgba(10,25,47,0.12); border: 1px solid var(--border); margin-bottom: 20px; }
+        .booking-card-price { display: flex; align-items: baseline; gap: 6px; margin-bottom: 6px; }
+        .booking-card-amount { font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 500; color: var(--navy); }
+        .booking-card-unit { font-size: 14px; color: var(--muted); }
+        .booking-card-stars { font-size: 14px; color: var(--gold); letter-spacing: 2px; margin-bottom: 24px; }
         .booking-field { margin-bottom: 14px; }
-        .booking-field label {
-            display: block; font-family: 'DM Sans', sans-serif;
-            font-size: 9px; font-weight: 500;
-            letter-spacing: 1.5px; text-transform: uppercase;
-            color: #9CA3AF; margin-bottom: 6px;
-        }
-        .booking-field input, .booking-field select {
-            width: 100%; padding: 12px 14px;
-            border: 1px solid #EAEAEA; border-radius: 8px;
-            font-family: 'DM Sans', sans-serif;
-            font-size: 14px; color: #111827;
-            outline: none; transition: border-color 200ms ease;
-            background: white;
-        }
-        .booking-field input:focus,
-        .booking-field select:focus { border-color: var(--gold); }
-        .price-breakdown {
-            background: var(--cream); border-radius: 10px;
-            padding: 16px; margin-bottom: 20px; display: none;
-        }
-        .price-breakdown-row {
-            display: flex; justify-content: space-between;
-            font-family: 'DM Sans', sans-serif;
-            font-size: 13px; color: #666; margin-bottom: 8px;
-        }
-        .price-breakdown-row.total {
-            font-weight: 500; color: var(--navy); font-size: 15px;
-            border-top: 1px solid #EAEAEA; padding-top: 10px;
-            margin-top: 4px; margin-bottom: 0;
-        }
-        .booking-btn {
-            width: 100%; padding: 16px;
-            background: var(--gold); color: var(--navy);
-            font-family: 'DM Sans', sans-serif;
-            font-size: 12px; font-weight: 600;
-            letter-spacing: 1px; text-transform: uppercase;
-            border: none; border-radius: 8px;
-            cursor: pointer; margin-bottom: 12px;
-            transition: background 200ms ease;
-        }
+        .booking-field label { display: block; font-size: 9px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: #9CA3AF; margin-bottom: 6px; }
+        .booking-field input { width: 100%; padding: 12px 14px; border: 1px solid var(--border); border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 14px; color: #111; outline: none; transition: border-color 200ms ease; background: #FAFAFA; }
+        .booking-field input:focus { border-color: var(--gold); background: white; }
+        .booking-dates-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+        .price-summary { background: #f8f6f0; border-radius: 10px; padding: 16px; margin-bottom: 16px; display: none; }
+        .price-row { display: flex; justify-content: space-between; font-size: 13px; color: #666; margin-bottom: 7px; }
+        .price-row.total { font-weight: 600; color: var(--navy); font-size: 15px; border-top: 1px solid var(--border); padding-top: 10px; margin-top: 4px; margin-bottom: 0; }
+        .booking-btn { width: 100%; padding: 16px; background: var(--gold); color: var(--navy); font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; border: none; border-radius: 10px; cursor: pointer; transition: background 200ms ease; }
         .booking-btn:hover { background: var(--gold-hover); }
-        .booking-note {
-            text-align: center; font-family: 'DM Sans', sans-serif;
-            font-size: 11px; color: #9CA3AF;
-        }
+        .booking-note { text-align: center; font-size: 12px; color: var(--muted); margin-top: 12px; }
+        .booking-error { display: none; padding: 10px 14px; border-radius: 8px; font-size: 13px; margin-bottom: 12px; background: rgba(231,76,60,0.08); color: #E74C3C; border: 1px solid rgba(231,76,60,0.20); }
+        .booking-success-card { background: white; border-radius: 20px; padding: 32px; box-shadow: 0 8px 40px rgba(10,25,47,0.12); border: 1px solid var(--border); text-align: center; display: none; }
+        .booking-success-icon { font-size: 40px; margin-bottom: 16px; }
+        .booking-success-card h3 { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--navy); margin-bottom: 10px; }
+        .booking-success-card p { font-size: 14px; color: var(--muted); line-height: 1.7; }
 
         /* ── REVIEWS ── */
-        .review-form-card {
-            background: white; border-radius: 14px;
-            padding: 32px; margin-bottom: 28px;
-            box-shadow: 0 4px 20px rgba(10,25,47,0.06);
-            max-width: 600px;
-        }
-        .review-form-card h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 22px; color: var(--navy); margin-bottom: 20px;
-        }
-        .review-field { margin-bottom: 14px; }
-        .review-field label {
-            display: block; font-family: 'DM Sans', sans-serif;
-            font-size: 9px; font-weight: 500;
-            letter-spacing: 1.5px; text-transform: uppercase;
-            color: #9CA3AF; margin-bottom: 6px;
-        }
-        .review-field input, .review-field textarea {
-            width: 100%; padding: 12px 14px;
-            border: 1px solid #EAEAEA; border-radius: 8px;
-            font-family: 'DM Sans', sans-serif;
-            font-size: 14px; color: #111827;
-            outline: none; transition: border-color 200ms ease; background: white;
-        }
-        .review-field input:focus,
-        .review-field textarea:focus { border-color: var(--gold); }
-        .review-field textarea { height: 100px; resize: vertical; }
-        .star-rating { display: flex; gap: 6px; margin-bottom: 14px; }
-        .star {
-            font-size: 28px; cursor: pointer;
-            color: var(--gold); opacity: 0.35;
-            transition: opacity 150ms ease;
-        }
-        .star.active { opacity: 1; }
-        .star:hover { opacity: 0.75; }
-        .review-submit-btn {
-            padding: 12px 28px; background: var(--navy); color: white;
-            font-family: 'DM Sans', sans-serif;
-            font-size: 11px; font-weight: 600;
-            letter-spacing: 1px; text-transform: uppercase;
-            border: none; border-radius: 8px;
-            cursor: pointer; transition: background 200ms ease;
-        }
-        .review-submit-btn:hover { background: #0F2A45; }
-        .review-message {
-            font-family: 'DM Sans', sans-serif;
-            font-size: 13px; margin-top: 10px;
-        }
-        .review-card {
-            background: white; border-radius: 12px;
-            padding: 24px; margin-bottom: 16px;
-            box-shadow: 0 4px 16px rgba(10,25,47,0.06);
-            max-width: 600px;
-        }
-        .review-card-header {
-            display: flex; justify-content: space-between;
-            align-items: flex-start; margin-bottom: 10px;
-        }
-        .review-guest-name {
-            font-family: 'Playfair Display', serif;
-            font-size: 16px; color: var(--navy);
-        }
-        .review-stars { color: var(--gold); font-size: 14px; letter-spacing: 2px; }
-        .review-date {
-            font-family: 'DM Sans', sans-serif;
-            font-size: 11px; color: #9CA3AF; margin-top: 4px;
-        }
-        .review-comment {
-            font-family: 'DM Sans', sans-serif;
-            font-size: 14px; color: #555; line-height: 1.7;
-        }
-        .reviews-avg {
-            display: flex; align-items: center; gap: 16px;
-            margin-bottom: 28px; max-width: 600px;
-            background: white; border-radius: 12px; padding: 20px 24px;
-            box-shadow: 0 4px 16px rgba(10,25,47,0.06);
-        }
-        .reviews-avg-score {
-            font-family: 'Playfair Display', serif;
-            font-size: 48px; font-weight: 500; color: var(--navy);
-        }
-        .reviews-avg-stars { color: var(--gold); font-size: 20px; letter-spacing: 3px; }
-        .reviews-avg-count {
-            font-family: 'DM Sans', sans-serif;
-            font-size: 13px; color: #9CA3AF; margin-top: 4px;
-        }
-        .no-reviews {
-            font-family: 'DM Sans', sans-serif;
-            font-size: 14px; color: #9CA3AF; font-style: italic;
-        }
+        .reviews-list { display: flex; flex-direction: column; gap: 20px; }
+        .review-card { background: white; border-radius: 14px; padding: 24px; border: 1px solid var(--border); }
+        .review-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .review-name { font-weight: 500; color: var(--navy); }
+        .review-stars { color: var(--gold); font-size: 13px; }
+        .review-text { font-size: 14px; color: #555; line-height: 1.75; }
+        .review-date { font-size: 12px; color: var(--muted); margin-top: 8px; }
+        .no-reviews { text-align: center; padding: 40px; color: var(--muted); font-style: italic; font-size: 14px; }
 
-        /* ── SIMILAR PROPERTIES ── */
-        .similar-section {
-            background: var(--navy); padding: 80px; width: 100%;
-        }
-        .similar-eyebrow {
-            font-family: 'DM Sans', sans-serif;
-            font-size: 10px; font-weight: 500;
-            letter-spacing: 3px; text-transform: uppercase;
-            color: var(--gold); margin-bottom: 12px; text-align: center;
-        }
-        .similar-section h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 36px; color: white;
-            text-align: center; margin-bottom: 48px;
-        }
-        .similar-grid {
-            display: grid; grid-template-columns: repeat(3, 1fr);
-            gap: 28px; max-width: 1040px; margin: 0 auto;
-        }
-        .similar-card {
-            background: white; border-radius: 14px;
-            overflow: hidden; cursor: pointer;
-            transition: transform 220ms ease, box-shadow 220ms ease;
-        }
-        .similar-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 20px 48px rgba(0,0,0,0.20);
-        }
-        .similar-card-image { height: 200px; overflow: hidden; }
-        .similar-card-image img {
-            width: 100%; height: 100%; object-fit: cover;
-            transition: transform 600ms ease;
-        }
-        .similar-card:hover .similar-card-image img { transform: scale(1.04); }
-        .similar-card-name-band {
-            background: var(--navy);
-            border-top: 2px solid rgba(200,169,106,0.75);
-            padding: 14px 20px; text-align: center;
-        }
-        .similar-card-name-band h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 16px; font-weight: 500;
-            color: #fff; text-transform: uppercase;
-            letter-spacing: 0.5px; line-height: 1.2; margin: 0;
-        }
-        .similar-card-detail { background: white; padding: 16px 20px; }
-        .similar-card-stars {
-            text-align: center; font-size: 13px;
-            color: var(--gold); letter-spacing: 2px; margin-bottom: 6px;
-        }
-        .similar-card-location {
-            font-family: 'Playfair Display', serif;
-            font-style: italic; font-size: 13px;
-            color: var(--navy); text-align: center; margin-bottom: 12px;
-        }
-        .similar-card-bottom {
-            display: flex; justify-content: space-between;
-            align-items: center; padding-top: 12px;
-            border-top: 1px solid #F2F2F2;
-        }
-        .similar-card-price {
-            font-family: 'Playfair Display', serif;
-            font-size: 20px; color: var(--navy);
-        }
-        .similar-card-price span {
-            font-family: 'DM Sans', sans-serif;
-            font-size: 11px; color: #9CA3AF;
-        }
-        .similar-card-btn {
-            background: var(--navy); color: white;
-            font-family: 'DM Sans', sans-serif;
-            font-size: 10px; font-weight: 600;
-            letter-spacing: 0.8px; text-transform: uppercase;
-            padding: 8px 14px; border: none; border-radius: 6px;
-            cursor: pointer; transition: background 180ms ease;
-        }
-        .similar-card-btn:hover { background: var(--gold); color: var(--navy); }
-
-        /* ── BOOKING MODAL ── */
-        #bookingModal {
-            display: none; position: fixed; inset: 0;
-            background: rgba(10,25,47,0.78);
-            backdrop-filter: blur(8px); z-index: 1000;
-            justify-content: center; align-items: center;
-        }
-        .modal-box {
-            background: white; border-radius: 20px;
-            padding: 48px; max-width: 500px; width: 90%;
-        }
-        .modal-box h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 26px; color: var(--navy); margin-bottom: 6px;
-        }
-        .modal-property-name {
-            font-family: 'DM Sans', sans-serif;
-            font-size: 11px; color: var(--gold);
-            margin-bottom: 28px; letter-spacing: 1px; text-transform: uppercase;
-        }
-        .modal-field { margin-bottom: 16px; }
-        .modal-field label {
-            display: block; font-family: 'DM Sans', sans-serif;
-            font-size: 9px; font-weight: 500; letter-spacing: 1.5px;
-            text-transform: uppercase; color: #9CA3AF; margin-bottom: 7px;
-        }
-        .modal-field input {
-            width: 100%; padding: 12px 15px;
-            border: 1px solid #EAEAEA; border-radius: 8px;
-            font-family: 'DM Sans', sans-serif; font-size: 14px;
-            color: #111827; outline: none; transition: border-color 200ms ease;
-        }
-        .modal-field input:focus { border-color: var(--gold); }
-        .modal-dates {
-            display: grid; grid-template-columns: 1fr 1fr;
-            gap: 12px; margin-bottom: 16px;
-        }
-        .modal-price-summary {
-            background: var(--cream); border-radius: 10px;
-            padding: 16px; margin-bottom: 20px; display: none;
-        }
-        .modal-price-row {
-            display: flex; justify-content: space-between;
-            font-family: 'DM Sans', sans-serif;
-            font-size: 13px; color: #666; margin-bottom: 7px;
-        }
-        .modal-price-row.total {
-            font-weight: 500; color: var(--navy); font-size: 15px;
-            border-top: 1px solid #EAEAEA; padding-top: 10px;
-            margin-top: 4px; margin-bottom: 0;
-        }
-        .modal-confirm {
-            width: 100%; padding: 14px;
-            background: var(--gold); color: var(--navy);
-            font-family: 'DM Sans', sans-serif;
-            font-size: 12px; font-weight: 600; letter-spacing: 1px;
-            text-transform: uppercase; border: none; border-radius: 8px;
-            cursor: pointer; margin-bottom: 10px; transition: background 200ms ease;
-        }
-        .modal-confirm:hover { background: var(--gold-hover); }
-        .modal-cancel {
-            width: 100%; padding: 12px; background: #f8f6f0; color: #888;
-            font-family: 'DM Sans', sans-serif; font-size: 13px;
-            border: none; border-radius: 8px; cursor: pointer;
-        }
-
-        /* ── CONFIRMATION ── */
-        #confirmationScreen {
-            display: none; position: fixed; inset: 0;
-            background: rgba(10,25,47,0.78);
-            backdrop-filter: blur(8px); z-index: 1000;
-            justify-content: center; align-items: center;
-        }
-        .confirm-box {
-            background: white; border-radius: 20px;
-            padding: 56px 48px; max-width: 460px; width: 90%; text-align: center;
-        }
-        .confirm-icon {
-            width: 68px; height: 68px; background: var(--gold);
-            border-radius: 50%; display: flex; align-items: center;
-            justify-content: center; font-size: 30px; margin: 0 auto 22px;
-        }
-        .confirm-box h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 28px; color: var(--navy); margin-bottom: 12px;
-        }
-        .confirm-box p {
-            font-family: 'DM Sans', sans-serif;
-            font-size: 14px; color: #666; line-height: 1.75; margin-bottom: 28px;
-        }
-        .confirm-back {
-            padding: 13px 32px; background: var(--navy); color: white;
-            font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500;
-            letter-spacing: 1px; text-transform: uppercase; border: none;
-            border-radius: 8px; cursor: pointer; transition: background 200ms ease;
-        }
+        /* ── CONFIRMATION MODAL ── */
+        #confirmationModal { display: none; position: fixed; inset: 0; background: rgba(10,25,47,0.78); backdrop-filter: blur(8px); z-index: 1000; justify-content: center; align-items: center; }
+        .confirm-box { background: white; border-radius: 20px; padding: 56px 48px; max-width: 460px; width: 90%; text-align: center; }
+        .confirm-icon { font-size: 40px; margin-bottom: 20px; }
+        .confirm-box h2 { font-family: 'Playfair Display', serif; font-size: 28px; color: var(--navy); margin-bottom: 12px; }
+        .confirm-box p { font-size: 14px; color: #666; line-height: 1.75; margin-bottom: 28px; }
+        .confirm-back { padding: 13px 32px; background: var(--navy); color: white; font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; border: none; border-radius: 8px; cursor: pointer; transition: background 200ms ease; }
         .confirm-back:hover { background: #0F2A45; }
 
         /* ── FOOTER ── */
-        footer {
-            background: var(--navy-dark);
-            padding: 80px 80px 48px;
-            border-top: 1px solid rgba(231,191,106,0.15);
-            width: 100%;
-        }
-        .footer-top {
-            display: grid; grid-template-columns: 1fr 1fr 1fr;
-            gap: 60px; margin-bottom: 64px;
-        }
-        .footer-logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 22px; font-weight: 500; color: #fff;
-            letter-spacing: 2px; text-transform: uppercase;
-            text-decoration: none; display: block; margin-bottom: 6px;
-        }
-        .footer-logo-sub {
-            font-family: 'DM Sans', sans-serif;
-            font-size: 9px; color: var(--gold);
-            letter-spacing: 2.5px; text-transform: uppercase;
-            margin-bottom: 20px; display: block;
-        }
-        .footer-brand-desc {
-            font-family: 'DM Sans', sans-serif;
-            font-size: 13px; color: rgba(255,255,255,0.50);
-            line-height: 1.75; max-width: 240px;
-        }
-        .footer-col h4 {
-            font-family: 'DM Sans', sans-serif;
-            font-size: 10px; font-weight: 500; letter-spacing: 2px;
-            text-transform: uppercase; color: var(--gold); margin-bottom: 20px;
-        }
-        .footer-col ul { list-style: none; }
-        .footer-col ul li { margin-bottom: 10px; }
-        .footer-col ul li a {
-            font-family: 'DM Sans', sans-serif;
-            font-size: 13px; color: rgba(255,255,255,0.50);
-            text-decoration: none; transition: color 180ms ease;
-        }
-        .footer-col ul li a:hover { color: var(--gold); }
-        .footer-divider {
-            width: 100%; height: 1px;
-            background: rgba(231,191,106,0.12); margin-bottom: 32px;
-        }
-        .footer-bottom {
-            display: flex; justify-content: space-between; align-items: center;
-        }
-        .footer-tagline {
-            font-family: 'DM Sans', sans-serif;
-            font-size: 12px; font-weight: 300;
-            color: rgba(255,255,255,0.40); font-style: italic;
-        }
+        footer { background: var(--navy-dark); padding: 48px 80px; border-top: 1px solid rgba(231,191,106,0.15); }
+        .footer-bottom { display: flex; justify-content: space-between; align-items: center; }
+        .footer-tagline { font-size: 12px; color: rgba(255,255,255,0.40); font-style: italic; }
         .footer-tagline span { color: var(--gold); font-style: normal; }
-        .footer-copy {
-            font-family: 'DM Sans', sans-serif;
-            font-size: 11px; color: rgba(255,255,255,0.30);
-        }
-        .loading-state {
-            text-align: center; padding: 120px 40px;
-            font-family: 'DM Sans', sans-serif;
-            color: #9CA3AF; font-size: 15px;
-        }
+        .footer-copy { font-size: 11px; color: rgba(255,255,255,0.30); }
 
-        /* ── BOTTOM NAV — hidden on desktop ── */
+        /* ── BOTTOM NAV ── */
         .bottom-nav-bar { display: none; }
 
-        /* ════════════════════════════════════
-           MOBILE RESPONSIVE
-        ════════════════════════════════════ */
+        /* ── MOBILE ── */
         @media (max-width: 1024px) {
-
-            body { padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px)); }
-
-            /* NAV */
-            nav {
-                padding: 0 20px;
-                height: 64px;
-            }
-            .nav-links { display: none; }
-            .nav-back span { display: none; }
-            .nav-logo { font-size: 15px; }
-            .nav-logo-sub { font-size: 8px; }
-            .nav-logo-wrap > a img {
-                height: 38px !important; width: auto !important;
-            }
-            .nav-hamburger {
-                display: flex !important;
-                align-items: center; justify-content: center;
-                width: 40px; height: 40px;
-                background: rgba(255,255,255,0.10);
-                border: 1px solid rgba(255,255,255,0.20);
-                border-radius: 8px; cursor: pointer; padding: 0; flex-shrink: 0;
-            }
-            .nav-hamburger svg {
-                width: 20px; height: 20px;
-                stroke: white; fill: none;
-                stroke-width: 1.5; stroke-linecap: round;
-            }
-
-            /* HERO */
-            .property-hero {
-                height: 55vh; min-height: 380px;
-                margin-top: 64px;
-            }
-            .property-hero-content { padding: 0 24px 36px; }
-            .property-hero-eyebrow { font-size: 9px; margin-bottom: 8px; }
-            .property-hero-name { font-size: 28px; margin-bottom: 12px; }
-            .property-hero-meta { gap: 12px; }
-            .property-hero-location { font-size: 12px; }
-            .property-hero-stars { font-size: 13px; }
-
-            /* MAIN LAYOUT — stack vertically */
-            .property-main {
-                grid-template-columns: 1fr;
-                padding: 32px 20px;
-                gap: 32px;
-            }
-
-            /* MAIN LAYOUT — stack vertically */
-            .property-main {
-                grid-template-columns: 1fr;
-                padding: 24px 16px;
-                gap: 24px;
-                display: flex;
-                flex-direction: column;
-                width: 100%;
-            }
-
-            /* BOOKING CARD — compact and full width on mobile */
-            .booking-card {
-                position: static;
-                padding: 16px;
-                width: 100%;
-                margin: 0;
-            }
-            .property-right {
-                width: 100%;
-                padding: 0;
-            }
-            .property-right {
-                order: -1;
-            }
-            .booking-card-price {
-                margin-bottom: 14px;
-                padding-bottom: 14px;
-            }
-            .booking-price-amount { font-size: 26px; }
-            .booking-price-note { font-size: 10px; }
-            .booking-field { margin-bottom: 10px; }
-            .booking-field input,
-            .booking-field select {
-                padding: 10px 12px;
-                font-size: 13px;
-            }
-            .booking-btn {
-                padding: 13px;
-                font-size: 11px;
-            }
-            .booking-note { font-size: 10px; }
-            .booking-price-amount { font-size: 28px; }
-
-            /* AMENITIES — 2 column on mobile */
-            .amenities-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-            .amenity-item { padding: 10px 12px; }
-            .amenity-item span { font-size: 12px; }
-
-            /* SECTION HEADINGS */
-            .property-section h2 { font-size: 22px; }
-
-            /* REVIEW FORM */
-            .review-form-card { padding: 24px 20px; max-width: 100%; }
-            .review-card { max-width: 100%; }
-
-            /* SIMILAR PROPERTIES */
-            .similar-section { padding: 48px 20px; }
-            .similar-grid { grid-template-columns: 1fr; gap: 20px; }
-            .similar-section h2 { font-size: 26px; margin-bottom: 32px; }
-
-            /* FOOTER */
-            footer { padding: 48px 24px 32px; }
-            .footer-top {
-                grid-template-columns: 1fr; gap: 32px; margin-bottom: 32px;
-            }
-            .footer-bottom {
-                flex-direction: column; gap: 10px; text-align: center;
-            }
-
-            /* MODAL */
-            .modal-box { padding: 28px 20px; }
-            .modal-dates { grid-template-columns: 1fr; gap: 10px; }
-
-            /* BOTTOM NAV */
-            .bottom-nav-bar {
-                display: flex !important;
-                position: fixed !important;
-                bottom: 0 !important;
-                left: 0 !important;
-                right: 0 !important;
-                width: 100% !important;
-                height: 60px !important;
-                background: #ffffff !important;
-                border-top: 1px solid #EAEAEA !important;
-                box-shadow: 0 -2px 16px rgba(0,0,0,0.08) !important;
-                z-index: 99999 !important;
-                padding-bottom: env(safe-area-inset-bottom, 0px) !important;
-                justify-content: space-around !important;
-                align-items: center !important;
-                visibility: visible !important;
-                opacity: 1 !important;
-            }
-            .bottom-nav-item {
-                display: flex !important;
-                flex-direction: column !important;
-                align-items: center !important;
-                justify-content: center !important;
-                gap: 3px !important;
-                text-decoration: none !important;
-                flex: 1 !important;
-                padding: 8px 0 !important;
-            }
-            .bottom-nav-item svg {
-                width: 22px !important; height: 22px !important;
-                stroke: #9CA3AF !important; fill: none !important;
-                stroke-width: 1.5 !important; stroke-linecap: round !important;
-                stroke-linejoin: round !important;
-            }
-            .bottom-nav-item.active svg { stroke: #E7BF6A !important; }
-            .bottom-nav-item span {
-                font-family: 'DM Sans', sans-serif !important;
-                font-size: 10px !important; color: #9CA3AF !important;
-            }
-            .bottom-nav-item.active span { color: #E7BF6A !important; }
+            body { padding-bottom: calc(80px + env(safe-area-inset-bottom, 0px)); }
+            nav { padding: 0 20px; height: 64px; }
+            .nav-logo-name { font-size: 15px; }
+            .property-hero { height: 55vh; margin-top: 64px; }
+            .property-hero-content { left: 20px; right: 20px; bottom: 28px; }
+            .property-hero-name { font-size: 32px; }
+            .property-main { grid-template-columns: 1fr; padding: 32px 20px; gap: 32px; }
+            .booking-sidebar { position: static; order: -1; }
+            .property-amenities { grid-template-columns: repeat(2, 1fr); }
+            footer { padding: 36px 20px; }
+            .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+            .bottom-nav-bar { display: flex !important; position: fixed !important; bottom: 0 !important; left: 0 !important; right: 0 !important; width: 100% !important; height: 60px !important; background: white !important; border-top: 1px solid #EAEAEA !important; box-shadow: 0 -4px 24px rgba(0,0,0,0.10) !important; z-index: 99999 !important; padding-bottom: env(safe-area-inset-bottom, 0px) !important; justify-content: space-around !important; align-items: center !important; }
+            .bottom-nav-item { flex: 1 !important; display: flex !important; flex-direction: column !important; align-items: center !important; gap: 4px !important; cursor: pointer !important; padding: 4px 0 !important; text-decoration: none !important; }
+            .bottom-nav-item svg { width: 22px !important; height: 22px !important; stroke: #9CA3AF !important; fill: none !important; stroke-width: 1.5 !important; stroke-linecap: round !important; stroke-linejoin: round !important; }
+            .bottom-nav-item.active svg { stroke: var(--gold) !important; }
+            .bottom-nav-item span { font-family: 'DM Sans', sans-serif !important; font-size: 10px !important; color: #9CA3AF !important; }
+            .bottom-nav-item.active span { color: var(--gold) !important; }
         }
     </style>
 </head>
 <body>
 
-<!-- NAVIGATION -->
-<nav id="mainNav">
-    <div class="nav-logo-wrap">
-        <a href="/" style="display:flex; align-items:center; gap:8px; text-decoration:none;">
-            <img src="/images/bahamas-stays-logo.png" alt="Bahamas Stays" style="height:56px; width:auto;">
-            <div>
-                <div class="nav-logo">Bahamas Stays</div>
-                <span class="nav-logo-sub">Curated Stays · Authentic Bahamas</span>
-            </div>
+<!-- NAV -->
+<nav>
+    <div class="nav-logo">
+        <a href="/">
+            <img src="/images/bahamas-stays-logo.png" alt="Bahamas Stays">
+            <div><span class="nav-logo-name">Bahamas Stays</span><span class="nav-logo-sub">Curated Stays · Authentic Bahamas</span></div>
         </a>
     </div>
-    <ul class="nav-links">
-        <li><a href="/#islands">Islands</a></li>
-        <li><a href="/#properties">Stays</a></li>
-        <li><a href="/#how">Experiences</a></li>
-        <li><a href="/#how">Journal</a></li>
-        <li><a href="/operator.html">Operators</a></li>
-    </ul>
-    <a href="/" class="nav-back">
-        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
-        <span>All Properties</span>
-    </a>
-    <button class="nav-hamburger" onclick="toggleMobileMenu()" aria-label="Open menu">
-        <svg viewBox="0 0 24 24">
-            <line x1="3" y1="6" x2="21" y2="6"/>
-            <line x1="3" y1="12" x2="21" y2="12"/>
-            <line x1="3" y1="18" x2="21" y2="18"/>
-        </svg>
-    </button>
-</nav>
-
-<!-- MOBILE MENU -->
-<div class="mobile-menu" id="mobileMenu">
-    <button class="mobile-menu-close" onclick="toggleMobileMenu()">
-        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-    </button>
-    <div class="mobile-menu-logo">
-        <img src="/images/bahamas-stays-logo.png" alt="Bahamas Stays">
-        <span>Bahamas Stays</span>
+    <div class="nav-right">
+        <a href="/#properties" class="nav-link">Browse Stays</a>
+        <a href="/login.html" class="nav-btn">My Account</a>
     </div>
-    <div class="mobile-menu-divider"></div>
-    <a href="/#islands" onclick="toggleMobileMenu()">Islands</a>
-    <a href="/#properties" onclick="toggleMobileMenu()">Stays</a>
-    <a href="/#how" onclick="toggleMobileMenu()">Experiences</a>
-    <a href="/operator.html" onclick="toggleMobileMenu()">Operators</a>
-    <div class="mobile-menu-divider"></div>
-    <a href="/" class="mobile-menu-cta">Back to All Properties</a>
-</div>
+</nav>
 
 <!-- HERO -->
 <div class="property-hero" id="propertyHero">
-    <div class="property-hero-bg" id="heroBg">
-        <img id="heroImage" src="" alt="" style="display:none;">
-    </div>
+    <img id="heroImage" src="/images/goldwynn-hero.jpg" alt="Property">
     <div class="property-hero-overlay"></div>
     <div class="property-hero-content">
-        <div class="property-hero-eyebrow" id="heroEyebrow"></div>
+        <div class="property-hero-type" id="heroType">Luxury Hotel</div>
         <h1 class="property-hero-name" id="heroName">Loading...</h1>
-        <div class="property-hero-meta">
-            <div class="property-hero-location">
-                <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                <span id="heroLocation"></span>
-            </div>
-            <div class="property-type-pill" id="heroType"></div>
-            <div class="property-hero-stars">★★★★★</div>
+        <div class="property-hero-location">
+            <svg viewBox="0 0 24 24"><path d="M12 2C8 2 4 6 4 10c0 6 8 12 8 12s8-6 8-12c0-4-4-8-8-8z"/><circle cx="12" cy="10" r="2.5"/></svg>
+            <span id="heroLocation">—</span>
         </div>
     </div>
 </div>
 
-<!-- MAIN CONTENT -->
-<div class="property-main" id="propertyMain">
-    <div class="loading-state" style="grid-column: 1 / -1;">Loading property details...</div>
-</div>
+<!-- MAIN -->
+<div class="property-main">
 
-<!-- SIMILAR PROPERTIES -->
-<div id="similarSection" style="display:none;">
-    <div class="similar-section">
-        <div class="similar-eyebrow">You May Also Like</div>
-        <h2>Similar Properties</h2>
-        <div class="similar-grid" id="similarGrid"></div>
-    </div>
-</div>
+    <!-- LEFT -->
+    <div class="property-content">
 
-<!-- BOOKING MODAL -->
-<div id="bookingModal">
-    <div class="modal-box">
-        <h2>Complete Your Booking</h2>
-        <p class="modal-property-name" id="modalPropertyName"></p>
-        <div class="modal-field">
-            <label>Full Name</label>
-            <input id="guestName" type="text" placeholder="Your full name">
+        <!-- Description -->
+        <div class="property-section">
+            <div class="property-stars" id="propStars">★★★★★</div>
+            <h2 class="property-section-title">About This Property</h2>
+            <p class="property-description" id="propDescription">Loading property details...</p>
         </div>
-        <div class="modal-field">
-            <label>Email Address</label>
-            <input id="guestEmail" type="email" placeholder="your@email.com">
+
+        <!-- Amenities -->
+        <div class="property-section">
+            <h2 class="property-section-title">Amenities & Features</h2>
+            <div class="property-amenities" id="propAmenities"></div>
         </div>
-        <div class="modal-dates">
-            <div class="modal-field" style="margin:0;">
-                <label>Check-in</label>
-                <input id="modalCheckIn" type="date">
+
+        <!-- Availability Calendar -->
+        <div class="availability-section">
+            <h2 class="availability-title">Check Availability</h2>
+            <p class="availability-sub">Select your check-in and check-out dates below. Red dates are unavailable.</p>
+            <div class="cal-nav">
+                <button class="cal-nav-btn" onclick="changeMonth(-1)">‹</button>
+                <div class="cal-month-label" id="calMonthLabel">—</div>
+                <button class="cal-nav-btn" onclick="changeMonth(1)">›</button>
             </div>
-            <div class="modal-field" style="margin:0;">
-                <label>Check-out</label>
-                <input id="modalCheckOut" type="date">
+            <div class="cal-grid" id="calGrid"></div>
+            <div class="cal-legend">
+                <div class="cal-legend-item"><div class="cal-legend-dot available"></div>Available</div>
+                <div class="cal-legend-item"><div class="cal-legend-dot unavailable"></div>Unavailable</div>
+                <div class="cal-legend-item"><div class="cal-legend-dot selected"></div>Your Selection</div>
+            </div>
+            <div class="cal-selected-dates" id="calSelectedDates">
+                <div class="cal-selected-dates-row">
+                    <div><div class="cal-selected-label">Check-In</div><div class="cal-selected-value" id="calCheckIn">—</div></div>
+                    <div style="text-align:center;"><div class="cal-selected-label">Nights</div><div class="cal-selected-nights" id="calNights">—</div></div>
+                    <div style="text-align:right;"><div class="cal-selected-label">Check-Out</div><div class="cal-selected-value" id="calCheckOut">—</div></div>
+                </div>
+            </div>
+            <button class="cal-book-btn" id="calBookBtn" onclick="useCalendarDates()">Use These Dates</button>
+            <button class="cal-reset-btn" id="calResetBtn" onclick="resetCalendar()">Clear Selection</button>
+        </div>
+
+        <!-- Reviews -->
+        <div class="property-section">
+            <h2 class="property-section-title">Guest Reviews</h2>
+            <div class="reviews-list" id="reviewsList">
+                <div class="no-reviews">Loading reviews...</div>
             </div>
         </div>
-        <div class="modal-price-summary" id="modalPriceSummary">
-            <div class="modal-price-row"><span>Nights</span><span id="modalNights"></span></div>
-            <div class="modal-price-row"><span>Rate per night</span><span id="modalRate"></span></div>
-            <div class="modal-price-row"><span>Bahamas VAT (10%)</span><span id="modalVat"></span></div>
-            <div class="modal-price-row"><span>Tourism levy</span><span id="modalLevy"></span></div>
-            <div class="modal-price-row total"><span>Total</span><span id="modalTotal"></span></div>
-        </div>
-        <button class="modal-confirm" onclick="confirmBooking()">Confirm Booking</button>
-        <button class="modal-cancel" onclick="closeModal()">Cancel</button>
+
     </div>
+
+    <!-- RIGHT — BOOKING CARD -->
+    <div class="booking-sidebar">
+        <div class="booking-card" id="bookingCard">
+            <div class="booking-card-price">
+                <div class="booking-card-amount" id="cardPrice">—</div>
+                <div class="booking-card-unit" id="cardUnit">/night</div>
+            </div>
+            <div class="booking-card-stars">★★★★★</div>
+            <div class="booking-error" id="bookingError"></div>
+            <div class="booking-field">
+                <label>Full Name</label>
+                <input type="text" id="guestName" placeholder="Your full name">
+            </div>
+            <div class="booking-field">
+                <label>Email Address</label>
+                <input type="email" id="guestEmail" placeholder="your@email.com">
+            </div>
+            <div class="booking-dates-row">
+                <div class="booking-field" style="margin:0;">
+                    <label>Check-In</label>
+                    <input type="date" id="checkIn" onchange="calculatePrice()">
+                </div>
+                <div class="booking-field" style="margin:0;">
+                    <label>Check-Out</label>
+                    <input type="date" id="checkOut" onchange="calculatePrice()">
+                </div>
+            </div>
+            <div class="price-summary" id="priceSummary">
+                <div class="price-row"><span>Nights</span><span id="nightsCount">—</span></div>
+                <div class="price-row"><span>Rate per night</span><span id="ratePerNight">—</span></div>
+                <div class="price-row"><span>Bahamas VAT (10%)</span><span id="vatAmount">—</span></div>
+                <div class="price-row"><span>Tourism levy</span><span id="levyAmount">—</span></div>
+                <div class="price-row total"><span>Total</span><span id="totalPrice">—</span></div>
+            </div>
+            <button class="booking-btn" onclick="confirmBooking()">Reserve Now</button>
+            <p class="booking-note">You won't be charged yet — confirm your details first</p>
+        </div>
+        <div class="booking-success-card" id="bookingSuccessCard">
+            <div class="booking-success-icon">✅</div>
+            <h3>Booking Confirmed!</h3>
+            <p id="bookingSuccessText">Your reservation has been confirmed and a confirmation email has been sent.</p>
+        </div>
+    </div>
+
 </div>
 
-<!-- CONFIRMATION -->
-<div id="confirmationScreen">
+<!-- CONFIRMATION MODAL -->
+<div id="confirmationModal">
     <div class="confirm-box">
-        <div class="confirm-icon">✅</div>
+        <div class="confirm-icon">🏝️</div>
         <h2>Booking Confirmed!</h2>
-        <p id="confirmationDetails"></p>
-        <button class="confirm-back" onclick="window.location.href='/'">Back to Properties</button>
+        <p id="confirmationDetails">Your reservation is confirmed.</p>
+        <button class="confirm-back" onclick="closeConfirmation()">Back to Properties</button>
     </div>
 </div>
-
-<!-- FOOTER -->
-<footer>
-    <div class="footer-top">
-        <div class="footer-brand">
-            <a href="/" class="footer-logo">Bahamas Stays</a>
-            <span class="footer-logo-sub">Curated Stays · Authentic Bahamas</span>
-            <p class="footer-brand-desc">The Bahamas' own booking platform — connecting travellers with extraordinary island experiences since 2026.</p>
-        </div>
-        <div class="footer-col">
-            <h4>Explore</h4>
-            <ul>
-                <li><a href="/#properties">Featured Stays</a></li>
-                <li><a href="/#islands">Nassau</a></li>
-                <li><a href="/#islands">Exuma</a></li>
-                <li><a href="/#islands">Abaco</a></li>
-                <li><a href="/#islands">Eleuthera</a></li>
-            </ul>
-        </div>
-        <div class="footer-col">
-            <h4>Platform</h4>
-            <ul>
-                <li><a href="/login.html">My Account</a></li>
-                <li><a href="/operator.html">Operator Dashboard</a></li>
-                <li><a href="/#how">How It Works</a></li>
-            </ul>
-        </div>
-    </div>
-    <div class="footer-divider"></div>
-    <div class="footer-bottom">
-        <p class="footer-tagline"><span>Curated by Bahamians.</span> Designed for the world.</p>
-        <p class="footer-copy">© 2026 Bahamas Stays · Built in the Bahamas, for the Bahamas</p>
-    </div>
-</footer>
 
 <!-- BOTTOM NAV -->
 <div class="bottom-nav-bar">
@@ -1047,7 +318,7 @@
         <span>Explore</span>
     </a>
     <a href="/login.html" class="bottom-nav-item">
-        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
         <span>Bookings</span>
     </a>
     <a href="/login.html" class="bottom-nav-item">
@@ -1056,332 +327,338 @@
     </a>
 </div>
 
-<script>
-let currentProperty = null;
-let selectedRating = 0;
+<!-- FOOTER -->
+<footer>
+    <div class="footer-bottom">
+        <p class="footer-tagline"><span>Curated by Bahamians.</span> Designed for the world.</p>
+        <p class="footer-copy">© 2026 Bahamas Stays Holdings Ltd.</p>
+    </div>
+</footer>
 
-const heroImageMap = {
+<script>
+var currentProperty = null;
+var unavailableDates = [];
+var calYear, calMonth, calSelectedStart = null, calSelectedEnd = null;
+
+var imageMap = {
     'The Residences at Goldwynn': '/images/goldwynn-hero.jpg',
     'Baha Mar Resort': '/images/bahamar-hero.jpg',
     'Albany Resort & Marina': '/images/albany-hero.jpg',
     'Exuma Cays Sailing Charter': '/images/exuma-charter-hero.jpg',
     'Harbour Island Pink Sand Villa': '/images/harbour-island-hero.jpg'
 };
-
-const cardImageMap = {
-    'The Residences at Goldwynn': '/images/goldwynn-card.jpg',
-    'Baha Mar Resort': '/images/bahamar-card.jpg',
-    'Albany Resort & Marina': '/images/albany-card.jpg',
-    'Exuma Cays Sailing Charter': '/images/exuma-charter-card.jpg',
-    'Harbour Island Pink Sand Villa': '/images/harbour-island-card.jpg'
+var amenitiesMap = {
+    'Hotel': [
+        {icon:'wifi',label:'High-Speed WiFi'},{icon:'pool',label:'Swimming Pool'},
+        {icon:'gym',label:'Fitness Center'},{icon:'spa',label:'Spa & Wellness'},
+        {icon:'restaurant',label:'Fine Dining'},{icon:'concierge',label:'24/7 Concierge'},
+        {icon:'beach',label:'Beach Access'},{icon:'parking',label:'Valet Parking'},
+        {icon:'bar',label:'Rooftop Bar'}
+    ],
+    'Villa': [
+        {icon:'pool',label:'Private Pool'},{icon:'wifi',label:'High-Speed WiFi'},
+        {icon:'chef',label:'Private Chef Available'},{icon:'beach',label:'Beach Access'},
+        {icon:'parking',label:'Private Parking'},{icon:'ac',label:'Air Conditioning'},
+        {icon:'kitchen',label:'Gourmet Kitchen'},{icon:'gym',label:'Fitness Room'},
+        {icon:'security',label:'24/7 Security'}
+    ],
+    'Boat Charter': [
+        {icon:'wifi',label:'Onboard WiFi'},{icon:'chef',label:'Chef Available'},
+        {icon:'snorkel',label:'Snorkeling Gear'},{icon:'fishing',label:'Fishing Equipment'},
+        {icon:'music',label:'Sound System'},{icon:'bed',label:'Luxury Cabins'},
+        {icon:'bar',label:'Full Bar'},{icon:'fuel',label:'Fuel Included'},
+        {icon:'captain',label:'Experienced Captain'}
+    ],
+    'Diving': [
+        {icon:'gear',label:'Dive Equipment'},{icon:'instructor',label:'Certified Instructors'},
+        {icon:'boat',label:'Dive Boat'},{icon:'camera',label:'Underwater Cameras'},
+        {icon:'tanks',label:'Air Tanks Included'},{icon:'suit',label:'Wetsuits Provided'},
+        {icon:'safety',label:'Safety Equipment'},{icon:'guide',label:'Expert Guide'},
+        {icon:'wifi',label:'WiFi at Base'}
+    ]
 };
 
-const propertyDescriptions = {
-    'The Residences at Goldwynn': '<p>The Residences at Goldwynn redefine beachfront living on Nassau\'s celebrated West Bay Street. Set directly on Cable Beach with panoramic views of the turquoise Atlantic, this boutique collection of luxury residences offers an intimate alternative to the island\'s larger resort complexes.</p><p>Each residence features floor-to-ceiling glass, curated Bahamian artwork, and fully appointed kitchens — designed for guests who appreciate the comforts of a private home with the service of a five-star hotel. The infinity pool terrace overlooks the beach, and direct sand access is steps from your door.</p><p>The Goldwynn culinary team sources ingredients from local Bahamian farmers and fishermen, bringing the authentic flavours of the islands to every meal. A dedicated concierge is available around the clock to arrange island excursions, private dining, and yacht charters.</p>',
-    'Baha Mar Resort': '<p>Baha Mar is the Bahamas\' most celebrated resort destination — a world unto itself set across 1,000 acres of Cable Beach. Home to three distinct hotel brands, the largest casino in the Caribbean, and a white sand beach that stretches as far as the eye can see, Baha Mar is the definitive Nassau luxury experience.</p><p>The resort\'s eleven pools, multiple award-winning restaurants, and the ESPA spa create a complete luxury ecosystem where guests never need to leave — yet everything Nassau has to offer is minutes away. The Jack Nicklaus Signature Golf Course winds through tropical gardens and along the oceanfront.</p><p>Baha Mar\'s marine sanctuary and lagoon offer snorkelling, paddleboarding, and encounters with nurse sharks and stingrays in a protected natural habitat — a rare luxury that puts the wild beauty of the Bahamas directly at your doorstep.</p>',
-    'Albany Resort & Marina': '<p>Albany is the Bahamas\' most exclusive private resort community — a 600-acre members\' enclave on the southwestern tip of New Providence where privacy, discretion, and world-class amenities converge. Home to a deep-water marina that accommodates superyachts up to 230 feet, Albany attracts a clientele for whom the extraordinary is expected.</p><p>The resort\'s villas and residences are works of architectural art, designed by acclaimed studios with open-plan living spaces, private pools, and seamless indoor-outdoor flow. The Tiger Woods-designed golf course is considered among the finest in the Caribbean.</p><p>Albany\'s beach club, deep-water marina, tennis facility, and full-service spa create a self-contained world of refined leisure. The on-site Aviva restaurant is one of Nassau\'s most sought-after dining destinations, open to resort guests and their invited companions.</p>',
-    'Exuma Cays Sailing Charter': '<p>The Exuma Cays are among the most spectacular sailing grounds on earth — a chain of 365 private cays and islands stretching 90 miles through waters of impossible turquoise clarity. Our private sailing charter places this extraordinary archipelago entirely at your disposal.</p><p>Your captain and first mate are lifetime Exumians who know every anchorage, every sandbar, and every hidden beach. Whether you want to swim with nurse sharks at Compass Cay, feed the famous swimming pigs at Big Major Spot, or anchor in complete solitude at your own private island, the itinerary is yours to design.</p><p>The 50-foot catamaran is fully provisioned with Bahamian cuisine, local rum cocktails, and snorkelling equipment. Every charter includes a private chef for lunch service and a sunset cocktail experience anchored in the shallows as the sun drops below the horizon.</p>',
-    'Harbour Island Pink Sand Villa': '<p>Harbour Island is the Bahamas\' best-kept secret — a three-mile sliver of land off the northern coast of Eleuthera, accessible only by water taxi, where the beach turns an extraordinary natural pink from crushed coral and shell. The Pink Sand Villa sits directly on this legendary beach, offering unobstructed views of the Atlantic from every room.</p><p>The villa sleeps up to eight guests across four ensuite bedrooms, each decorated with hand-selected Bahamian antiques and contemporary art. The wraparound veranda, outdoor dining pavilion, and private pool terrace create a seamless indoor-outdoor living experience shaped by the trade winds and the rhythm of the tides.</p><p>Harbour Island\'s charming village of Dunmore Town — with its pastel-painted colonial cottages, excellent restaurants, and boutique shops — is a ten-minute walk along the beach. The island\'s legendary Sip Sip restaurant is a short golf cart ride away.</p>'
-};
-
-function getPropertyIdFromUrl() {
-    return new URLSearchParams(window.location.search).get('id');
+function getSVGForAmenity(icon) {
+    var icons = {
+        'wifi': '<path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/>',
+        'pool': '<path d="M2 20c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/><path d="M2 14c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/><path d="M9 5a3 3 0 0 1 6 0v9"/>',
+        'gym': '<path d="M6 4v16"/><path d="M18 4v16"/><path d="M6 9h12"/><path d="M6 15h12"/><path d="M1 9h5"/><path d="M1 15h5"/><path d="M18 9h5"/><path d="M18 15h5"/>',
+        'spa': '<path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/>',
+        'restaurant': '<path d="M3 11l19-9-9 19-2-8-8-2z"/>',
+        'concierge': '<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>',
+        'beach': '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M2 20 Q6 14 12 16 Q18 18 22 14"/>',
+        'parking': '<rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><path d="M9 17V7h4a3 3 0 0 1 0 6H9"/>',
+        'bar': '<path d="M8 22V12L2 2h20l-6 10v10"/><line x1="8" y1="22" x2="16" y2="22"/>',
+        'chef': '<path d="M6 13.87A4 4 0 0 1 7.41 6a5.11 5.11 0 0 1 1.05-1.54 5 5 0 0 1 7.08 0A5.11 5.11 0 0 1 16.59 6 4 4 0 0 1 18 13.87V21H6z"/><line x1="6" y1="17" x2="18" y2="17"/>',
+        'snorkel': '<circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/>',
+        'fishing': '<path d="M3 21l6-6"/><path d="M9 21H3v-6"/><path d="M21 3a6 6 0 0 1-6 6H9v6l-3 3"/>',
+        'music': '<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>',
+        'bed': '<path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><path d="M6 8v9"/>',
+        'fuel': '<line x1="3" y1="22" x2="15" y2="22"/><line x1="4" y1="9" x2="14" y2="9"/><path d="M14 22V4a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v18"/><path d="M14 13h2a2 2 0 0 1 2 2v2a2 2 0 0 0 2 2h0a2 2 0 0 0 2-2V9.83a2 2 0 0 0-.59-1.42L18 5"/>',
+        'captain': '<circle cx="12" cy="8" r="4"/><path d="M6 20v-2a6 6 0 0 1 12 0v2"/>',
+        'gear': '<circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/>',
+        'instructor': '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
+        'boat': '<path d="M2 20h20"/><path d="M5 20V8l7-5 7 5v12"/><path d="M9 20v-6h6v6"/>',
+        'camera': '<path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/>',
+        'tanks': '<rect x="3" y="3" width="7" height="18" rx="2"/><rect x="14" y="3" width="7" height="18" rx="2"/><path d="M7 6h10"/>',
+        'suit': '<path d="M20.38 3.46L16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.57a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.57a2 2 0 0 0-1.34-2.23z"/>',
+        'safety': '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',
+        'guide': '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>',
+        'ac': '<path d="M8 6h8"/><path d="M8 12h8"/><path d="M8 18h8"/><line x1="4" y1="6" x2="4" y2="6.01"/><line x1="4" y1="12" x2="4" y2="12.01"/><line x1="4" y1="18" x2="4" y2="18.01"/>',
+        'kitchen': '<path d="M3 3h18v18H3z"/><path d="M3 9h18"/><path d="M9 21V9"/>',
+        'security': '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>'
+    };
+    return icons[icon] || icons['wifi'];
 }
 
-function toggleMobileMenu() {
-    var menu = document.getElementById('mobileMenu');
-    menu.classList.toggle('open');
-    document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+function formatDate(dateStr) {
+    if (!dateStr) return '—';
+    var d = new Date(dateStr + 'T00:00:00');
+    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 }
 
-function setRating(value) {
-    selectedRating = value;
-    document.querySelectorAll('.star').forEach(function(star) {
-        star.classList.toggle('active', parseInt(star.dataset.value) <= value);
-    });
+function dateToStr(y, m, d) {
+    return y + '-' + String(m + 1).padStart(2, '0') + '-' + String(d).padStart(2, '0');
 }
 
-async function submitReview() {
-    var name = document.getElementById('reviewName').value;
-    var email = document.getElementById('reviewEmail').value;
-    var comment = document.getElementById('reviewComment').value;
-    var msg = document.getElementById('reviewMessage');
-    if (!name || !email || selectedRating === 0) {
-        msg.style.color = '#e74c3c';
-        msg.textContent = 'Please fill in your name, email and select a rating.';
-        return;
-    }
-    try {
-        var res = await fetch('/reviews', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                property_id: currentProperty.id,
-                guest_name: name, guest_email: email,
-                rating: selectedRating, comment: comment
-            })
-        });
-        var result = await res.json();
-        if (result.success) {
-            msg.style.color = '#27ae60';
-            msg.textContent = 'Thank you! Your review has been submitted.';
-            document.getElementById('reviewName').value = '';
-            document.getElementById('reviewEmail').value = '';
-            document.getElementById('reviewComment').value = '';
-            setRating(0);
-            loadReviews(currentProperty.id);
+function isUnavailable(dateStr) {
+    return unavailableDates.some(function(d) { return d.date === dateStr; });
+}
+
+function initCalendar() {
+    var now = new Date();
+    calYear = now.getFullYear();
+    calMonth = now.getMonth();
+    renderCalendar();
+}
+
+function renderCalendar() {
+    var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    document.getElementById('calMonthLabel').textContent = months[calMonth] + ' ' + calYear;
+    var firstDay = new Date(calYear, calMonth, 1).getDay();
+    var daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+    var today = new Date().toISOString().split('T')[0];
+    var days = ['Su','Mo','Tu','We','Th','Fr','Sa'];
+    var html = '';
+    days.forEach(function(d) { html += '<div class="cal-day-header">' + d + '</div>'; });
+    for (var i = 0; i < firstDay; i++) html += '<div class="cal-day empty"></div>';
+    for (var day = 1; day <= daysInMonth; day++) {
+        var dateStr = dateToStr(calYear, calMonth, day);
+        var isPast = dateStr < today;
+        var isUnav = isUnavailable(dateStr);
+        var isToday = dateStr === today;
+        var cls = 'cal-day';
+        if (isPast) cls += ' past';
+        else if (isUnav) cls += ' unavailable';
+        if (isToday) cls += ' today';
+        if (calSelectedStart && calSelectedEnd) {
+            if (dateStr === calSelectedStart && dateStr === calSelectedEnd) cls += ' selected-start selected-end';
+            else if (dateStr === calSelectedStart) cls += ' selected-start';
+            else if (dateStr === calSelectedEnd) cls += ' selected-end';
+            else if (dateStr > calSelectedStart && dateStr < calSelectedEnd) cls += ' in-range';
+        } else if (calSelectedStart && dateStr === calSelectedStart) {
+            cls += ' selected-start selected-end';
         }
-    } catch(err) {
-        msg.style.color = '#e74c3c';
-        msg.textContent = 'Error submitting review. Please try again.';
+        var onclick = (!isPast && !isUnav) ? 'onclick="selectDate(\'' + dateStr + '\')"' : '';
+        html += '<div class="' + cls + '" ' + onclick + '>' + day + '</div>';
+    }
+    document.getElementById('calGrid').innerHTML = html;
+    updateCalendarSummary();
+}
+
+function selectDate(dateStr) {
+    if (!calSelectedStart || (calSelectedStart && calSelectedEnd)) {
+        calSelectedStart = dateStr;
+        calSelectedEnd = null;
+    } else {
+        if (dateStr < calSelectedStart) {
+            calSelectedEnd = calSelectedStart;
+            calSelectedStart = dateStr;
+        } else if (dateStr === calSelectedStart) {
+            calSelectedStart = null;
+            calSelectedEnd = null;
+        } else {
+            var hasConflict = false;
+            var check = new Date(calSelectedStart);
+            check.setDate(check.getDate() + 1);
+            var end = new Date(dateStr);
+            while (check < end) {
+                var cs = check.toISOString().split('T')[0];
+                if (isUnavailable(cs)) { hasConflict = true; break; }
+                check.setDate(check.getDate() + 1);
+            }
+            if (hasConflict) {
+                calSelectedStart = dateStr;
+                calSelectedEnd = null;
+            } else {
+                calSelectedEnd = dateStr;
+            }
+        }
+    }
+    renderCalendar();
+}
+
+function updateCalendarSummary() {
+    var summaryEl = document.getElementById('calSelectedDates');
+    var bookBtn = document.getElementById('calBookBtn');
+    var resetBtn = document.getElementById('calResetBtn');
+    if (calSelectedStart && calSelectedEnd) {
+        var nights = Math.ceil((new Date(calSelectedEnd) - new Date(calSelectedStart)) / (1000 * 60 * 60 * 24));
+        document.getElementById('calCheckIn').textContent = formatDate(calSelectedStart);
+        document.getElementById('calCheckOut').textContent = formatDate(calSelectedEnd);
+        document.getElementById('calNights').textContent = nights + ' night' + (nights !== 1 ? 's' : '');
+        summaryEl.style.display = 'block';
+        bookBtn.style.display = 'block';
+        resetBtn.style.display = 'block';
+    } else if (calSelectedStart) {
+        document.getElementById('calCheckIn').textContent = formatDate(calSelectedStart);
+        document.getElementById('calCheckOut').textContent = 'Select check-out';
+        document.getElementById('calNights').textContent = '—';
+        summaryEl.style.display = 'block';
+        bookBtn.style.display = 'none';
+        resetBtn.style.display = 'block';
+    } else {
+        summaryEl.style.display = 'none';
+        bookBtn.style.display = 'none';
+        resetBtn.style.display = 'none';
     }
 }
 
-async function loadReviews(propertyId) {
-    try {
-        var res = await fetch('/reviews/' + propertyId);
-        var reviews = await res.json();
-        var container = document.getElementById('reviewsList');
-        if (!reviews || reviews.length === 0) {
-            container.innerHTML = '<p class="no-reviews">No reviews yet — be the first to share your experience!</p>';
-            return;
-        }
-        var avg = (reviews.reduce(function(s,r){ return s + r.rating; }, 0) / reviews.length).toFixed(1);
-        var stars = Math.round(avg);
-        container.innerHTML =
-            '<div class="reviews-avg">' +
-            '<div class="reviews-avg-score">' + avg + '</div>' +
-            '<div>' +
-            '<div class="reviews-avg-stars">' + '★'.repeat(stars) + '☆'.repeat(5-stars) + '</div>' +
-            '<div class="reviews-avg-count">' + reviews.length + ' review' + (reviews.length > 1 ? 's' : '') + '</div>' +
-            '</div></div>' +
-            reviews.map(function(r) {
-                return '<div class="review-card">' +
-                    '<div class="review-card-header">' +
-                    '<div><div class="review-guest-name">' + r.guest_name + '</div>' +
-                    '<div class="review-stars">' + '★'.repeat(r.rating) + '☆'.repeat(5-r.rating) + '</div></div>' +
-                    '<div class="review-date">' + new Date(r.created_at).toLocaleDateString('en-US', {year:'numeric',month:'long',day:'numeric'}) + '</div>' +
-                    '</div>' +
-                    '<p class="review-comment">' + (r.comment || '') + '</p>' +
-                    '</div>';
-            }).join('');
-    } catch(err) { console.log('Error loading reviews:', err); }
+function changeMonth(dir) {
+    calMonth += dir;
+    if (calMonth > 11) { calMonth = 0; calYear++; }
+    if (calMonth < 0) { calMonth = 11; calYear--; }
+    renderCalendar();
+}
+
+function useCalendarDates() {
+    if (calSelectedStart && calSelectedEnd) {
+        document.getElementById('checkIn').value = calSelectedStart;
+        document.getElementById('checkOut').value = calSelectedEnd;
+        calculatePrice();
+        document.getElementById('bookingCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+}
+
+function resetCalendar() {
+    calSelectedStart = null;
+    calSelectedEnd = null;
+    renderCalendar();
 }
 
 function calculatePrice() {
-    var checkIn = document.getElementById('cardCheckIn').value;
-    var checkOut = document.getElementById('cardCheckOut').value;
+    var checkIn = document.getElementById('checkIn').value;
+    var checkOut = document.getElementById('checkOut').value;
     if (!checkIn || !checkOut || !currentProperty) return;
-    var nights = Math.ceil((new Date(checkOut) - new Date(checkIn)) / (1000*60*60*24));
+    var nights = Math.ceil((new Date(checkOut) - new Date(checkIn)) / (1000 * 60 * 60 * 24));
     if (nights <= 0) return;
-    var base = nights * currentProperty.price_per_night;
-    var vat = base * 0.10;
+    var basePrice = nights * currentProperty.price_per_night;
+    var vat = basePrice * 0.10;
     var levy = nights * 10;
-    var total = base + vat + levy;
-    document.getElementById('breakdownNights').textContent = nights + ' nights';
-    document.getElementById('breakdownRate').textContent = '$' + currentProperty.price_per_night + ' x ' + nights;
-    document.getElementById('breakdownVat').textContent = '$' + vat.toFixed(2);
-    document.getElementById('breakdownLevy').textContent = '$' + levy.toFixed(2);
-    document.getElementById('breakdownTotal').textContent = '$' + total.toFixed(2);
-    document.getElementById('priceBreakdown').style.display = 'block';
+    var total = basePrice + vat + levy;
+    document.getElementById('nightsCount').textContent = nights + ' nights';
+    document.getElementById('ratePerNight').textContent = '$' + currentProperty.price_per_night.toLocaleString();
+    document.getElementById('vatAmount').textContent = '$' + vat.toFixed(2);
+    document.getElementById('levyAmount').textContent = '$' + levy.toFixed(2);
+    document.getElementById('totalPrice').textContent = '$' + total.toFixed(2);
+    document.getElementById('priceSummary').style.display = 'block';
 }
-
-function openBookingModal() {
-    var checkIn = document.getElementById('cardCheckIn').value;
-    var checkOut = document.getElementById('cardCheckOut').value;
-    if (!checkIn || !checkOut) {
-        alert('Please select your check-in and check-out dates first.');
-        return;
-    }
-    document.getElementById('modalPropertyName').textContent = currentProperty.name;
-    document.getElementById('modalCheckIn').value = checkIn;
-    document.getElementById('modalCheckOut').value = checkOut;
-    document.getElementById('bookingModal').style.display = 'flex';
-    updateModalPrice();
-}
-
-function updateModalPrice() {
-    var checkIn = document.getElementById('modalCheckIn').value;
-    var checkOut = document.getElementById('modalCheckOut').value;
-    if (!checkIn || !checkOut || !currentProperty) return;
-    var nights = Math.ceil((new Date(checkOut) - new Date(checkIn)) / (1000*60*60*24));
-    if (nights <= 0) return;
-    var base = nights * currentProperty.price_per_night;
-    var vat = base * 0.10;
-    var levy = nights * 10;
-    var total = base + vat + levy;
-    document.getElementById('modalNights').textContent = nights + ' nights';
-    document.getElementById('modalRate').textContent = '$' + currentProperty.price_per_night;
-    document.getElementById('modalVat').textContent = '$' + vat.toFixed(2);
-    document.getElementById('modalLevy').textContent = '$' + levy.toFixed(2);
-    document.getElementById('modalTotal').textContent = '$' + total.toFixed(2);
-    document.getElementById('modalPriceSummary').style.display = 'block';
-}
-
-function closeModal() {
-    document.getElementById('bookingModal').style.display = 'none';
-}
-
-document.addEventListener('change', function(e) {
-    if (e.target.id === 'modalCheckIn' || e.target.id === 'modalCheckOut') updateModalPrice();
-});
 
 async function confirmBooking() {
-    var name = document.getElementById('guestName').value;
-    var email = document.getElementById('guestEmail').value;
-    var checkIn = document.getElementById('modalCheckIn').value;
-    var checkOut = document.getElementById('modalCheckOut').value;
-    if (!name || !email || !checkIn || !checkOut) { alert('Please fill in all fields'); return; }
+    var guestName = document.getElementById('guestName').value.trim();
+    var guestEmail = document.getElementById('guestEmail').value.trim();
+    var checkIn = document.getElementById('checkIn').value;
+    var checkOut = document.getElementById('checkOut').value;
+    var errorEl = document.getElementById('bookingError');
+    errorEl.style.display = 'none';
+    if (!guestName || !guestEmail || !checkIn || !checkOut) {
+        errorEl.textContent = 'Please fill in all fields including dates.';
+        errorEl.style.display = 'block';
+        return;
+    }
+    if (checkOut <= checkIn) {
+        errorEl.textContent = 'Check-out must be after check-in.';
+        errorEl.style.display = 'block';
+        return;
+    }
     try {
-        var res = await fetch('/bookings', {
+        var response = await fetch('/bookings', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                property_id: currentProperty.id,
-                guest_name: name, guest_email: email,
-                check_in: checkIn, check_out: checkOut
-            })
+            body: JSON.stringify({ property_id: currentProperty.id, guest_name: guestName, guest_email: guestEmail, check_in: checkIn, check_out: checkOut })
         });
-        var result = await res.json();
+        var result = await response.json();
         if (result.success || result.booking) {
-            closeModal();
             document.getElementById('confirmationDetails').innerHTML =
-                'Thank you, <strong>' + name + '</strong>!<br><br>' +
+                'Thank you, <strong>' + guestName + '</strong>!<br><br>' +
                 '<strong>' + currentProperty.name + '</strong><br>' +
-                'Check-in: ' + checkIn + '<br>Check-out: ' + checkOut + '<br>' +
-                'Total: $' + result.booking.total_price + '<br><br>' +
-                'A confirmation has been sent to ' + email;
-            document.getElementById('confirmationScreen').style.display = 'flex';
+                'Check-in: ' + formatDate(checkIn) + '<br>' +
+                'Check-out: ' + formatDate(checkOut) + '<br><br>' +
+                'A confirmation has been sent to <strong>' + guestEmail + '</strong>';
+            document.getElementById('confirmationModal').style.display = 'flex';
+            unavailableDates = unavailableDates.concat([{ date: checkIn, reason: 'booked' }, { date: checkOut, reason: 'booked' }]);
+            renderCalendar();
+        } else {
+            errorEl.textContent = result.error || 'These dates are not available. Please choose different dates.';
+            errorEl.style.display = 'block';
         }
-    } catch(err) { console.log('Error:', err); }
+    } catch(err) {
+        errorEl.textContent = 'Connection error. Please try again.';
+        errorEl.style.display = 'block';
+    }
+}
+
+function closeConfirmation() {
+    document.getElementById('confirmationModal').style.display = 'none';
+    window.location.href = '/';
 }
 
 async function loadProperty() {
-    var id = getPropertyIdFromUrl();
+    var params = new URLSearchParams(window.location.search);
+    var id = params.get('id');
     if (!id) { window.location.href = '/'; return; }
     try {
-        var res = await fetch('/properties/' + id);
-        var property = await res.json();
-        currentProperty = property;
-        document.title = property.name + ' | Bahamas Stays';
+        var [pRes, avRes, rRes] = await Promise.all([
+            fetch('/properties/' + id),
+            fetch('/availability?property_id=' + id),
+            fetch('/reviews/' + id)
+        ]);
+        currentProperty = await pRes.json();
+        unavailableDates = await avRes.json();
+        var reviews = await rRes.json();
 
-        document.getElementById('heroEyebrow').textContent = property.property_type + ' · ' + property.island + ', Bahamas';
-        document.getElementById('heroName').textContent = property.name;
-        document.getElementById('heroLocation').textContent = property.island + ', Bahamas';
-        document.getElementById('heroType').textContent = property.property_type;
+        document.title = currentProperty.name + ' | Bahamas Stays';
+        document.getElementById('heroName').textContent = currentProperty.name;
+        document.getElementById('heroType').textContent = currentProperty.property_type + ' · ' + currentProperty.island + ', Bahamas';
+        document.getElementById('heroLocation').textContent = currentProperty.island + ', Bahamas';
+        document.getElementById('heroImage').src = imageMap[currentProperty.name] || '/images/goldwynn-hero.jpg';
+        document.getElementById('propDescription').textContent = currentProperty.description || 'A premier luxury property in the heart of the Bahamas, offering world-class amenities and breathtaking views.';
+        var unit = (currentProperty.property_type === 'Boat Charter' || currentProperty.property_type === 'Diving') ? '/day' : '/night';
+        document.getElementById('cardPrice').textContent = '$' + Number(currentProperty.price_per_night).toLocaleString();
+        document.getElementById('cardUnit').textContent = unit;
 
-        var heroImg = heroImageMap[property.name];
-        if (heroImg) {
-            var img = document.getElementById('heroImage');
-            img.src = heroImg; img.alt = property.name; img.style.display = 'block';
-        }
+        var amenitiesList = amenitiesMap[currentProperty.property_type] || amenitiesMap['Hotel'];
+        document.getElementById('propAmenities').innerHTML = amenitiesList.map(function(a) {
+            return '<div class="amenity-item"><svg viewBox="0 0 24 24" width="16" height="16" stroke="#E7BF6A" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">' + getSVGForAmenity(a.icon) + '</svg><span>' + a.label + '</span></div>';
+        }).join('');
 
-        var priceUnit = (property.property_type === 'Boat Charter' || property.property_type === 'Diving') ? '/day' : '/night';
-        var desc = propertyDescriptions[property.name] || '<p>' + (property.description || 'A stunning luxury property in the heart of the Bahamas.') + '</p>';
-
-        document.getElementById('propertyMain').innerHTML =
-            '<div class="property-left">' +
-            '<div class="property-section">' +
-            '<div class="property-section-eyebrow">About This Property</div>' +
-            '<h2>' + property.name + '</h2>' +
-            '<div class="property-description">' + desc + '</div>' +
-            '</div>' +
-            '<div class="property-section">' +
-            '<div class="property-section-eyebrow">Amenities</div>' +
-            '<h2>What\'s Included</h2>' +
-            '<div class="amenities-grid">' +
-            '<div class="amenity-item"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Beachfront Access</span></div>' +
-            '<div class="amenity-item"><svg viewBox="0 0 24 24"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/></svg><span>Swimming Pool</span></div>' +
-            '<div class="amenity-item"><svg viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg><span>High-Speed WiFi</span></div>' +
-            '<div class="amenity-item"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><span>24hr Security</span></div>' +
-            '<div class="amenity-item"><svg viewBox="0 0 24 24"><line x1="22" y1="12" x2="2" y2="12"/><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg><span>Air Conditioning</span></div>' +
-            '<div class="amenity-item"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg><span>Smart TV</span></div>' +
-            '<div class="amenity-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg><span>Water Sports</span></div>' +
-            '<div class="amenity-item"><svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg><span>Full Kitchen</span></div>' +
-            '<div class="amenity-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span>Concierge Service</span></div>' +
-            '</div></div>' +
-            '<div class="property-section">' +
-            '<div class="property-section-eyebrow">Cancellation Policy</div>' +
-            '<h2>Flexibility & Peace of Mind</h2>' +
-            '<div class="cancellation-box"><p>Free cancellation up to 7 days before check-in. Cancellations within 7 days of check-in are non-refundable. In the event of a named hurricane or tropical storm warning affecting the Bahamas, full rebooking flexibility applies at no charge.</p></div>' +
-            '</div>' +
-            '<div class="property-section">' +
-            '<div class="property-section-eyebrow">Guest Reviews</div>' +
-            '<h2>What Guests Say</h2>' +
-            '<div class="review-form-card">' +
-            '<h3>Share Your Experience</h3>' +
-            '<div class="review-field"><label>Your Name</label><input id="reviewName" type="text" placeholder="Your full name"></div>' +
-            '<div class="review-field"><label>Your Email</label><input id="reviewEmail" type="email" placeholder="your@email.com"></div>' +
-            '<div class="review-field"><label>Rating</label>' +
-            '<div class="star-rating">' +
-            '<span class="star" data-value="1" onclick="setRating(1)">★</span>' +
-            '<span class="star" data-value="2" onclick="setRating(2)">★</span>' +
-            '<span class="star" data-value="3" onclick="setRating(3)">★</span>' +
-            '<span class="star" data-value="4" onclick="setRating(4)">★</span>' +
-            '<span class="star" data-value="5" onclick="setRating(5)">★</span>' +
-            '</div></div>' +
-            '<div class="review-field"><label>Your Review</label><textarea id="reviewComment" placeholder="Tell us about your stay..."></textarea></div>' +
-            '<button class="review-submit-btn" onclick="submitReview()">Submit Review</button>' +
-            '<div class="review-message" id="reviewMessage"></div>' +
-            '</div>' +
-            '<div id="reviewsList"></div>' +
-            '</div>' +
-            '</div>' +
-            '<div class="property-right">' +
-            '<div class="booking-card">' +
-            '<div class="booking-card-price">' +
-            '<div class="booking-price-from">From</div>' +
-            '<div><span class="booking-price-amount">$' + Number(property.price_per_night).toLocaleString() + '</span><span class="booking-price-unit"> ' + priceUnit + '</span></div>' +
-            '<p class="booking-price-note">+ 10% Bahamas VAT · $10' + priceUnit + ' tourism levy</p>' +
-            '</div>' +
-            '<div class="booking-field"><label>Check-in</label><input type="date" id="cardCheckIn" onchange="calculatePrice()"></div>' +
-            '<div class="booking-field"><label>Check-out</label><input type="date" id="cardCheckOut" onchange="calculatePrice()"></div>' +
-            '<div class="booking-field"><label>Guests</label>' +
-            '<select id="guestsSelect"><option value="1">1 Guest</option><option value="2">2 Guests</option><option value="3">3 Guests</option><option value="4">4 Guests</option><option value="5">5 Guests</option><option value="6">6+ Guests</option></select>' +
-            '</div>' +
-            '<div class="price-breakdown" id="priceBreakdown">' +
-            '<div class="price-breakdown-row"><span>Nights</span><span id="breakdownNights"></span></div>' +
-            '<div class="price-breakdown-row"><span>Rate</span><span id="breakdownRate"></span></div>' +
-            '<div class="price-breakdown-row"><span>Bahamas VAT (10%)</span><span id="breakdownVat"></span></div>' +
-            '<div class="price-breakdown-row"><span>Tourism levy</span><span id="breakdownLevy"></span></div>' +
-            '<div class="price-breakdown-row total"><span>Total</span><span id="breakdownTotal"></span></div>' +
-            '</div>' +
-            '<button class="booking-btn" onclick="openBookingModal()">Reserve Now</button>' +
-            '<p class="booking-note">No charge until confirmed · Free cancellation</p>' +
-            '</div></div>';
-
-        loadReviews(property.id);
-
-        var allRes = await fetch('/properties');
-        var allProperties = await allRes.json();
-        var similar = allProperties.filter(function(p) { return p.id !== property.id; }).slice(0, 3);
-
-        if (similar.length > 0) {
-            document.getElementById('similarSection').style.display = 'block';
-            document.getElementById('similarGrid').innerHTML = similar.map(function(p) {
-                var img = cardImageMap[p.name] || '/images/goldwynn-card.jpg';
-                var unit = (p.property_type === 'Boat Charter' || p.property_type === 'Diving') ? '/day' : '/night';
-                return '<div class="similar-card" onclick="window.location.href=\'/property.html?id=' + p.id + '\'">' +
-                    '<div class="similar-card-image"><img src="' + img + '" alt="' + p.name + '"></div>' +
-                    '<div class="similar-card-name-band"><h3>' + p.name + '</h3></div>' +
-                    '<div class="similar-card-detail">' +
-                    '<div class="similar-card-stars">★★★★★</div>' +
-                    '<div class="similar-card-location">' + p.island + ', Bahamas</div>' +
-                    '<div class="similar-card-bottom">' +
-                    '<div class="similar-card-price">$' + Number(p.price_per_night).toLocaleString() + '<span>' + unit + '</span></div>' +
-                    '<button class="similar-card-btn">View & Book</button>' +
-                    '</div></div></div>';
+        if (!reviews.length) {
+            document.getElementById('reviewsList').innerHTML = '<div class="no-reviews">No reviews yet — be the first to stay here!</div>';
+        } else {
+            document.getElementById('reviewsList').innerHTML = reviews.map(function(r) {
+                var stars = '★'.repeat(r.rating || 5) + '☆'.repeat(5 - (r.rating || 5));
+                return '<div class="review-card"><div class="review-header"><span class="review-name">' + (r.guest_name || 'Guest') + '</span><span class="review-stars">' + stars + '</span></div><p class="review-text">' + (r.comment || '') + '</p><div class="review-date">' + (r.created_at ? new Date(r.created_at).toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) : '') + '</div></div>';
             }).join('');
         }
 
+        initCalendar();
+
     } catch(err) {
-        document.getElementById('propertyMain').innerHTML = '<div class="loading-state" style="grid-column:1/-1;">Error loading property. Please try again.</div>';
-        console.log('Error:', err);
+        console.error('Error loading property:', err);
     }
 }
 
 loadProperty();
 </script>
-
 </body>
 </html>

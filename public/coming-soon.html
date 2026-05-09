@@ -13,108 +13,104 @@
             --navy-dark: #060E1A;
         }
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-        html, body {
-            width: 100%; min-height: 100%;
-            font-family: 'DM Sans', sans-serif;
-        }
+        html, body { width: 100%; min-height: 100%; font-family: 'DM Sans', sans-serif; }
+
         .page {
             min-height: 100vh; width: 100%;
             background:
                 linear-gradient(to bottom,
                     rgba(6,14,26,0.82) 0%,
-                    rgba(6,14,26,0.52) 40%,
+                    rgba(6,14,26,0.50) 45%,
                     rgba(6,14,26,0.82) 100%),
                 url('/images/bahamas-stays-hero.jpg') center/cover no-repeat;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 0 24px 60px;
-            position: relative;
+            padding: 56px 24px 72px;
         }
 
-        /* ── TOP MASTHEAD ── */
-        .masthead {
+        /* ── UNIFIED HERO COMPOSITION ── */
+        .hero-stack {
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding-top: 56px;
-            margin-bottom: 64px;
+            text-align: center;
+            width: 100%;
+            max-width: 700px;
         }
-        .masthead-eyebrow {
+
+        /* Layer 1 — Palm icon */
+        .hero-icon {
+            font-size: 36px;
+            margin-bottom: 8px;
+            line-height: 1;
+        }
+
+        /* Layer 2 — BAHAMAS STAYS (largest brand element) */
+        .hero-brand-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 52px;
+            font-weight: 500;
+            color: white;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            line-height: 1.1;
+            margin-bottom: 10px;
+        }
+
+        /* Layer 3 — Curated Stays tagline */
+        .hero-brand-sub {
             font-size: 10px;
             letter-spacing: 3.5px;
             text-transform: uppercase;
-            color: rgba(231,191,106,0.85);
-            margin-bottom: 14px;
-            text-align: center;
-        }
-        .masthead-logo {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            text-decoration: none;
-            margin-bottom: 0;
-        }
-        .masthead-logo img {
-            height: 56px;
-            width: auto;
-            filter: brightness(1.1);
-        }
-        .masthead-logo-text { text-align: left; }
-        .masthead-logo-name {
-            font-family: 'Playfair Display', serif;
-            font-size: 22px;
-            color: white;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            display: block;
-            line-height: 1.2;
-        }
-        .masthead-logo-sub {
-            font-size: 9px;
             color: var(--gold);
-            letter-spacing: 2.5px;
-            text-transform: uppercase;
-            display: block;
-            margin-top: 5px;
-            opacity: 0.85;
+            margin-bottom: 24px;
+            opacity: 0.90;
         }
 
-        /* ── MAIN CONTENT ── */
-        .content {
-            max-width: 700px;
-            width: 100%;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .content-eyebrow {
+        /* Layer 4 — 700 Islands tagline */
+        .hero-geo {
             font-size: 10px;
             letter-spacing: 3px;
             text-transform: uppercase;
-            color: rgba(231,191,106,0.75);
-            margin-bottom: 20px;
+            color: rgba(255,255,255,0.45);
+            margin-bottom: 40px;
         }
-        .content-headline {
+
+        /* Layer 5 — LAUNCHING SOON */
+        .hero-launch-label {
+            font-size: 11px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: rgba(231,191,106,0.80);
+            margin-bottom: 28px;
+            padding: 8px 20px;
+            border: 1px solid rgba(231,191,106,0.25);
+            border-radius: 20px;
+        }
+
+        /* Layer 6 — Main headline */
+        .hero-headline {
             font-family: 'Playfair Display', serif;
-            font-size: 68px;
+            font-size: 64px;
             font-weight: 500;
             color: white;
             line-height: 1.05;
             letter-spacing: -0.5px;
-            margin-bottom: 24px;
-        }
-        .content-sub {
-            font-size: 17px;
-            font-weight: 300;
-            color: rgba(255,255,255,0.68);
-            line-height: 1.80;
-            max-width: 560px;
-            margin-bottom: 52px;
+            margin-bottom: 28px;
         }
 
-        /* ── WHAT WE DO CARDS ── */
+        /* Layer 7 — Supporting paragraph */
+        .hero-sub {
+            font-size: 17px;
+            font-weight: 300;
+            color: rgba(255,255,255,0.65);
+            line-height: 1.80;
+            max-width: 560px;
+            margin-bottom: 60px;
+        }
+
+        /* ── FEATURE CARDS ── */
         .what-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -152,12 +148,12 @@
             font-size: 11px;
             letter-spacing: 2px;
             text-transform: uppercase;
-            color: rgba(255,255,255,0.45);
+            color: rgba(255,255,255,0.40);
             margin-bottom: 16px;
+            text-align: center;
         }
         .signup-form {
             display: flex;
-            gap: 0;
             width: 100%;
             max-width: 480px;
             border-radius: 10px;
@@ -206,15 +202,16 @@
         }
         .signup-note {
             font-size: 11px;
-            color: rgba(255,255,255,0.28);
-            margin-bottom: 48px;
+            color: rgba(255,255,255,0.25);
+            margin-bottom: 52px;
+            text-align: center;
         }
 
         /* ── DIVIDER ── */
-        .content-divider {
-            width: 48px;
+        .divider {
+            width: 40px;
             height: 1px;
-            background: rgba(231,191,106,0.35);
+            background: rgba(231,191,106,0.30);
             margin-bottom: 32px;
         }
 
@@ -222,12 +219,13 @@
         .preview-row {
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 20px;
+            margin-bottom: 56px;
         }
         .preview-btn {
-            font-size: 11px;
-            color: rgba(255,255,255,0.35);
-            letter-spacing: 1.5px;
+            font-size: 10px;
+            color: rgba(255,255,255,0.30);
+            letter-spacing: 2px;
             text-transform: uppercase;
             cursor: pointer;
             background: none;
@@ -238,26 +236,25 @@
         .preview-btn:hover { color: var(--gold); }
         .preview-sep {
             width: 1px;
-            height: 14px;
-            background: rgba(255,255,255,0.18);
+            height: 12px;
+            background: rgba(255,255,255,0.15);
         }
 
         /* ── FOOTER TAGLINE ── */
         .footer-tagline {
-            margin-top: 56px;
             font-size: 12px;
-            color: rgba(255,255,255,0.28);
+            color: rgba(255,255,255,0.25);
             font-style: italic;
             text-align: center;
         }
-        .footer-tagline span { color: var(--gold); font-style: normal; }
+        .footer-tagline span { color: rgba(231,191,106,0.70); font-style: normal; }
 
         /* ── PREVIEW MODAL ── */
         .modal-overlay {
             display: none;
             position: fixed;
             inset: 0;
-            background: rgba(6,14,26,0.88);
+            background: rgba(6,14,26,0.90);
             backdrop-filter: blur(12px);
             z-index: 1000;
             justify-content: center;
@@ -273,11 +270,7 @@
             width: 100%;
             text-align: center;
         }
-        .modal-box img {
-            height: 52px;
-            width: auto;
-            margin-bottom: 20px;
-        }
+        .modal-box img { height: 52px; width: auto; margin-bottom: 20px; }
         .modal-box h3 {
             font-family: 'Playfair Display', serif;
             font-size: 28px;
@@ -356,11 +349,10 @@
 
         /* ── MOBILE ── */
         @media (max-width: 768px) {
-            .masthead { padding-top: 40px; margin-bottom: 48px; }
-            .masthead-logo img { height: 44px; }
-            .masthead-logo-name { font-size: 18px; }
-            .content-headline { font-size: 40px; }
-            .content-sub { font-size: 15px; margin-bottom: 36px; }
+            .page { padding: 48px 20px 60px; }
+            .hero-brand-name { font-size: 36px; letter-spacing: 5px; }
+            .hero-headline { font-size: 40px; }
+            .hero-sub { font-size: 15px; margin-bottom: 40px; }
             .what-grid { grid-template-columns: 1fr; gap: 12px; margin-bottom: 40px; }
             .signup-form { flex-direction: column; }
             .signup-form input { border-radius: 10px 10px 0 0; }
@@ -372,25 +364,31 @@
 <body>
 <div class="page">
 
-    <!-- MASTHEAD -->
-    <div class="masthead">
-        <div class="masthead-eyebrow">The Bahamas &nbsp;·&nbsp; 700 Islands &nbsp;·&nbsp; One Platform</div>
-        <a href="#" class="masthead-logo">
-            <img src="/images/bahamas-stays-logo.png" alt="Bahamas Stays">
-            <div class="masthead-logo-text">
-                <span class="masthead-logo-name">Bahamas Stays</span>
-                <span class="masthead-logo-sub">Curated Stays · Authentic Bahamas</span>
-            </div>
-        </a>
-    </div>
+    <!-- UNIFIED HERO STACK -->
+    <div class="hero-stack">
 
-    <!-- MAIN CONTENT -->
-    <div class="content">
-        <div class="content-eyebrow">Launching Soon</div>
-        <h1 class="content-headline">Something Beautiful<br>is Coming.</h1>
-        <p class="content-sub">Bahamas Stays is the Bahamas' first locally owned luxury booking platform — connecting travellers with extraordinary island experiences, curated by Bahamians, designed for the world.</p>
+        <!-- Layer 1: Palm Icon -->
+        <div class="hero-icon">🌴</div>
 
-        <!-- CARDS -->
+        <!-- Layer 2: Brand Name — LARGEST ELEMENT -->
+        <h1 class="hero-brand-name">Bahamas Stays</h1>
+
+        <!-- Layer 3: Brand Tagline -->
+        <div class="hero-brand-sub">Curated Stays &nbsp;·&nbsp; Authentic Bahamas</div>
+
+        <!-- Layer 4: Geographic Identity -->
+        <div class="hero-geo">The Bahamas &nbsp;·&nbsp; 700 Islands &nbsp;·&nbsp; One Platform</div>
+
+        <!-- Layer 5: Launch Status -->
+        <div class="hero-launch-label">Launching Soon</div>
+
+        <!-- Layer 6: Emotional Headline -->
+        <h2 class="hero-headline">Something Beautiful<br>is Coming.</h2>
+
+        <!-- Layer 7: Supporting Paragraph -->
+        <p class="hero-sub">Bahamas Stays is the Bahamas' first locally owned luxury booking platform — connecting travellers with extraordinary island experiences, curated by Bahamians, designed for the world.</p>
+
+        <!-- FEATURE CARDS -->
         <div class="what-grid">
             <div class="what-card">
                 <div class="what-card-icon">🏝️</div>
@@ -421,7 +419,7 @@
         <p class="signup-note">No spam. Just one email when we go live.</p>
 
         <!-- DIVIDER -->
-        <div class="content-divider"></div>
+        <div class="divider"></div>
 
         <!-- PREVIEW ACCESS -->
         <div class="preview-row">
@@ -430,10 +428,10 @@
             <button class="preview-btn" onclick="openModal()">Operator Access</button>
         </div>
 
-        <!-- FOOTER TAGLINE -->
+        <!-- FOOTER -->
         <p class="footer-tagline"><span>Curated by Bahamians.</span> Designed for the world.</p>
-    </div>
 
+    </div>
 </div>
 
 <!-- PREVIEW MODAL -->

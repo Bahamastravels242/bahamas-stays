@@ -204,7 +204,7 @@
                 <div class="sidebar-avatar">O</div>
                 <div class="sidebar-profile-info"><h3>Operator</h3><p>Property Manager</p></div>
             </div>
-            <button class="sidebar-logout"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Log out</button>
+            <button class="sidebar-logout" onclick="opLogout()"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Log out</button>
         </div>
     </div>
 </aside>
@@ -290,7 +290,10 @@
     </div>`;
     document.addEventListener('keydown', function(e) { if (e.key === 'Enter') opLogin(); });
 })();
-
+function opLogout() {
+    sessionStorage.removeItem('operator_auth');
+    window.location.href = '/';
+}
 function opLogin() {
     var pw = document.getElementById('opPassword') ? document.getElementById('opPassword').value : '';
     var err = document.getElementById('opError');

@@ -320,4 +320,29 @@ app.post('/register', async (req, res) => {
 });
 
 // ── START ──
+// ── SUBSCRIBE ROUTE ──
+app.post('/subscribe', async (req, res) => {
+    try {
+        const { email } = req.body;
+        if (!email || !email.includes('@')) {
+            return res.status(400).json({ error: 'Please enter a valid email address.' });
+        }
+        const { error: dbError } = await supabase
+            .from('subscribers')
+            .insert([{ email }]);
+        if (dbError && dbError.code !== '23505') {
+            throw dbError;
+        }
+        await resend.emails.send({
+            from: 'Bahamas Stays <info@bahamasstays.com>',
+            to: 'info@bahamasstays.com',
+            subject: 'New Subscriber — Bahamas Stays',
+            html: `<div style="font-family:Arial,sans-serif;padding:40px;"><h2>New Subscriber</h2><p style="font-size:20px;"><strong>${email}</strong></p><p>Subscribed on ${new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'})}</p></div>`
+        });
+        res.json({ success: true, message: 'Thank you! We will notify you when we launch.' });
+    } catch (err) {
+        console.error('Subscribe error:', err);
+        res.status(500).json({ error: 'Something went wrong. Please try again.' });
+    }
+});
 app.listen(PORT, () => { console.log(`Bahamas Stays running on port ${PORT}`); });

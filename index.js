@@ -334,7 +334,7 @@ app.post('/subscribe', async (req, res) => {
             throw dbError;
         }
         await resend.emails.send({
-            from: 'Bahamas Stays <info@bahamasstays.com>',
+            from: 'Bahamas Stays <onboarding@resend.dev>',
             to: 'info@bahamasstays.com',
             subject: 'New Subscriber — Bahamas Stays',
             html: `<div style="font-family:Arial,sans-serif;padding:40px;"><h2>New Subscriber</h2><p style="font-size:20px;"><strong>${email}</strong></p><p>Subscribed on ${new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'})}</p></div>`

@@ -327,33 +327,22 @@ app.post('/subscribe', async (req, res) => {
         if (!email || !email.includes('@')) {
             return res.status(400).json({ error: 'Please enter a valid email address.' });
         }
-
-        // Save to Supabase first
         const { error: dbError } = await supabase
             .from('subscribers')
             .insert([{ email }]);
-
         if (dbError && dbError.code !== '23505') {
-            console.error('Database error:', dbError);
             throw dbError;
         }
-
-        // Try sending email but do not fail if it errors
-        try {
-            await resend.emails.send({
-                from: 'onboarding@resend.dev',
-                to: 'morehousebahamas@gmail.com',
-                subject: 'New Subscriber — Bahamas Stays',
-                html: '<p>New subscriber: <strong>' + email + '</strong></p>'
-            });
-        } catch (emailErr) {
-            console.error('Email error:', emailErr.message);
-        }
-
+        await resend.emails.send({
+            from: 'Bahamas Stays <onboarding@resend.dev>',
+            to: 'info@bahamasstays.com',
+            subject: 'New Subscriber — Bahamas Stays',
+            html: `<div style="font-family:Arial,sans-serif;padding:40px;"><h2>New Subscriber</h2><p style="font-size:20px;"><strong>${email}</strong></p><p>Subscribed on ${new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'})}</p></div>`
+        });
         res.json({ success: true, message: 'Thank you! We will notify you when we launch.' });
-
     } catch (err) {
-        console.error('Subscribe error:', err.message);
+        console.error('Subscribe error:', err);
         res.status(500).json({ error: 'Something went wrong. Please try again.' });
     }
 });
+app.listen(PORT, () => { console.log(`Bahamas Stays running on port ${PORT}`); });

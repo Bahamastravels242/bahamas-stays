@@ -323,26 +323,27 @@ app.post('/register', async (req, res) => {
 // ── SUBSCRIBE ROUTE ──
 app.post('/subscribe', async (req, res) => {
     try {
+        console.log('STEP 1: Route reached');
+        console.log('STEP 2: req.body =', req.body);
         const { email } = req.body;
+        console.log('STEP 3: email extracted =', email);
         if (!email || !email.includes('@')) {
-            return res.status(400).json({ error: 'Please enter a valid email address.' });
+            console.log('STEP 4: validation failed');
+            return res.status(400).json({
+                error: 'Please enter a valid email address.'
+            });
         }
-        const { error: dbError } = await supabase
-            .from('subscribers')
-            .insert([{ email }]);
-        if (dbError && dbError.code !== '23505') {
-            throw dbError;
-        }
-        await resend.emails.send({
-            from: 'Bahamas Stays <onboarding@resend.dev>',
-            to: 'info@bahamasstays.com',
-            subject: 'New Subscriber — Bahamas Stays',
-            html: `<div style="font-family:Arial,sans-serif;padding:40px;"><h2>New Subscriber</h2><p style="font-size:20px;"><strong>${email}</strong></p><p>Subscribed on ${new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'})}</p></div>`
+        console.log('STEP 5: validation passed');
+        return res.json({
+            success: true,
+            message: 'Stage 1 verification successful.'
         });
-        res.json({ success: true, message: 'Thank you! We will notify you when we launch.' });
     } catch (err) {
-        console.error('Subscribe error:', err);
-        res.status(500).json({ error: 'Something went wrong. Please try again.' });
+        console.error('SUBSCRIBE ROUTE ERROR:', err);
+        return res.status(500).json({
+            error: 'Stage 1 verification failed.'
+        });
     }
 });
+
 app.listen(PORT, () => { console.log(`Bahamas Stays running on port ${PORT}`); });

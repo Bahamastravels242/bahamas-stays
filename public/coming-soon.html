@@ -80,6 +80,57 @@
             margin-bottom: 48px;
         }
 
+        /* FEATURE CARDS */
+        .features {
+            display: flex;
+            gap: 20px;
+            max-width: 860px;
+            width: 100%;
+            margin-bottom: 56px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .feature-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(231,191,106,0.18);
+            border-radius: 14px;
+            padding: 28px 24px;
+            flex: 1;
+            min-width: 220px;
+            max-width: 260px;
+            text-align: left;
+            transition: border-color 200ms ease, background 200ms ease;
+        }
+        .feature-card:hover {
+            background: rgba(231,191,106,0.07);
+            border-color: rgba(231,191,106,0.35);
+        }
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+            margin-bottom: 14px;
+        }
+        .feature-icon svg {
+            width: 40px;
+            height: 40px;
+            stroke: #E7BF6A;
+            fill: none;
+            stroke-width: 1.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        .feature-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 17px;
+            color: white;
+            margin-bottom: 8px;
+        }
+        .feature-desc {
+            font-size: 13px;
+            color: rgba(255,255,255,0.55);
+            line-height: 1.7;
+        }
+
         /* EMAIL FORM */
         .email-form {
             display: flex;
@@ -149,57 +200,6 @@
             color: #E74C3C;
         }
 
-        /* FEATURE CARDS */
-        .features {
-            display: flex;
-            gap: 20px;
-            max-width: 860px;
-            width: 100%;
-            margin-bottom: 56px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        .feature-card {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(231,191,106,0.18);
-            border-radius: 14px;
-            padding: 28px 24px;
-            flex: 1;
-            min-width: 220px;
-            max-width: 260px;
-            text-align: left;
-            transition: border-color 200ms ease, background 200ms ease;
-        }
-        .feature-card:hover {
-            background: rgba(231,191,106,0.07);
-            border-color: rgba(231,191,106,0.35);
-        }
-        .feature-icon {
-            width: 40px;
-            height: 40px;
-            margin-bottom: 14px;
-        }
-        .feature-icon svg {
-            width: 40px;
-            height: 40px;
-            stroke: #E7BF6A;
-            fill: none;
-            stroke-width: 1.5;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-        }
-        .feature-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 17px;
-            color: white;
-            margin-bottom: 8px;
-        }
-        .feature-desc {
-            font-size: 13px;
-            color: rgba(255,255,255,0.55);
-            line-height: 1.7;
-        }
-
         /* BUTTONS ROW */
         .buttons-row {
             display: flex;
@@ -224,7 +224,7 @@
         }
         .btn-outline:hover {
             background: rgba(231,191,106,0.10);
-            border-color: var(--gold);
+            border-color: #E7BF6A;
         }
 
         /* PASSWORD MODAL */
@@ -344,21 +344,7 @@
     <h1 class="hero-headline">The Archipelago is Yours.</h1>
     <p class="hero-sub">The Bahamas' first luxury booking platform — built by Bahamians, for the world. Private villas, boutique hotels, and island experiences across 700 islands.</p>
 
-    <!-- EMAIL FORM -->
-    <div class="email-form" id="emailForm">
-        <input type="email" id="emailInput" placeholder="Enter your email address" autocomplete="email">
-        <button id="subscribeBtn" onclick="submitEmail()">Notify Me</button>
-    </div>
-
-    <!-- MESSAGES -->
-    <div class="form-message success" id="successMsg">
-        ✓ You're on the list! Check your inbox for a confirmation.
-    </div>
-    <div class="form-message error" id="errorMsg"></div>
-
-    <div class="form-note">No spam. Just a single notification when we launch.</div>
-
-    <!-- FEATURE CARDS -->
+    <!-- FEATURE CARDS — now correctly above the email form -->
     <div class="features">
         <div class="feature-card">
             <div class="feature-icon">
@@ -382,6 +368,20 @@
             <div class="feature-desc">VAT and tourism levy handled automatically. Bahamian compliance from day one. Designed for how we do business here.</div>
         </div>
     </div>
+
+    <!-- EMAIL FORM — now correctly below the feature cards -->
+    <div class="email-form" id="emailForm">
+        <input type="email" id="emailInput" placeholder="Enter your email address" autocomplete="email">
+        <button id="subscribeBtn" onclick="submitEmail()">Notify Me</button>
+    </div>
+
+    <!-- MESSAGES -->
+    <div class="form-message success" id="successMsg">
+        ✓ You're on the list! Check your inbox for a confirmation.
+    </div>
+    <div class="form-message error" id="errorMsg"></div>
+
+    <div class="form-note">No spam. Just a single notification when we launch.</div>
 
     <!-- BUTTONS -->
     <div class="buttons-row">

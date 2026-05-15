@@ -353,24 +353,24 @@ app.post('/subscribe', async (req, res) => {
             html: `<p>New subscriber: ${email}</p>`
         };
         console.log('STEP 11: email package prepared');
-        console.log('EMAIL PAYLOAD:', JSON.stringify(emailPayload, null, 2));
+        console.log(emailPayload);
         try {
-            console.log('STEP 12: entering resend.emails.send');
+            console.log('STEP 12: handing package to Resend SDK');
             const emailResult = await resend.emails.send(emailPayload);
-            console.log('STEP 13: resend.emails.send completed');
+            console.log('STEP 13: SDK accepted request');
             console.log('EMAIL RESULT:', JSON.stringify(emailResult, null, 2));
-            return res.json({
-                success: true,
-                message: 'Resend send succeeded.'
-            });
         } catch (resendError) {
-            console.log('STEP 13 FAILED: resend.emails.send threw error');
+            console.log('STEP 13 FAILED: SDK rejected request');
             console.log('FULL RESEND ERROR:');
             console.log(JSON.stringify(resendError, null, 2));
             return res.status(500).json({
                 error: resendError.message || 'Resend failed'
             });
         }
+        return res.json({
+            success: true,
+            message: 'Supabase verification successful.'
+        });
     } catch (err) {
         console.error('SUBSCRIBE ROUTE ERROR:', err);
         return res.status(500).json({
@@ -379,9 +379,4 @@ app.post('/subscribe', async (req, res) => {
     }
 });
 
-app.listen(PORT, () => {
-    console.log('==============================');
-    console.log('NEW DEPLOYMENT ACTIVE');
-    console.log('Bahamas Stays running on port ' + PORT);
-    console.log('==============================');
-});
+app.listen(PORT, () => { console.log(`Bahamas Stays running on port ${PORT}`); });

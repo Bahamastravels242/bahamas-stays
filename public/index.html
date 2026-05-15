@@ -526,7 +526,7 @@
                 <textarea id="contactOther" placeholder="Any additional details, special requests, or other information..." style="min-height:80px;"></textarea>
             </div>
             <button class="contact-submit" id="contactSubmitBtn" onclick="submitContact()">Send Message</button>
-            <div class="contact-message" id="contactMessage"></div>
+            <div class="contact-message" id="contactResponseMsg"></div>
         </div>
     </div>
 </section>
@@ -636,7 +636,7 @@ async function submitContact() {
     var message = document.getElementById('contactMessage').value.trim();
     var other = document.getElementById('contactOther').value.trim();
     var btn = document.getElementById('contactSubmitBtn');
-    var msgEl = document.getElementById('contactMessage');
+    var msgEl = document.getElementById('contactResponseMsg');
 
     msgEl.className = 'contact-message';
     msgEl.textContent = '';

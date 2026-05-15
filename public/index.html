@@ -80,14 +80,8 @@
             width: 100%; cursor: pointer; padding-left: 2px;
             letter-spacing: 0.2px; min-width: 130px;
         }
-        .search-field input[type="date"]::-webkit-calendar-picker-indicator {
-            display: none;
-            -webkit-appearance: none;
-        }
-        .search-field select::-webkit-calendar-picker-indicator {
-            display: none;
-            -webkit-appearance: none;
-        }
+        .search-field input[type="date"]::-webkit-calendar-picker-indicator { display: none; -webkit-appearance: none; }
+        .search-field select::-webkit-calendar-picker-indicator { display: none; -webkit-appearance: none; }
         .search-field select { font-family: 'DM Sans', sans-serif; font-size: 13px; color: #6B7280; border: none; outline: none; background: transparent; width: 100%; cursor: pointer; appearance: none; -webkit-appearance: none; }
         .search-btn { background: var(--gold); color: var(--navy); font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 600; padding: 0 28px; height: 100%; border: none; cursor: pointer; white-space: nowrap; letter-spacing: 1.2px; text-transform: uppercase; display: flex; align-items: center; gap: 8px; flex-shrink: 0; min-width: 160px; justify-content: center; transition: background 200ms ease; }
         .search-btn:hover { background: var(--gold-hover); }
@@ -170,6 +164,31 @@
         .island-name { font-family: 'Playfair Display', serif; font-size: 17px; color: white; margin-bottom: 8px; }
         .island-desc { font-family: 'DM Sans', sans-serif; font-size: 12px; color: rgba(255,255,255,0.52); line-height: 1.65; }
 
+        /* ── CONTACT ── */
+        .contact-section { background: var(--cream); padding: 100px 80px; border-top: 2px solid rgba(200,169,106,0.20); }
+        .contact-inner { max-width: 860px; margin: 0 auto; }
+        .contact-eyebrow { font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; text-align: center; }
+        .contact-section h2 { font-family: 'Playfair Display', serif; font-size: 42px; font-weight: 500; color: var(--navy); margin-bottom: 16px; text-align: center; }
+        .contact-section > .contact-inner > p { font-size: 17px; color: #666; max-width: 520px; margin: 0 auto 56px; line-height: 1.75; text-align: center; }
+        .contact-form { background: white; border-radius: 16px; padding: 48px; box-shadow: 0 8px 40px rgba(0,0,0,0.08); border: 1px solid rgba(200,169,106,0.15); }
+        .contact-row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px; }
+        .contact-field { display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; }
+        .contact-field label { font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: #9CA3AF; }
+        .contact-field input,
+        .contact-field select,
+        .contact-field textarea { font-family: 'DM Sans', sans-serif; font-size: 14px; color: #111; padding: 14px 16px; border: 1px solid #E5E7EB; border-radius: 8px; outline: none; transition: border-color 200ms ease; background: white; width: 100%; }
+        .contact-field input:focus,
+        .contact-field select:focus,
+        .contact-field textarea:focus { border-color: var(--gold); }
+        .contact-field textarea { resize: vertical; min-height: 120px; line-height: 1.6; }
+        .contact-field select { appearance: none; -webkit-appearance: none; cursor: pointer; }
+        .contact-submit { width: 100%; padding: 16px; background: var(--navy); color: var(--gold); font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; border: none; border-radius: 8px; cursor: pointer; transition: all 200ms ease; margin-top: 8px; }
+        .contact-submit:hover { background: var(--gold); color: var(--navy); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(231,191,106,0.30); }
+        .contact-submit:disabled { background: #9CA3AF; color: white; cursor: not-allowed; transform: none; box-shadow: none; }
+        .contact-message { display: none; padding: 16px 20px; border-radius: 8px; font-size: 14px; font-weight: 500; text-align: center; margin-top: 16px; }
+        .contact-message.success { background: rgba(0,166,81,0.10); border: 1px solid rgba(0,166,81,0.30); color: #00A651; display: block; }
+        .contact-message.error { background: rgba(231,76,60,0.10); border: 1px solid rgba(231,76,60,0.30); color: #E74C3C; display: block; }
+
         /* ── FOOTER ── */
         footer { background: var(--navy-dark); padding: 80px 80px 48px; border-top: 1px solid rgba(231,191,106,0.15); }
         .footer-top { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 60px; margin-bottom: 64px; }
@@ -230,6 +249,10 @@
             .islands-section h2 { font-size: 30px; }
             .islands-grid { grid-template-columns: repeat(2,1fr); gap: 12px; }
             .island-card { padding: 24px 14px; }
+            .contact-section { padding: 60px 24px; }
+            .contact-section h2 { font-size: 30px; }
+            .contact-form { padding: 28px 20px; }
+            .contact-row { grid-template-columns: 1fr; gap: 0; }
             footer { padding: 48px 24px 32px; }
             .footer-top { grid-template-columns: 1fr; gap: 32px; margin-bottom: 32px; }
             .footer-bottom { flex-direction: column; gap: 10px; text-align: center; }
@@ -261,6 +284,7 @@
         <li><a href="#how">Experiences</a></li>
         <li><a href="#how">Journal</a></li>
         <li><a href="/operator.html">Operators</a></li>
+        <li><a href="#contact">Contact</a></li>
     </ul>
     <a href="/login.html" class="nav-cta">Plan Your Stay</a>
     <button class="nav-hamburger" onclick="toggleMobileMenu()" aria-label="Open menu">
@@ -282,6 +306,7 @@
     <a href="#properties" onclick="toggleMobileMenu()">Stays</a>
     <a href="#how" onclick="toggleMobileMenu()">Experiences</a>
     <a href="/operator.html" onclick="toggleMobileMenu()">Operators</a>
+    <a href="#contact" onclick="toggleMobileMenu()">Contact</a>
     <div class="mobile-menu-divider"></div>
     <a href="/login.html" class="mobile-menu-cta">Plan Your Stay</a>
 </div>
@@ -449,6 +474,63 @@
     </div>
 </section>
 
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+    <div class="contact-inner">
+        <div class="contact-eyebrow">Get In Touch</div>
+        <h2>Contact Us</h2>
+        <p>Have a question about a property, need help planning your stay, or want to list your property? We would love to hear from you.</p>
+        <div class="contact-form">
+            <div class="contact-row">
+                <div class="contact-field">
+                    <label>Your Name *</label>
+                    <input type="text" id="contactName" placeholder="First and last name">
+                </div>
+                <div class="contact-field">
+                    <label>Email Address *</label>
+                    <input type="email" id="contactEmail" placeholder="your@email.com">
+                </div>
+            </div>
+            <div class="contact-row">
+                <div class="contact-field">
+                    <label>Subject</label>
+                    <select id="contactSubject">
+                        <option value="">Select a subject</option>
+                        <option value="Booking Enquiry">Booking Enquiry</option>
+                        <option value="Property Listing">List My Property</option>
+                        <option value="General Question">General Question</option>
+                        <option value="Partnership">Partnership</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="contact-field">
+                    <label>Island of Interest</label>
+                    <select id="contactIsland">
+                        <option value="">Select an island</option>
+                        <option value="Nassau">Nassau</option>
+                        <option value="Exuma">Exuma</option>
+                        <option value="Abaco">Abaco</option>
+                        <option value="Eleuthera">Eleuthera</option>
+                        <option value="Bimini">Bimini</option>
+                        <option value="Multiple Islands">Multiple Islands</option>
+                        <option value="Not Sure">Not Sure Yet</option>
+                    </select>
+                </div>
+            </div>
+            <div class="contact-field">
+                <label>Message *</label>
+                <textarea id="contactMessage" placeholder="Tell us how we can help you..."></textarea>
+            </div>
+            <div class="contact-field">
+                <label>Anything Else?</label>
+                <textarea id="contactOther" placeholder="Any additional details, special requests, or other information..." style="min-height:80px;"></textarea>
+            </div>
+            <button class="contact-submit" id="contactSubmitBtn" onclick="submitContact()">Send Message</button>
+            <div class="contact-message" id="contactMessage"></div>
+        </div>
+    </div>
+</section>
+
 <!-- BOTTOM NAV -->
 <div class="bottom-nav-bar">
     <a href="/" class="bottom-nav-item active"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Home</span></a>
@@ -481,6 +563,7 @@
                 <li><a href="/login.html">My Account</a></li>
                 <li><a href="/operator.html">Operator Dashboard</a></li>
                 <li><a href="#how">How It Works</a></li>
+                <li><a href="#contact">Contact Us</a></li>
                 <li><a href="/policy.html">Privacy & Terms</a></li>
             </ul>
         </div>
@@ -543,6 +626,59 @@ async function loadProperties() {
         allProperties=await response.json();
         renderProperties(allProperties);
     } catch(err) { document.getElementById('propertiesGrid').innerHTML='<div class="loading">Error loading properties. Is the server running?</div>'; }
+}
+
+async function submitContact() {
+    var name = document.getElementById('contactName').value.trim();
+    var email = document.getElementById('contactEmail').value.trim();
+    var subject = document.getElementById('contactSubject').value;
+    var island = document.getElementById('contactIsland').value;
+    var message = document.getElementById('contactMessage').value.trim();
+    var other = document.getElementById('contactOther').value.trim();
+    var btn = document.getElementById('contactSubmitBtn');
+    var msgEl = document.getElementById('contactMessage');
+
+    msgEl.className = 'contact-message';
+    msgEl.textContent = '';
+
+    if (!name || !email || !message) {
+        msgEl.textContent = 'Please fill in your name, email, and message.';
+        msgEl.className = 'contact-message error';
+        return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Sending...';
+
+    try {
+        var response = await fetch('/contact', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, email, subject, island, message, other })
+        });
+        var result = await response.json();
+        if (result.success) {
+            msgEl.textContent = 'Thank you, ' + name + '. We will be in touch shortly.';
+            msgEl.className = 'contact-message success';
+            document.getElementById('contactName').value = '';
+            document.getElementById('contactEmail').value = '';
+            document.getElementById('contactSubject').value = '';
+            document.getElementById('contactIsland').value = '';
+            document.getElementById('contactMessage').value = '';
+            document.getElementById('contactOther').value = '';
+            btn.textContent = 'Message Sent';
+        } else {
+            msgEl.textContent = result.error || 'Something went wrong. Please try again.';
+            msgEl.className = 'contact-message error';
+            btn.disabled = false;
+            btn.textContent = 'Send Message';
+        }
+    } catch (err) {
+        msgEl.textContent = 'Connection error. Please try again.';
+        msgEl.className = 'contact-message error';
+        btn.disabled = false;
+        btn.textContent = 'Send Message';
+    }
 }
 
 loadProperties();

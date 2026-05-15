@@ -340,10 +340,17 @@ app.post('/subscribe', async (req, res) => {
             .insert([{ email }]);
         console.log('STEP 7: Supabase insert completed');
         if (dbError) {
-            console.log('STEP 8: Supabase returned error');
-            console.error(dbError);
-            throw dbError;
-        }
+
+    console.log('STEP 8: Supabase returned error');
+
+    console.log('FULL SUPABASE ERROR:');
+
+    console.log(JSON.stringify(dbError, null, 2));
+
+    return res.status(500).json({
+        error: dbError.message || 'Supabase insert failed'
+    });
+}
         console.log('STEP 9: Supabase insert successful');
         console.log('STEP 10: preparing email package');
         const emailPayload = {

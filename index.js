@@ -345,6 +345,16 @@ app.post('/subscribe', async (req, res) => {
             throw dbError;
         }
         console.log('STEP 9: Supabase insert successful');
+        console.log('STEP 10: attempting Resend email');
+        const emailResult = await resend.emails.send({
+            from: 'Bahamas Stays <onboarding@resend.dev>',
+            to: 'info@bahamasstays.com',
+            subject: 'New Bahamas Stays Subscriber',
+            html: `<p>New subscriber: ${email}</p>`
+        });
+        console.log('STEP 11: Resend completed');
+        console.log(emailResult);
+        console.log('STEP 12: Resend successful');
         return res.json({
             success: true,
             message: 'Supabase verification successful.'

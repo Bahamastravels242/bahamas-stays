@@ -354,7 +354,7 @@ app.post('/subscribe', async (req, res) => {
         console.log('STEP 9: Supabase insert successful');
         console.log('STEP 10: preparing email package');
         const emailPayload = {
-            from: 'Bahamas Stays <onboarding@resend.dev>',
+            from: 'Bahamas Stays <noreply@bahamasstays.com>',
             to: 'info@bahamasstays.com',
             subject: 'New Bahamas Stays Subscriber',
             html: `<p>New subscriber: ${email}</p>`

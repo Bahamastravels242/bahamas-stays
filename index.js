@@ -334,9 +334,20 @@ app.post('/subscribe', async (req, res) => {
             });
         }
         console.log('STEP 5: validation passed');
+        console.log('STEP 6: attempting Supabase insert');
+        const { error: dbError } = await supabase
+            .from('subscribers')
+            .insert([{ email }]);
+        console.log('STEP 7: Supabase insert completed');
+        if (dbError) {
+            console.log('STEP 8: Supabase returned error');
+            console.error(dbError);
+            throw dbError;
+        }
+        console.log('STEP 9: Supabase insert successful');
         return res.json({
             success: true,
-            message: 'Stage 1 verification successful.'
+            message: 'Supabase verification successful.'
         });
     } catch (err) {
         console.error('SUBSCRIBE ROUTE ERROR:', err);

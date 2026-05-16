@@ -385,5 +385,82 @@ app.post('/subscribe', async (req, res) => {
         });
     }
 });
+// ── CONTACT ROUTE ──
+app.post('/contact', async (req, res) => {
+    try {
 
+        console.log('CONTACT STEP 1: route reached');
+        console.log('CONTACT STEP 2: req.body =', req.body);
+
+        const {
+            name,
+            email,
+            subject,
+            island,
+            message,
+            other
+        } = req.body;
+
+        console.log('CONTACT STEP 3: fields extracted');
+
+        if (!name || !email || !message) {
+
+            console.log('CONTACT STEP 4: validation failed');
+
+            return res.status(400).json({
+                success: false,
+                error: 'Missing required fields'
+            });
+        }
+
+        console.log('CONTACT STEP 5: validation passed');
+
+        const emailPayload = {
+            from: 'Bahamas Stays <noreply@bahamasstays.com>',
+            to: 'info@bahamasstays.com',
+            reply_to: email,
+            subject: 'New Contact Form Submission — Bahamas Stays',
+
+            html: `
+                <h2>New Contact Form Submission</h2>
+
+                <p><strong>Name:</strong> ${name}</p>
+
+                <p><strong>Email:</strong> ${email}</p>
+
+                <p><strong>Subject:</strong> ${subject || 'N/A'}</p>
+
+                <p><strong>Island:</strong> ${island || 'N/A'}</p>
+
+                <p><strong>Message:</strong></p>
+
+                <p>${message}</p>
+
+                <p><strong>Additional Notes:</strong></p>
+
+                <p>${other || 'None'}</p>
+            `
+        };
+
+        console.log('CONTACT STEP 6: email payload prepared');
+
+        const emailResult = await resend.emails.send(emailPayload);
+
+        console.log('CONTACT STEP 7: email sent');
+        console.log(emailResult);
+
+        return res.json({
+            success: true
+        });
+
+    } catch (err) {
+
+        console.error('CONTACT ROUTE ERROR:', err);
+
+        return res.status(500).json({
+            success: false,
+            error: 'Failed to send message'
+        });
+    }
+});
 app.listen(PORT, () => { console.log(`Bahamas Stays running on port ${PORT}`); });
